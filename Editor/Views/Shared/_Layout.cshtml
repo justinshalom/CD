@@ -6,134 +6,145 @@
     //{
     //    areaName = this.ViewContext.RouteData.DataTokens["area"].ToString();
     //}
-
 }
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="no-cache">
+    <meta name="description" content="small description">
+    <meta name="keywords" content="project">
+    <meta name="robots" content="no-cache">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@ViewBag.Title - My Code Editor</title>
-  
-    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/bootstrap/bootstrap.min.css")" rel="stylesheet"/>
     @Styles.Render("~/Content/css")
-
+    @*<link href="http://editor.techmoon.in/extras/jqueryui\jquery-ui.min.css" rel="stylesheet" type="text/css">
+            <link href="http://editor.techmoon.in/extras/jqueryui\jquery-ui.theme.min.css" rel="stylesheet" type="text/css">
+            <link href="http://editor.techmoon.in/extras/chosen/chosen.min.css" rel="stylesheet" type="text/css">
+            <link href="http://editor.techmoon.in/extras/bootstrap/css_bl/bootstrap.min.css" rel="stylesheet" type="text/css">
+            <link href="http://editor.techmoon.in/extras/awe/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+            <link href="http://editor.techmoon.in/extras/bootstrap/css_bl/admin.css" rel="stylesheet" type="text/css">
+            <link href="http://editor.techmoon.in/extras/highlight/styles/school_book.css" rel="stylesheet" type="text/css">
+            <link href="http://editor.techmoon.in/extras/highlight/styles/vs.css" rel="stylesheet" type="text/css">
+            <link href="http://editor.techmoon.in/css/theme/default/style?page=project" rel="stylesheet" type="text/css">
+            <script type="text/javascript" src="http://editor.techmoon.in/js/theme/default/jquery"></script>
+            <script type="text/javascript" src="http://editor.techmoon.in/extras/chosen/chosen.jquery.min.js"></script>
+            <script type="text/javascript" src="http://editor.techmoon.in/extras/bootstrap/js/bootstrap.min.js"></script>
+            <script type="text/javascript" src="http://editor.techmoon.in/extras/highlight/highlight.pack.js"></script>
+            <script type="text/javascript" src="http://editor.techmoon.in/extras/jqueryui\jquery-ui.min.js"></script>
+            <script>
+        hljs.initHighlightingOnLoad();
+            </script>
+            <script type="text/javascript" src="http://editor.techmoon.in/js/theme/default/validation"></script>
+            <script type="text/javascript" src="http://editor.techmoon.in/js/theme/default/editor"></script>
+            <script type="text/javascript" src="http://editor.techmoon.in/js/theme/default/script"></script>
+            <script type="text/javascript" src="http://editor.techmoon.in/js/theme/default/project"></script>
+            <style>
+                .eb, .cb {
+                    color: red;
+                }
+            </style>*@
 </head>
 <body>
-    
-    <input value="@Url.Action("", "")" id="rooturl" type="hidden" />
-    <div class="top col-xs-50 bg-primary">
-
-
-        <header id="masthead" class="site-header" role="banner">
-            <div class="col-lg-44 col-xs-50 col-md-48 col-md-offset-1 col-lg-offset-3">
-                <div class="col-xs-15 col-sm-8 col-md-7 col-lg-7" style="margin-top: 0%;">
-                    <div class="col-xs-34 col-sm-34 col-md-34 col-lg-50">
-                        <a class="sitename hidden-lg" href="" rel="home" >
-                            Code Editor
-                        </a>
-                    </div>
-
-                </div>
-                <div class="col-lg-8 col-md-8 col-sm-7 col-xs-23">
-                    <p class="site-description"></p>
-
-                </div>
-
-                <div class=" col-xs-7 menu col-sm-33 col-md-33 col-lg-32  menuicon">
-                    <a class="col-xs-50 text-center smallmenu hidden-sm hidden-lg hidden-md">
-                        <div class="glyphicon glyphicon-align-justify hidden-sm hidden-lg hidden-md" data-toggle="modal" data-target="#myModal"></div>
-                    </a>
-
-                    <div class="modal fade" id="myModal" col-smindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-
-                                <div class="modal-body ">
-                                    <ul class="nav nav-stacked nav-pills">
-                                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                                        <li>@Html.ActionLink("About", "About", "Home")</li>
-                                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                                    </ul>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="menu-main-container">
-                        <ul id="menu-main" class="nav nav-pills nav-justified hidden-xs mymenu bgwhite1">
-                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                            <li>@Html.ActionLink("Settings", "Database", "Settings")</li>
-                            <li>@Html.ActionLink("Generate Model", "GenerateModel", "Model")</li>
-                        </ul>
-                    </div>
-                </div>
-
-
-                <div id="search-container" class="col-lg-3">
-                    @Html.Partial("_LoginPartial")
-                </div>
-
-            </div>
-
-
-        </header><!-- #masthead -->
+<input value="@Url.Action("", "")" id="rooturl" type="hidden"/>
+<div class="alert" id="alert"></div>
+<div id="pageloader" style="display: none;">
+    <div class="progress">
+        <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+            <span class="sr-only">40% Complete (success)</span>
+        </div>
     </div>
-    <div id="page" class="hfeed site col-xs-50 no-padding">
-
-        <div id="main" class="site-main col-lg-44 col-xs-50 col-lg-offset-3 no-padding">
-            <div class="col-xs-50 col-xs-padleft-1 col-xs-padright-1 bg-info" style="padding-top: 20px;padding-bottom: 20px;">
-                <div id="main-content" class="main-content col-xs-50 col-sm-50 col-md-30 col-lg-50 bgwhite1 col-xs-padleft-1 col-xs-padright-1 mb-10">
-                    <div id="primary" class="content-area col-xs-50">
-                        <div id="content" class="site-content col-xs-50 " role="main">
-
-
-                            <article id="post-67" class="post-67 page type-page status-publish hentry">
-                                <header class="entry-header"><h1 class="entry-title">@ViewBag.Title</h1></header><!-- .entry-header -->
-                                <div class="entry-content">
-                                    @RenderBody()
-                                </div>
-                            </article>
-                        </div>
+</div>
+<div class="col-xs-50" style="box-shadow: -1px 0px 1px 1px #aa935a;">
+    <div class="col-xs-50 col-sm-50 col-md-50 col-lg-50 header">
+        <div class="col-xs-50 ">
+            <div class="col-xs-50 hiddendiv globalcontent">
+                <div class="col-xs-48 ">
+                    <ul class="nav nav-pills ">
+                        <li class="active">@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Settings", "Database", "Settings")</li>
+                        <li>@Html.ActionLink("Generate Model", "GenerateModel", "Model")</li>
+                    </ul>
+                </div>
+                <div class="col-xs-2 ">
+                    <div class="col-xs-50 margin-top-1" style="font-size: 25px; line-height: 40px;">
+                        @Html.Partial("_LoginPartial")
                     </div>
-
-
                 </div>
             </div>
         </div>
     </div>
-
-   
-    <div class="top col-xs-50 bg-primary">
-
-
-        <footer id="masthead" class="site-header" role="banner">
-            <div class="col-lg-44 col-xs-50 col-md-48 col-md-offset-1 col-lg-offset-3">
-                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+</div>
+<div class="col-xs-50">
+    <div class="col-xs-50 col-xs-offset-1">
+        <h3 class="entry-title">@ViewBag.Title</h3>
+        @RenderBody()
+        <div class="col-xs-14 col-xs-offset-1 margin-top-2 ">
+            <div class="box box-info">
+                <div class="col-xs-50 formrows">
+                    <div class="col-xs-50 ">
+                        <div class="form-group">
+                            <label class="control-label">Project Name</label>
+                            <span class="controls">
+                                <input type="text" class="form-control input-sm" id="Project_Name" placeholder="Enter  Project Name" name="Project_Name">
+                            </span>
+                        </div>
+                    </div>
                 </div>
-            </footer>
+            </div>
         </div>
-                @Scripts.Render("~/bundles/jquery")
-
-    <script src="@Url.Content("~/Scripts/commonscripts.js")"></script>
-    <script src="@Url.Content("~/Scripts/development.js")"></script>
-    <script src="@Url.Content("~/Scripts/localcache.js")"></script>
-    <script src="@Url.Content("~/Scripts/sessioncache.js")"></script>
-    <script src="@Url.Content("~/Scripts/angular-modelvalidation.js")"></script>
-                <script src="@Url.Content("~/Scripts/angular.js")"></script>
-                
-    <script src="@Url.Content("~/Scripts/" + controllerName.ToLower() + "-" + actionName.ToLower() + ".js")"></script>
-                @RenderSection("scripts", required: false)
-
+        @*<div class="col-xs-33 col-xs-offset-1 margin-top-2 ">
+                <div class="box box-warning">
+                    <div class="box-body">
+                        <table class="table table-responsive  table-bordered">
+                            <thead>
+                            <tr>
+                                <td >Project Name</td>
+                                <td >Path</td>
+                                <td >Db Type</td>
+                                <td >Language</td>
+                                <td >edit</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td >Project Name</td>
+                                <td >Path</td>
+                                <td >Db Type</td>
+                                <td >Language</td>
+                                <td >edit</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>*@
+    </div>
+<div class="top col-xs-50 bg-primary">
+    <footer id="masthead" class="site-header" role="banner">
+        <div class="col-lg-44 col-xs-50 col-md-48 col-md-offset-1 col-lg-offset-3">
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </div>
+    </footer>
+</div>
+@Scripts.Render("~/bundles/jquery")
+<script src="@Url.Content("~/Scripts/commonscripts.js")"></script>
+<script src="@Url.Content("~/Scripts/development.js")"></script>
+<script src="@Url.Content("~/Scripts/localcache.js")"></script>
+<script src="@Url.Content("~/Scripts/sessionstorage.js")"></script>
+<script src="@Url.Content("~/Scripts/angular-modelvalidation.js")"></script>
+<script src="@Url.Content("~/Scripts/angular.js")"></script>
+<script src="@Url.Content("~/Scripts/" + controllerName.ToLower() + "-" + actionName.ToLower() + ".js")"></script>
+@RenderSection("scripts", required: false)
 </body>
 </html>
-
 @*
         var type = typeof(YourNamespace.Models.YourModelName);
     var memInfo = type.GetMember("firstName"); // your member
     var attributes = memInfo[0].GetCustomAttributes(typeof(System.ComponentModel.DataAnnotations.DisplayAttribute), false);
     var displayname = ((System.ComponentModel.DataAnnotations.DisplayAttribute)attributes[0]).Name;
 *@
-
-
