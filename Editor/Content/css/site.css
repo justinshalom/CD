@@ -1,4 +1,4 @@
-﻿@font-face {
+@font-face {
     font-family: 'open_sanscondensed_light';
     src: url('http://editor.techmoon.in/extras/font/opensanscondensed_light_macroman/OpenSans-CondLight-webfont.eot');
     src: url('http://editor.techmoon.in/extras/font/opensanscondensed_light_macroman/OpenSans-CondLight-webfont.eot?#iefix') format('embedded-opentype'),
@@ -2177,7 +2177,7 @@ body > .header .logo .icon {
 .box {
   position: relative;
   background: #ffffff;
-  border-top: 2px solid #c1c1c1;
+  border-top: 2px solid #c1c1c1 !important;
   margin-bottom: 20px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -2185,12 +2185,13 @@ body > .header .logo .icon {
   width: 100%;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
   float: left;
+  padding: 20px;
 }
 .box.box-primary {
   border-top-color: #3c8dbc;
 }
 .box.box-info {
-  border-top-color: #00c0ef;
+  border-top-color: #00c0ef !important;
 }
 .box.box-danger {
   border-top-color: #f56954;
@@ -2221,6 +2222,7 @@ body > .header .logo .icon {
   border-bottom-left-radius: 0;
   border-bottom: 0px solid #f4f4f4;
   color: #444;
+  padding: 10px;
 }
 .box .box-header:before,
 .box .box-header:after {
@@ -2903,8 +2905,8 @@ Component: timeline
 }
 .nav.nav-pills > li.active > a,
 .nav.nav-pills > li.active > a:hover {
-  background-color: #f6f6f6;
-  border-top-color: #3c8dbc;
+  background-color: #ffffff;
+  border-top-color: #03a9f4;
   color: #444;
 }
 .nav.nav-pills > li.active > a {
@@ -4328,25 +4330,6 @@ fieldset[disabled] .btn-vk.active {
 	padding: 14px;
 }
 
-input.form-control{
-	border:0px !important;
-	border-bottom: 1px solid rgba(39, 97, 149, 0.45) !important;
-	padding:20px 6px;
-	background-color: rgba(239, 237, 237, 0.37);
-	outline: none !important;
-	box-shadow:none !important;
-	/* border-top: 1px solid rgba(39, 97, 149, 0.2) !important; */
-	margin: 20px 0px;
-}
-
-label {
-    position: absolute;
-    top: -18px;
-    left: 2px;
-    font-weight: normal;
-    border-bottom: 1px solid #b46cea;
-	min-width:100px;
-}
 
 .alert {
     position: absolute;
@@ -4361,14 +4344,10 @@ label {
     /* font-size: 12px; */
 }
 
-.form-group {
-    position: relative;
-}
-
-button.btn.btn-primary {
-    background-color: #2196F3;
-    border: 0px !important;
-    border-bottom: 1px solid #000000 !important;
-    padding: 8px 8px;
-    min-width: 163px;
+.breadcumbabs {
+    position: absolute;
+    top: 0px;
+    box-shadow: 2px 0px 1px 0px rgba(0, 0, 0, 0.28);
+    margin-left: -20px;
+    border: 1px dashed rgba(0, 0, 0, 0.78);
 }

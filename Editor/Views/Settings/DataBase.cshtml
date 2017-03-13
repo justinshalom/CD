@@ -9,7 +9,7 @@
 }
 <div class="col-xs-25" ng-app="form">
     <form ng-submit="submit()" name="myForm" ng-controller="FormController" class="my-form" novalidate>
-        <div class="box box-info">
+        <div class="box box-info well">
             <div class="col-xs-50 formrows">
                 @Html.LabelFor(m => m.Server)
                 @Html.TextBoxFor(m => m.Server, new {ng_model = "Server"})
