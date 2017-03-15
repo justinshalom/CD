@@ -329,6 +329,7 @@
     <Content Include="Content\awe\scss\_screen-reader.scss" />
     <Content Include="Content\awe\scss\_stacked.scss" />
     <Content Include="Content\awe\scss\_variables.scss" />
+    <Content Include="Editor.sln.DotSettings" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

@@ -27,7 +27,7 @@ $(document).ready(function () {
     $('body').on('contextmenu', '*', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var position = $(this).position();
+        var position = $(this).offset();
         $('#hd_rightmenu').css({
             top: position.top,
             left:position.left
