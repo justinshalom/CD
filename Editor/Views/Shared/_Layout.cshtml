@@ -22,16 +22,18 @@
     <title>@ViewBag.Title - My Code Editor</title>
   <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
   <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
-
-    <link href="@Url.Content("~/Content/bootstrap/bootstrap.min.css")" rel="stylesheet"/>
+<link href="@Url.Content("~/Content/awe/css/font-awesome.min.css")" rel="stylesheet" type="text/css"/>
+<link href="@Url.Content("~/Content/bootstrap/bootstrap.min.css")" rel="stylesheet"/>
 <link href="@Url.Content("~/Content/material/bootstrap-material-design.min.css")" rel="stylesheet"/>
 <link href="@Url.Content("~/Content/material/ripples.min.css")" rel="stylesheet"/>
+
+
     @Styles.Render("~/Content/css")
     @*<link href="http://editor.techmoon.in/extras/jqueryui\jquery-ui.min.css" rel="stylesheet" type="text/css">
             <link href="http://editor.techmoon.in/extras/jqueryui\jquery-ui.theme.min.css" rel="stylesheet" type="text/css">
             <link href="http://editor.techmoon.in/extras/chosen/chosen.min.css" rel="stylesheet" type="text/css">
             <link href="http://editor.techmoon.in/extras/bootstrap/css_bl/bootstrap.min.css" rel="stylesheet" type="text/css">
-            <link href="http://editor.techmoon.in/extras/awe/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+     
             <link href="http://editor.techmoon.in/extras/bootstrap/css_bl/admin.css" rel="stylesheet" type="text/css">
             <link href="http://editor.techmoon.in/extras/highlight/styles/school_book.css" rel="stylesheet" type="text/css">
             <link href="http://editor.techmoon.in/extras/highlight/styles/vs.css" rel="stylesheet" type="text/css">
@@ -146,9 +148,11 @@
 <script src="@Url.Content("~/Scripts/sessionstorage.js")"></script>
 <script src="@Url.Content("~/Scripts/angular-modelvalidation.js")"></script>
 <script src="@Url.Content("~/Scripts/ng/angular.js")"></script>
+    
+    <script src="@Url.Content("~/Scripts/material/arrive.min.js")"></script>
 <script src="@Url.Content("~/Scripts/material/material.min.js")"></script>
 <script src="@Url.Content("~/Scripts/material/ripples.min.js")"></script>
-
+    <script src="@Url.Content("~/Scripts/htmldesigner.js")"></script>
 <script src="@Url.Content("~/Scripts/" + controllerName.ToLower() + "-" + actionName.ToLower() + ".js")"></script>
 @RenderSection("scripts", required: false)
 <script>
