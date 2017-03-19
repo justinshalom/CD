@@ -25,9 +25,10 @@
 <link href="@Url.Content("~/Content/awe/css/font-awesome.min.css")" rel="stylesheet" type="text/css"/>
 <link href="@Url.Content("~/Content/bootstrap/bootstrap.min.css")" rel="stylesheet"/>
 <link href="@Url.Content("~/Content/material/bootstrap-material-design.min.css")" rel="stylesheet"/>
-<link href="@Url.Content("~/Content/material/ripples.min.css")" rel="stylesheet"/>
-
-
+    <link href="@Url.Content("~/Content/material/ripples.min.css")" rel="stylesheet"/>
+    <link href="@Url.Content("~/Content/material-datepicker/css/bootstrap-material-datetimepicker.css")" rel="stylesheet"/>
+    <link href="@Url.Content("~/Content/chosen/chosen.min.css")" rel="stylesheet"/>
+        <link href="@Url.Content("~/Content/selectize/css/selectize.css")" rel="stylesheet"/>
     @Styles.Render("~/Content/css")
     @*<link href="http://editor.techmoon.in/extras/jqueryui\jquery-ui.min.css" rel="stylesheet" type="text/css">
             <link href="http://editor.techmoon.in/extras/jqueryui\jquery-ui.theme.min.css" rel="stylesheet" type="text/css">
@@ -148,11 +149,15 @@
 <script src="@Url.Content("~/Scripts/sessionstorage.js")"></script>
 <script src="@Url.Content("~/Scripts/angular-modelvalidation.js")"></script>
 <script src="@Url.Content("~/Scripts/ng/angular.js")"></script>
-    
+    <script src="@Url.Content("~/Scripts/moment/moment.min.js")"></script>
     <script src="@Url.Content("~/Scripts/material/arrive.min.js")"></script>
 <script src="@Url.Content("~/Scripts/material/material.min.js")"></script>
 <script src="@Url.Content("~/Scripts/material/ripples.min.js")"></script>
+<script src="@Url.Content("~/Scripts/material-datepicker/js/bootstrap-material-datetimepicker.js")"></script>
+<script src="@Url.Content("~/Scripts/chosen/chosen.jquery.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/selectize/standalone/selectize.min.js")"></script>
     <script src="@Url.Content("~/Scripts/htmldesigner.js")"></script>
+    
 <script src="@Url.Content("~/Scripts/" + controllerName.ToLower() + "-" + actionName.ToLower() + ".js")"></script>
 @RenderSection("scripts", required: false)
 <script>

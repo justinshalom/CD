@@ -210,10 +210,17 @@
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\fonts\Simple-Line-Icons.svg" />
+    <Content Include="Content\material-datepicker\css\bootstrap-material-datetimepicker.css" />
+    <Content Include="Content\material-datepicker\font\Material-Design-Icons.svg" />
     <Content Include="Content\material\bootstrap-material-design.css" />
     <Content Include="Content\material\bootstrap-material-design.min.css" />
     <Content Include="Content\material\ripples.css" />
     <Content Include="Content\material\ripples.min.css" />
+    <Content Include="Content\selectize\css\selectize.bootstrap2.css" />
+    <Content Include="Content\selectize\css\selectize.bootstrap3.css" />
+    <Content Include="Content\selectize\css\selectize.css" />
+    <Content Include="Content\selectize\css\selectize.default.css" />
+    <Content Include="Content\selectize\css\selectize.legacy.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\css\site.css" />
@@ -224,7 +231,17 @@
     <Content Include="Content\bootstrap\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap\bootstrap.css.map" />
     <Content Include="Scripts\htmldesigner.js" />
+    <Content Include="Scripts\material-datepicker\js\bootstrap-material-datetimepicker.js" />
     <Content Include="Scripts\material\arrive.min.js" />
+    <Content Include="Content\chosen\chosen-sprite%402x.png" />
+    <Content Include="Content\chosen\chosen-sprite.png" />
+    <Content Include="Content\chosen\chosen.css" />
+    <Content Include="Scripts\chosen\chosen.jquery.js" />
+    <Content Include="Scripts\chosen\chosen.jquery.min.js" />
+    <Content Include="Content\chosen\chosen.min.css" />
+    <Content Include="Scripts\chosen\chosen.proto.js" />
+    <Content Include="Scripts\chosen\chosen.proto.min.js" />
+    <Content Include="Scripts\moment\moment.min.js" />
     <Content Include="Scripts\ng\angular-animate.js" />
     <Content Include="Scripts\ng\angular-animate.min.js" />
     <Content Include="Scripts\ng\angular-aria.js" />
@@ -330,6 +347,19 @@
     <Content Include="Content\awe\scss\_stacked.scss" />
     <Content Include="Content\awe\scss\_variables.scss" />
     <Content Include="Editor.sln.DotSettings" />
+    <Content Include="Content\material-datepicker\font\Material-Design-Icons.eot" />
+    <Content Include="Content\material-datepicker\font\Material-Design-Icons.ttf" />
+    <Content Include="Content\material-datepicker\font\Material-Design-Icons.woff" />
+    <Content Include="Content\material-datepicker\font\Material-Design-Icons.woff2" />
+    <Content Include="Content\selectize\less\plugins\drag_drop.less" />
+    <Content Include="Content\selectize\less\plugins\dropdown_header.less" />
+    <Content Include="Content\selectize\less\plugins\optgroup_columns.less" />
+    <Content Include="Content\selectize\less\plugins\remove_button.less" />
+    <Content Include="Content\selectize\less\selectize.bootstrap2.less" />
+    <Content Include="Content\selectize\less\selectize.bootstrap3.less" />
+    <Content Include="Content\selectize\less\selectize.default.less" />
+    <Content Include="Content\selectize\less\selectize.legacy.less" />
+    <Content Include="Content\selectize\less\selectize.less" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -1067,6 +1097,10 @@
     <Content Include="Scripts\material\material.min.js" />
     <Content Include="Scripts\material\ripples.js" />
     <Content Include="Scripts\material\ripples.min.js" />
+    <Content Include="Scripts\selectize\selectize.js" />
+    <Content Include="Scripts\selectize\selectize.min.js" />
+    <Content Include="Scripts\selectize\standalone\selectize.js" />
+    <Content Include="Scripts\selectize\standalone\selectize.min.js" />
     <Content Include="Scripts\sessionstorage.js" />
     <Content Include="Scripts\settings-database.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
@@ -1123,6 +1157,7 @@
     <Content Include="Views\Settings\DataBase.cshtml" />
     <Content Include="Scripts\material\material.min.js.map" />
     <Content Include="Scripts\material\ripples.min.js.map" />
+    <Content Include="Scripts\chosen\package.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
