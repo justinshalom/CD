@@ -170,6 +170,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Code\File\FIleUtilities.cs" />
+    <Compile Include="Controllers\JsonApiController.cs" />
     <Compile Include="Models\DataAccess\BaseDA.cs" />
     <Compile Include="Models\DataAccess\SettingsModel.cs" />
     <Compile Include="Code\Api\Objects\ApiJsonDto.cs" />
@@ -178,7 +180,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\JsonApiBaseController.cs" />
+    <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ModelController.cs" />
     <Compile Include="Controllers\SettingsApiController.cs" />
@@ -1165,6 +1167,7 @@
     <Folder Include="Code\Session\" />
     <Folder Include="Views\Db\" />
     <Folder Include="Views\JsonBase\" />
+    <Folder Include="Views\Json\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

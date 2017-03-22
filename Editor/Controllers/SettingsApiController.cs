@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace Editor.Controllers
 {
-    public class SettingsApiController : JsonApiBaseController
+    public class SettingsApiController : BaseApiController
     {
         public IHttpActionResult SaveDBConnection(DatabaseConnectionModel model)
         { 

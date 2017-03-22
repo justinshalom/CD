@@ -211,8 +211,26 @@ function css2json(css) {
 
 var hd_rightmenu =
     '<style>.hd_borderselected{ 1px dashed rgba(0, 0, 0, 0.22);} #hd_rightmenu .selectize-input{border-radius: 0px !important;} #hd_rightmenu .selectize-dropdown .active {background-color: #252424 !important; color: #ffffff;} #hd_rightmenu .selectize-dropdown .option  { padding: 3px 6px !important;} #hd_rightmenu .selectize-control.form-control .item{ line-height:20px; margin: 0 1px 1px 0 !important;background-color: #0f03f4;padding: 0px 3px 0px 5px;color: #FFFFFF;}  #hd_rightmenu .selectize-control.form-control{ height:auto;} #hd_rightmenu{ font-size:11px !important; } #hd_rightmenu .selectize-control.multi .selectize-input.has-items { font-size:11px !important;padding: 0px 0px 0px;} #hd_rightmenu .form-group{ margin-top:0px; }#hd_rightmenu .toggle{ margin-left: 10px; }</style><div class="" ' + 'style="' + 'position:absolute;top:40px;left:20px;width:180px;z-index:10000;font-size:12px !important;overflow:hidden;" ' + 'id="hd_rightmenu">' + '<div class="col-xs-50">' + '<div class="panel panel-info col-xs-50" >' + '<div class="panel-heading col-xs-50" id="hd_rightmenu_header">' + '<h3 class=" panel-title">Panel info</h3>' + '</div>' + '<div class="panel-body open col-xs-50" id="hd_rightmenu_body" style="">' + '<div class="col-xs-50" style="">' + '<div ><a href="javascript:void(0)">Attributes</a><div id="hd_rightmenu_allattributes" class="hd_rightmenu_clear  col-xs-50 "></div></div>' + '<div><a href="javascript:void(0)">Manage Classes</a><div id="hd_rightmenu_allclasses" class="hd_rightmenu_clear  col-xs-50 "></div></div>' + '<div ><a href="javascript:void(0)">Add Attributes</a></div>' + '<div><a href="javascript:void(0)">Add ' + 'Styles</a></div>' + '<div><a href="javascript:void(0)">Remove</a></div>' + '<div><a href="javascript:void(0)">Create Child</a></div>' + '</div>' + '</div>' + ' </div>' + ' </div>' + ' </div>';
-$(document).ready(function() {
+var originalfile = "";
+function GetFileContent(postdata) {
+    $.get(apirooturl + "JsonApi/GetFileContent", postdata,
+        function (data) {
+            originalfile = data.Data;
+        }
+    );
+}
+var postdata = {};
+postdata.a = area;
+postdata.c = controller;
+postdata.v = action;
+
+GetFileContent(postdata);
+$(document).ready(function () {
     var allclasses = getall('class');
+   
+   
+
+  
     var allid = getall('id');
     var hdCurrentobj = $('body');
     $('body').append(hd_rightmenu);
@@ -230,7 +248,7 @@ $(document).ready(function() {
             hdCurrentobj = $(this);
             $('.hd_borderselected')
                 .removeClass('hd_borderselected');
-            hdCurrentobj.addClass('hd_borderselected');
+            //hdCurrentobj.addClass('hd_borderselected');
             e.preventDefault();
             e.stopPropagation();
             var t = $(this);

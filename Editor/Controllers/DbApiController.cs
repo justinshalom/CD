@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace Editor.Controllers
 {
-    public class DbApiController : JsonApiBaseController
+    public class DbApiController : BaseApiController
     {
 
         public IHttpActionResult GetAllTables()

@@ -61,6 +61,9 @@
     <div class="container-fluid">
         <div class="col-xs-50 bg-white no-padding">
             <input value="@Url.Action("", "")" id="rooturl" type="hidden"/>
+            <input value="@actionName" id="function" type="hidden"/>
+            <input value="@controllerName" id="controller" type="hidden"/>
+            <input value="@areaName" id="area" type="hidden"/>
             <div class="alert" id="alert"></div>
             <div id="pageloader" style="display: none;">
                 <div class="progress">

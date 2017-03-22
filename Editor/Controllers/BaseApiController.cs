@@ -7,7 +7,7 @@ using System.Web.Http;
 
 namespace Editor.Controllers
 {
-    public class JsonApiBaseController : ApiController
+    public class BaseApiController : ApiController
     {
         protected IHttpActionResult Ok(bool error, string message, object data)
         {
