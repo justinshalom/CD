@@ -1,37 +1,84 @@
-﻿using Editor.Code.Api;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Web;
+﻿using System;
 using System.Web.Http;
 using Editor.Code.File;
-
+using Editor.Code.Html;
 namespace Editor.Controllers
 {
+    /// <summary>
+    /// Json Api Requests
+    /// </summary>
+    /// <seealso cref="Editor.Controllers.BaseApiController" />
+    
     public class JsonApiController : BaseApiController
     {
         /// <summary>
-        /// Get File Content
+        /// Gets the content of the file.
         /// </summary>
-        /// <param name="c"></param>
-        /// <param name="v"></param>
-        /// <param name="a"></param>
+        /// <param name="controller">The controller.</param>
+        /// <param name="view">The view.</param>
+        /// <param name="area">The area.</param>
         /// <returns></returns>
-       
-        public IHttpActionResult GetFileContent(string c, string v, string a = "")
+        [AcceptVerbs("GET", "POST")]
+        [HttpGet]
+        public IHttpActionResult PrepareHtmlContent(string controller, string view, string area = "")
         {
-            var content = FIleUtilities.GetFileContent(a, c, v);
-            var editorSignature = "<--GeneratedFromCodeEditorDon'tRemoveIt!-->/n";
-            Regex regex = new Regex(@"\d+");
-            Match match = regex.Match(editorSignature);
-            if (match.Length < 2)
+            var content = FIleUtilities.GetFileContent(area, controller, view, FIleUtilities.ViewPath, FIleUtilities.Dot.cshtml);
+            var signaturetext = "GeneratedFromCodeEditorDon'tRemoveIt";
+            var editorSignature = new string[1] {@"<!--" + signaturetext + "!-->"};
+            var match = content.Split(editorSignature, StringSplitOptions.None);
+            var layout = content.Split(new string[2]{"Layout=","Layout ="},StringSplitOptions.None);
+            var layoutFile = "";
+            if (layout.Length < 2)
             {
-                content = content.Replace(editorSignature, "");
+                layoutFile = FIleUtilities.RootPath + FIleUtilities.ViewPath + FIleUtilities.SharedPath +
+                             "_Layout.cshtml";
             }
-            content = editorSignature + content + editorSignature;
+            else
+            {
+                layoutFile = FIleUtilities.RootPath + string.Join("", layout[1].Split(new string[2] { System.Environment.NewLine, ";" }, StringSplitOptions.RemoveEmptyEntries)[0].Split(new string[1] { '"' + "" }, StringSplitOptions.RemoveEmptyEntries)).Replace("~", "").Replace(" ", "");
+            }
+            var layoutcontent = FIleUtilities.GetFileContent(layoutFile);
+            var layoutmatch = layoutcontent.Split(editorSignature, StringSplitOptions.None);
+            if (layoutmatch.Length < 3)
+            {
+                layoutcontent = string.Join("", layoutmatch);
+                layoutcontent = editorSignature[0] + System.Environment.NewLine + layoutcontent + System.Environment.NewLine +
+                          editorSignature[0];
+                FIleUtilities.SetFileContent(layoutcontent, layoutFile);
+                return Ok(true, string.Empty, string.Empty);
+            }
+            if (match.Length < 3)
+            {
+                content = string.Join("", match);
+                content = editorSignature[0] + System.Environment.NewLine + content + System.Environment.NewLine +
+                          editorSignature[0];
+                var success = FIleUtilities.SetFileContent(area, controller, view, content, FIleUtilities.ViewPath, FIleUtilities.Dot.cshtml);
+                return Ok(true, string.Empty, string.Empty);
+            }
+            
+            
+            return Ok(false, String.Empty, string.Empty);
+        }
 
-            return Ok(false, String.Empty, content);
+        /// <summary>
+        /// Adds the class.
+        /// </summary>
+        /// <param name="className">Name of the class.</param>
+        /// <param name="id">The identifier.</param>
+        /// <param name="controller">The controller.</param>
+        /// <param name="view">The view.</param>
+        /// <param name="area">The area.</param>
+        /// <returns></returns>
+        [AcceptVerbs("GET", "POST")]
+        [HttpGet]
+        public IHttpActionResult addClass(string className, string id, string controller, string view, string area = "")
+        {
+            var content = FIleUtilities.GetFileContent(area, controller, view, FIleUtilities.ViewPath, FIleUtilities.Dot.cshtml);
+            var t = new cQuery("#" + id,content);
+            t.addClass(className).removeClass(className).attr("name","value").removeAttr("name").css("name","value");
+            
+            return Ok(false, String.Empty, string.Empty);
         }
     }
+   
 }
