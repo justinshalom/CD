@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Http;
+using Editor.Code;
 using Editor.Code.File;
 using Editor.Code.Html;
 namespace Editor.Controllers
@@ -55,8 +56,11 @@ namespace Editor.Controllers
                 var success = FIleUtilities.SetFileContent(area, controller, view, content, FIleUtilities.ViewPath, FIleUtilities.Dot.cshtml);
                 return Ok(true, string.Empty, string.Empty);
             }
-            
-            
+
+            var parser = HtmlParser.parse(content);
+
+
+
             return Ok(false, String.Empty, string.Empty);
         }
 

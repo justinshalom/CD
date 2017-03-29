@@ -52,11 +52,11 @@ namespace Editor.Code.Html
             var content = this._htmlData;
             string[] separators = { "genid='"+_selector+"'" };
             var array = content.Split(separators,StringSplitOptions.None);
-            var temparray=array[1].Split('>');
-            temparray[0].
+            ////var temparray=array[1].Split('>');
+            ////temparray[0].
             
-            string[] stringarray = {"class="};
-            line.Split(new string[1]{""})}
+            ////string[] stringarray = {"class="};
+            ////line.Split(new string[1]{""})}
             return this;
         }
 

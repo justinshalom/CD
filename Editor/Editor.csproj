@@ -183,8 +183,8 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Code\File\FIleUtilities.cs" />
+    <Compile Include="Code\HtmlParser.cs" />
     <Compile Include="Code\Html\cQuery.cs" />
-    <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\JsonApiController.cs" />
     <Compile Include="Models\DataAccess\BaseDA.cs" />
     <Compile Include="Models\DataAccess\SettingsModel.cs" />
