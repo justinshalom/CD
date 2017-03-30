@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Xml.Linq;
 
 namespace Editor.Code
 {
-    public class HtmlParser
+    public class MyHtmlParser
     {
         public static NodesList parse(string content)
         {
             var nodeslist = new NodesList();
-
+           
             var switchcase = "";
             var commentstarted = false;
             var tagstarted = false;
@@ -18,8 +19,12 @@ namespace Editor.Code
             var scriptstarted = false;
             var stylestarted = false;
             var attributestarted = false;
+            var allowtostartattribute = false;
             var uniquekey = 0;
+            var attributekey = "";
+            var attributevalue = "";
             var currentparent = 0;
+            var razorcodestarted = false;
             Nodes node;
             for (int i = 0; i <= content.Length; i++)
             {
@@ -31,18 +36,40 @@ namespace Editor.Code
                     case '<':
                     {
                         tagstarted = true;
+                        if (razorcodestarted = true)
+                        {
+                            
+                        }
+                        razorcodestarted = false;
                         switchcase = "";
+                        break;
+                    }
+                    case '@':
+                    {
+                        razorcodestarted = true;
+                      //  switchcase = "";
                         break;
                     }
                     case '>':
                     {
+                        allowtostartattribute = false;
                         tagstarted = false;
 
                         break;
                     }
                     case '"':
                     {
-                        attributestarted = !attributestarted;
+                        if (allowtostartattribute)
+                        {
+                            attributestarted = !attributestarted;
+                            if (!attributestarted)
+                            {
+                            }
+                            else
+                            {
+                                attributekey = switchcase;
+                            }
+                        }
 
                         break;
                     }
@@ -51,16 +78,17 @@ namespace Editor.Code
                     {
                         if (tagstarted == true)
                         {
-                                node.element = switchcase;
-                                node.uniqueskey = uniquekey;
-                                currentparent = uniquekey;
-                                uniquekey++;
-                                node.attributes = new List<Attributes>();
-                                node.attributes.Add(new Attributes() { key = "html", value = switchcase });
-                                nodeslist.nodes.Add(node);
-                                switchcase = "";
-
-                            }
+                            node.element = switchcase;
+                            node.uniqueskey = uniquekey;
+                            currentparent = uniquekey;
+                            uniquekey++;
+                            node.attributes = new List<Attributes>();
+                            node.attributes.Add(new Attributes() { key = "html", value = switchcase });
+                            nodeslist.nodes = new List<Nodes>();
+                            nodeslist.nodes.Add(node);
+                            //switchcase = "";    
+                            allowtostartattribute = true;
+                        }
                         break;
                     }
                     default:
@@ -77,6 +105,7 @@ namespace Editor.Code
                     node.uniqueskey = -1;
                     node.attributes = new List<Attributes>();
                     node.attributes.Add(new Attributes() { key = "html", value = switchcase });
+                    nodeslist.nodes = new List<Nodes>();
                     nodeslist.nodes.Add(node);
                     switchcase = "";
                 }
@@ -85,41 +114,60 @@ namespace Editor.Code
                     switch (switchcase)
                     {
                         case "<!--":
-                        {
-                            commentstarted = true;
-                            tagstarted = false;
-                            attributestarted = false;
-                            break;
-                        }
+                            {
+                                commentstarted = true;
+                                tagstarted = false;
+                                attributestarted = false;
+                                break;
+                            }
                         case "-->":
-                        {
-                            commentstarted = true;
-                            break;
-                        }
+                            {
+                                commentstarted = true;
+                                break;
+                            }
                         case "<!DOCTYPE":
-                        {
-                            node.element = switchcase;
-                            node.uniqueskey = uniquekey;
-                            currentparent = uniquekey;
-                            uniquekey++;
-                            nodeslist.nodes.Add(node);
-                            break;
-                        }
+                            {
+                                node.element = switchcase;
+                                node.uniqueskey = uniquekey;
+                                currentparent = uniquekey;
+                                uniquekey++;
+                                nodeslist.nodes.Add(node);
+                                break;
+                            }
                         default:
-                        {
-                            break;
-                        }
+                            {
+                                break;
+                            }
                     }
                 }
                 ////ending actions
                 switch (c)
                 {
+                    //case '\r':
+                    //{
+                    //    switchcase = "";
+                    //    break;
+                    //}
+                    //case '\n':
+                    //{
+                    //    switchcase = "";
+                    //    break;
+                    //}
                     case '<':
                     {
                         break;
                     }
                     case '>':
                     {
+                        try
+                        {
+                            var attrs = XElement.Parse(switchcase);
+                            var elm = attrs.Elements();
+                        }
+                        catch(Exception e)
+                        {
+                            break;
+                        }
                         switchcase = "";
                         break;
                     }
