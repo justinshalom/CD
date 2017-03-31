@@ -8,7 +8,6 @@ using CsQuery;
 using Editor.Code;
 using Editor.Code.File;
 using Editor.Code.Html;
-using ZetaHtmlTidy;
 
 namespace Editor.Controllers
 {
@@ -30,6 +29,7 @@ namespace Editor.Controllers
         public IHttpActionResult PrepareHtmlContent(string controller, string view, string area = "")
         {
             var content = FIleUtilities.GetFileContent(area, controller, view, FIleUtilities.ViewPath, FIleUtilities.Dot.cshtml);
+            var genidname="data-genid";
             var html = "";
             try
             {
@@ -41,7 +41,7 @@ namespace Editor.Controllers
                 foreach (var el in elements)
                 {
                     el.RemoveAttribute("genid");
-                    el.SetAttribute("genid", controller + "_" + view + "_" + uniquekey);
+                    el.SetAttribute(genidname, controller + "_" + view + "_" + uniquekey);
                     uniquekey++;
                 }
                 html = document.DocumentElement.QuerySelector("body").InnerHtml;
@@ -73,12 +73,12 @@ namespace Editor.Controllers
                 var parser = new HtmlParser();
                 var document = parser.Parse(layoutcontent);
                 var uniquekey = 0;
-                var elements = document.QuerySelectorAll("body *");
+                var elements = document.QuerySelectorAll("div *");
 
                 foreach (var el in elements)
                 {
                     el.RemoveAttribute("genid");
-                    el.SetAttribute("genid", controller + "_Layout_" + uniquekey);
+                    el.SetAttribute(genidname, controller + "_Layout_" + uniquekey);
                     uniquekey++;
                 }
                 layouthtml = document.DocumentElement.OuterHtml;
@@ -87,24 +87,19 @@ namespace Editor.Controllers
             {
                 var eobj = e;
             }
-            if (layoutmatch.Length < 3)
-            {
-               
-                return Ok(true, string.Empty, string.Empty);
-            }
-            if (match.Length < 3)
-            {
-                content = string.Join("", match);
-                content = editorSignature[0] + System.Environment.NewLine + content + System.Environment.NewLine +
-                    editorSignature[0];
-                var success = FIleUtilities.SetFileContent(area, controller, view, content, FIleUtilities.ViewPath, FIleUtilities.Dot.cshtml);
-                return Ok(true, string.Empty, string.Empty);
-            }
+            //if (match.Length < 3)
+            //{
+            //    content = string.Join("", match);
+            //    ////content = editorSignature[0] + System.Environment.NewLine + content + System.Environment.NewLine +
+            //        ////editorSignature[0];
+            //    var success = FIleUtilities.SetFileContent(area, controller, view, content, FIleUtilities.ViewPath, FIleUtilities.Dot.cshtml);
+            //    return Ok(true, string.Empty, string.Empty);
+            //}
             if (layouthtml != layoutcontent)
             {
                 layoutcontent = string.Join("", layoutmatch);
-                layoutcontent = editorSignature[0] + System.Environment.NewLine + layoutcontent + System.Environment.NewLine +
-                    editorSignature[0];
+                ////layoutcontent = editorSignature[0] + System.Environment.NewLine + layoutcontent + System.Environment.NewLine +
+                    ////editorSignature[0];
                 FIleUtilities.SetFileContent(layouthtml, layoutFile);
                 return Ok(true, string.Empty, string.Empty);
             }

@@ -98,7 +98,7 @@ namespace Editor.Code
                 }
 
                 switchcase = switchcase + c;
-                if (switchcase.EndsWith($"-->"))
+                if (switchcase.EndsWith("-->"))
                 {
                     commentstarted = false;
                     node.element = "comment";
