@@ -1,18 +1,18 @@
 ﻿<!--GeneratedFromCodeEditorDon'tRemoveIt!-->
-
-@{
-    string actionName = this.ViewContext.RouteData.Values["action"].ToString();
-    string controllerName = this.ViewContext.RouteData.Values["controller"].ToString();
-    string areaName = "";
-    if (this.ViewContext.RouteData.DataTokens["area"] != null)
-    {
-        areaName = this.ViewContext.RouteData.DataTokens["area"].ToString();
-    }
-}
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8"/>
+    @{
+        string actionName = this.ViewContext.RouteData.Values["action"].ToString();
+        string controllerName = this.ViewContext.RouteData.Values["controller"].ToString();
+        string areaName = "";
+        if (this.ViewContext.RouteData.DataTokens["area"] != null)
+        {
+            areaName = this.ViewContext.RouteData.DataTokens["area"].ToString();
+        }
+    }
+
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="no-cache">
     <meta name="description" content="small description">
@@ -22,21 +22,21 @@
     <meta name="" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@ViewBag.Title - My Code Editor</title>
-  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
-  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
-<link href="@Url.Content("~/Content/awe/css/font-awesome.min.css")" rel="stylesheet" type="text/css"/>
-<link href="@Url.Content("~/Content/bootstrap/bootstrap.min.css")" rel="stylesheet"/>
-<link href="@Url.Content("~/Content/material/bootstrap-material-design.min.css")" rel="stylesheet"/>
-    <link href="@Url.Content("~/Content/material/ripples.min.css")" rel="stylesheet"/>
-    <link href="@Url.Content("~/Content/material-datepicker/css/bootstrap-material-datetimepicker.css")" rel="stylesheet"/>
-    <link href="@Url.Content("~/Content/chosen/chosen.min.css")" rel="stylesheet"/>
-        <link href="@Url.Content("~/Content/selectize/css/selectize.css")" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="@Url.Content("~/Content/awe/css/font-awesome.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/bootstrap/bootstrap.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/material/bootstrap-material-design.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/material/ripples.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/material-datepicker/css/bootstrap-material-datetimepicker.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/chosen/chosen.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/selectize/css/selectize.css")" rel="stylesheet" />
     @Styles.Render("~/Content/css")
     @*<link href="http://editor.techmoon.in/extras/jqueryui\jquery-ui.min.css" rel="stylesheet" type="text/css">
             <link href="http://editor.techmoon.in/extras/jqueryui\jquery-ui.theme.min.css" rel="stylesheet" type="text/css">
             <link href="http://editor.techmoon.in/extras/chosen/chosen.min.css" rel="stylesheet" type="text/css">
             <link href="http://editor.techmoon.in/extras/bootstrap/css_bl/bootstrap.min.css" rel="stylesheet" type="text/css">
-     
+
             <link href="http://editor.techmoon.in/extras/bootstrap/css_bl/admin.css" rel="stylesheet" type="text/css">
             <link href="http://editor.techmoon.in/extras/highlight/styles/school_book.css" rel="stylesheet" type="text/css">
             <link href="http://editor.techmoon.in/extras/highlight/styles/vs.css" rel="stylesheet" type="text/css">
@@ -62,10 +62,10 @@
 <body>
     <div class="container-fluid">
         <div class="col-xs-50 bg-white no-padding">
-            <input value="@Url.Action("", "")" id="rooturl" type="hidden"/>
-            <input value="@actionName" id="function" type="hidden"/>
-            <input value="@controllerName" id="controller" type="hidden"/>
-            <input value="@areaName" id="area" type="hidden"/>
+            <input value="@Url.Action("", "")" id="rooturl" type="hidden" />
+            <input value="@actionName" id="function" type="hidden" />
+            <input value="@controllerName" id="controller" type="hidden" />
+            <input value="@areaName" id="area" type="hidden" />
             <div class="alert" id="alert"></div>
             <div id="pageloader" style="display: none;">
                 <div class="progress">
@@ -102,7 +102,7 @@
                         @if (areaName != string.Empty)
                         {
                             <li><a href="javascript:void(0)">@areaName</a></li>
-            }
+                        }
                         <li><a href="javascript:void(0)">@controllerName</a></li>
                         <li class="active"><a href="javascript:void(0)">@ViewBag.Title </a></li>
                     </ul>
@@ -112,31 +112,31 @@
                 @RenderBody()
 
                 @*<div class="col-xs-33 col-xs-offset-1 margin-top-2 ">
-                <div class="box box-warning">
-                    <div class="box-body">
-                        <table class="table table-responsive  table-bordered">
-                            <thead>
-                            <tr>
-                                <td >Project Name</td>
-                                <td >Path</td>
-                                <td >Db Type</td>
-                                <td >Language</td>
-                                <td >edit</td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td >Project Name</td>
-                                <td >Path</td>
-                                <td >Db Type</td>
-                                <td >Language</td>
-                                <td >edit</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>*@
+                        <div class="box box-warning">
+                            <div class="box-body">
+                                <table class="table table-responsive  table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <td >Project Name</td>
+                                        <td >Path</td>
+                                        <td >Db Type</td>
+                                        <td >Language</td>
+                                        <td >edit</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td >Project Name</td>
+                                        <td >Path</td>
+                                        <td >Db Type</td>
+                                        <td >Language</td>
+                                        <td >edit</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>*@
             </div>
             <div class="top col-xs-50 bg-primary">
                 <footer id="masthead" class="site-header" role="banner">
@@ -146,35 +146,36 @@
                 </footer>
             </div>
         </div>
-        </div>
-@Scripts.Render("~/bundles/jquery")
-<script src="@Url.Content("~/Scripts/commonscripts.js")"></script>
-<script src="@Url.Content("~/Scripts/development.js")"></script>
-<script src="@Url.Content("~/Scripts/localcache.js")"></script>
-<script src="@Url.Content("~/Scripts/sessionstorage.js")"></script>
-<script src="@Url.Content("~/Scripts/angular-modelvalidation.js")"></script>
-<script src="@Url.Content("~/Scripts/ng/angular.js")"></script>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    <script src="@Url.Content("~/Scripts/commonscripts.js")"></script>
+    <script src="@Url.Content("~/Scripts/development.js")"></script>
+    <script src="@Url.Content("~/Scripts/localcache.js")"></script>
+    <script src="@Url.Content("~/Scripts/sessionstorage.js")"></script>
+    <script src="@Url.Content("~/Scripts/angular-modelvalidation.js")"></script>
+    <script src="@Url.Content("~/Scripts/ng/angular.js")"></script>
     <script src="@Url.Content("~/Scripts/moment/moment.min.js")"></script>
     <script src="@Url.Content("~/Scripts/material/arrive.min.js")"></script>
-<script src="@Url.Content("~/Scripts/material/material.min.js")"></script>
-<script src="@Url.Content("~/Scripts/material/ripples.min.js")"></script>
-<script src="@Url.Content("~/Scripts/material-datepicker/js/bootstrap-material-datetimepicker.js")"></script>
-<script src="@Url.Content("~/Scripts/chosen/chosen.jquery.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/material/material.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/material/ripples.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/material-datepicker/js/bootstrap-material-datetimepicker.js")"></script>
+    <script src="@Url.Content("~/Scripts/chosen/chosen.jquery.min.js")"></script>
     <script src="@Url.Content("~/Scripts/selectize/standalone/selectize.min.js")"></script>
     <script src="@Url.Content("~/Scripts/htmldesigner.js")"></script>
-    
-<script src="@Url.Content("~/Scripts/" + controllerName.ToLower() + "-" + actionName.ToLower() + ".js")"></script>
-@RenderSection("scripts", required: false)
-<script>
-    $.material.init();
-</script>
+
+    <script src="@Url.Content("~/Scripts/" + controllerName.ToLower() + "-" + actionName.ToLower() + ".js")"></script>
+    @RenderSection("scripts", required: false)
+    <script>
+        $.material.init();
+    </script>
+
+    @*
+            var type = typeof(YourNamespace.Models.YourModelName);
+        var memInfo = type.GetMember("firstName"); // your member
+        var attributes = memInfo[0].GetCustomAttributes(typeof(System.ComponentModel.DataAnnotations.DisplayAttribute), false);
+        var displayname = ((System.ComponentModel.DataAnnotations.DisplayAttribute)attributes[0]).Name;
+    *@
+
 </body>
 </html>
-@*
-        var type = typeof(YourNamespace.Models.YourModelName);
-    var memInfo = type.GetMember("firstName"); // your member
-    var attributes = memInfo[0].GetCustomAttributes(typeof(System.ComponentModel.DataAnnotations.DisplayAttribute), false);
-    var displayname = ((System.ComponentModel.DataAnnotations.DisplayAttribute)attributes[0]).Name;
-*@
-
 <!--GeneratedFromCodeEditorDon'tRemoveIt!-->
