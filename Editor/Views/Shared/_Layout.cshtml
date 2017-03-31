@@ -1,5 +1,4 @@
-﻿<!DOCTYPE html>
-<html>
+﻿<html>
 <head>
     @{
         string actionName = this.ViewContext.RouteData.Values["action"].ToString();
@@ -10,7 +9,6 @@
             areaName = this.ViewContext.RouteData.DataTokens["area"].ToString();
         }
     }
-
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="no-cache">
@@ -61,7 +59,7 @@
 <body>
     <div class="container-fluid">
         <div class="col-xs-50 bg-white no-padding">
-            <input value="@Url.Action("", "")" id="rooturl" type="hidden" />
+            <input value="@Url.Action("", "",new { area=""})" id="rooturl" type="hidden" />
             <input value="@actionName" id="function" type="hidden" />
             <input value="@controllerName" id="controller" type="hidden" />
             <input value="@areaName" id="area" type="hidden" />
