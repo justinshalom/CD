@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Editor", "Editor\Editor.csproj", "{9F2B6BE7-690E-4BA4-9F52-D1E0CAF9FFF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AngleSharp.Core", "AngleSharp\AngleSharp\AngleSharp.Core.csproj", "{91F78C48-287E-41B5-9E49-44D6E1E31290}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,10 +13,6 @@ Global
 		{9F2B6BE7-690E-4BA4-9F52-D1E0CAF9FFF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F2B6BE7-690E-4BA4-9F52-D1E0CAF9FFF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F2B6BE7-690E-4BA4-9F52-D1E0CAF9FFF3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{91F78C48-287E-41B5-9E49-44D6E1E31290}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{91F78C48-287E-41B5-9E49-44D6E1E31290}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{91F78C48-287E-41B5-9E49-44D6E1E31290}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{91F78C48-287E-41B5-9E49-44D6E1E31290}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

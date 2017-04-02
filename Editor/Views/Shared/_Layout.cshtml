@@ -1,6 +1,32 @@
-﻿<html>
-<head>
-    @{
+<html data-genid="Shared_Layout_0"><head data-genid="Shared_Layout_1">
+   
+    <meta charset="utf-8" data-genid="Shared_Layout_2">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" data-genid="Shared_Layout_3">
+    <meta name="robots" content="no-cache" data-genid="Shared_Layout_4">
+    <meta name="description" content="small description" data-genid="Shared_Layout_5">
+    <meta name="keywords" content="project" data-genid="Shared_Layout_6">
+    <meta name="robots" content="no-cache" data-genid="Shared_Layout_7">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" data-genid="Shared_Layout_8">
+    <meta name="" content="IE=edge" data-genid="Shared_Layout_9">
+    <meta name="viewport" content="width=device-width, initial-scale=1" data-genid="Shared_Layout_10">
+    <title data-genid="Shared_Layout_11">@ViewBag.Title - My Code Editor</title>
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700" data-genid="Shared_Layout_12">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons" data-genid="Shared_Layout_13">
+    <link href="@Url.Content("~/Content/awe/css/font-awesome.min.css")" rel="stylesheet" type="text/css" data-genid="Shared_Layout_14">
+    <link href="@Url.Content("~/Content/bootstrap/bootstrap.min.css")" rel="stylesheet" data-genid="Shared_Layout_15">
+    <link href="@Url.Content("~/Content/material/bootstrap-material-design.min.css")" rel="stylesheet" data-genid="Shared_Layout_16">
+    <link href="@Url.Content("~/Content/material/ripples.min.css")" rel="stylesheet" data-genid="Shared_Layout_17">
+    <link href="@Url.Content("~/Content/material-datepicker/css/bootstrap-material-datetimepicker.css")" rel="stylesheet" data-genid="Shared_Layout_18">
+    <link href="@Url.Content("~/Content/chosen/chosen.min.css")" rel="stylesheet" data-genid="Shared_Layout_19">
+    <link href="@Url.Content("~/Content/selectize/css/selectize.css")" rel="stylesheet" data-genid="Shared_Layout_20">
+    <link href="@Url.Content("~/Content/css/site")" rel="stylesheet" data-genid="Shared_Layout_21">
+   
+    
+</head>
+
+<body data-genid="Shared_Layout_22">
+<div class="container-fluid" data-genid="Shared_Layout_23">
+     @{
         string actionName = this.ViewContext.RouteData.Values["action"].ToString();
         string controllerName = this.ViewContext.RouteData.Values["controller"].ToString();
         string areaName = "";
@@ -9,160 +35,115 @@
             areaName = this.ViewContext.RouteData.DataTokens["area"].ToString();
         }
     }
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="no-cache">
-    <meta name="description" content="small description">
-    <meta name="keywords" content="project">
-    <meta name="robots" content="no-cache">
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-    <meta name="" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@ViewBag.Title - My Code Editor</title>
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
-    <link href="@Url.Content("~/Content/awe/css/font-awesome.min.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/bootstrap/bootstrap.min.css")" rel="stylesheet" />
-    <link href="@Url.Content("~/Content/material/bootstrap-material-design.min.css")" rel="stylesheet" />
-    <link href="@Url.Content("~/Content/material/ripples.min.css")" rel="stylesheet" />
-    <link href="@Url.Content("~/Content/material-datepicker/css/bootstrap-material-datetimepicker.css")" rel="stylesheet" />
-    <link href="@Url.Content("~/Content/chosen/chosen.min.css")" rel="stylesheet" />
-    <link href="@Url.Content("~/Content/selectize/css/selectize.css")" rel="stylesheet" />
-    @Styles.Render("~/Content/css")
-    @*<link href="http://editor.techmoon.in/extras/jqueryui\jquery-ui.min.css" rel="stylesheet" type="text/css">
-            <link href="http://editor.techmoon.in/extras/jqueryui\jquery-ui.theme.min.css" rel="stylesheet" type="text/css">
-            <link href="http://editor.techmoon.in/extras/chosen/chosen.min.css" rel="stylesheet" type="text/css">
-            <link href="http://editor.techmoon.in/extras/bootstrap/css_bl/bootstrap.min.css" rel="stylesheet" type="text/css">
-
-            <link href="http://editor.techmoon.in/extras/bootstrap/css_bl/admin.css" rel="stylesheet" type="text/css">
-            <link href="http://editor.techmoon.in/extras/highlight/styles/school_book.css" rel="stylesheet" type="text/css">
-            <link href="http://editor.techmoon.in/extras/highlight/styles/vs.css" rel="stylesheet" type="text/css">
-            <link href="http://editor.techmoon.in/css/theme/default/style?page=project" rel="stylesheet" type="text/css">
-            <script type="text/javascript" src="http://editor.techmoon.in/js/theme/default/jquery"></script>
-            <script type="text/javascript" src="http://editor.techmoon.in/extras/chosen/chosen.jquery.min.js"></script>
-            <script type="text/javascript" src="http://editor.techmoon.in/extras/bootstrap/js/bootstrap.min.js"></script>
-            <script type="text/javascript" src="http://editor.techmoon.in/extras/highlight/highlight.pack.js"></script>
-            <script type="text/javascript" src="http://editor.techmoon.in/extras/jqueryui\jquery-ui.min.js"></script>
-            <script>
-        hljs.initHighlightingOnLoad();
-            </script>
-            <script type="text/javascript" src="http://editor.techmoon.in/js/theme/default/validation"></script>
-            <script type="text/javascript" src="http://editor.techmoon.in/js/theme/default/editor"></script>
-            <script type="text/javascript" src="http://editor.techmoon.in/js/theme/default/script"></script>
-            <script type="text/javascript" src="http://editor.techmoon.in/js/theme/default/project"></script>
-            <style>
-                .eb, .cb {
-                    color: red;
-                }
-            </style>*@
-</head>
-<body>
-    <div class="container-fluid">
-        <div class="col-xs-50 bg-white no-padding">
-            <input value="@Url.Action("", "",new { area=""})" id="rooturl" type="hidden" />
-            <input value="@actionName" id="function" type="hidden" />
-            <input value="@controllerName" id="controller" type="hidden" />
-            <input value="@areaName" id="area" type="hidden" />
-            <div class="alert" id="alert"></div>
-            <div id="pageloader" style="display: none;">
-                <div class="progress">
-                    <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-                        <span class="sr-only">40% Complete (success)</span>
-                    </div>
+    <div class="col-xs-50 bg-white no-padding" data-genid="Shared_Layout_24">
+        <input value="@Url.Action("", "", new {area = ""})" id="rooturl" type="hidden" data-genid="Shared_Layout_25">
+        <input value="@Url.Content("~/Content/")" id="contenturl" type="hidden" data-genid="Shared_Layout_26">
+        <input value="@actionName" id="function" type="hidden" data-genid="Shared_Layout_27">
+        <input value="@controllerName" id="controller" type="hidden" data-genid="Shared_Layout_28">
+        <input value="@areaName" id="area" type="hidden" data-genid="Shared_Layout_29">
+        <div class="alert" id="alert" data-genid="Shared_Layout_30"></div>
+        <div id="pageloader" style="display: none;" data-genid="Shared_Layout_31">
+            <div class="progress" data-genid="Shared_Layout_32">
+                <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" data-genid="Shared_Layout_33">
+                    <span class="sr-only" data-genid="Shared_Layout_34">40% Complete (success)</span>
                 </div>
             </div>
-            <div class="col-xs-50" style="box-shadow: -1px 0px 1px 1px #aa935a;">
-                <div class="col-xs-50 col-sm-50 col-md-50 col-lg-50 header">
-                    <div class="col-xs-50 ">
-                        <div class="col-xs-50 hiddendiv globalcontent">
-                            <div class="col-xs-48 ">
-                                <ul class="nav nav-pills ">
-                                    <li class="active">@Html.ActionLink("Home", "Index", "Home")</li>
-                                    <li>@Html.ActionLink("Settings", "Database", "Settings")</li>
-                                    <li>@Html.ActionLink("Generate Model", "GenerateModel", "Model")</li>
-                                </ul>
-                            </div>
-                            <div class="col-xs-2 ">
-                                <div class="col-xs-50 margin-top-1" style="font-size: 25px; line-height: 40px;">
-                                    @Html.Partial("_LoginPartial")
-                                </div>
+        </div>
+        <div class="col-xs-50" style="box-shadow: -1px 0px 1px 1px #aa935a;" data-genid="Shared_Layout_35">
+            <div class="col-xs-50 col-sm-50 col-md-50 col-lg-50 header" data-genid="Shared_Layout_36">
+                <div class="col-xs-50 " data-genid="Shared_Layout_37">
+                    <div class="col-xs-50 hiddendiv globalcontent" data-genid="Shared_Layout_38">
+                        <div class="col-xs-48 " data-genid="Shared_Layout_39">
+                            <ul class="nav nav-pills " data-genid="Shared_Layout_40">
+                                <li class="active" data-genid="Shared_Layout_41">@Html.ActionLink("Home", "Index", "Home")</li>
+                                <li data-genid="Shared_Layout_42">@Html.ActionLink("Settings", "Database", "Settings")</li>
+                                <li data-genid="Shared_Layout_43">@Html.ActionLink("Generate Model", "GenerateModel", "Model")</li>
+                            </ul>
+                        </div>
+                        <div class="col-xs-2 " data-genid="Shared_Layout_44">
+                            <div class="col-xs-50 margin-top-1" style="font-size: 25px; line-height: 40px;" data-genid="Shared_Layout_45">
+                                @Html.Partial("_LoginPartial")
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xs-50 mt-10">
-                <div class="breadcumbabs">
+        </div>
+        <div class="col-xs-50 mt-10" data-genid="Shared_Layout_46">
+            <div class="breadcumbabs" data-genid="Shared_Layout_47">
 
-                    <ul class="breadcrumb" style="margin-bottom: 5px;">
-                        <li><span class="glyphicon glyphicon-pushpin"></span></li>
-                        @if (areaName != string.Empty)
-                        {
-                            <li><a href="javascript:void(0)">@areaName</a></li>
-                        }
-                        <li><a href="javascript:void(0)">@controllerName</a></li>
-                        <li class="active"><a href="javascript:void(0)">@ViewBag.Title </a></li>
-                    </ul>
-                </div>
+                <ul class="breadcrumb" style="margin-bottom: 5px;" data-genid="Shared_Layout_48">
+                    <li data-genid="Shared_Layout_49"><span class="glyphicon glyphicon-pushpin" data-genid="Shared_Layout_50"></span></li>
+                    @if (areaName != string.Empty)
+                    {
+                        <li data-genid="Shared_Layout_51"><a href="javascript:void(0)" data-genid="Shared_Layout_52">@areaName</a></li>
+                    }
+                    <li data-genid="Shared_Layout_53"><a href="javascript:void(0)" data-genid="Shared_Layout_54">@controllerName</a></li>
+                    <li class="active" data-genid="Shared_Layout_55"><a href="javascript:void(0)" data-genid="Shared_Layout_56">@ViewBag.Title </a></li>
+                </ul>
+            </div>
 
 
-                @RenderBody()
+            @RenderBody()
 
-                @*<div class="col-xs-33 col-xs-offset-1 margin-top-2 ">
-                        <div class="box box-warning">
-                            <div class="box-body">
-                                <table class="table table-responsive  table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <td >Project Name</td>
-                                        <td >Path</td>
-                                        <td >Db Type</td>
-                                        <td >Language</td>
-                                        <td >edit</td>
+            @*<div class="col-xs-33 col-xs-offset-1 margin-top-2 " data-genid="Shared_Layout_57">
+                        <div class="box box-warning" data-genid="Shared_Layout_58">
+                            <div class="box-body" data-genid="Shared_Layout_59">
+                                <table class="table table-responsive  table-bordered" data-genid="Shared_Layout_60">
+                                    <thead data-genid="Shared_Layout_61">
+                                    <tr data-genid="Shared_Layout_62">
+                                        <td data-genid="Shared_Layout_63">Project Name</td>
+                                        <td data-genid="Shared_Layout_64">Path</td>
+                                        <td data-genid="Shared_Layout_65">Db Type</td>
+                                        <td data-genid="Shared_Layout_66">Language</td>
+                                        <td data-genid="Shared_Layout_67">edit</td>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td >Project Name</td>
-                                        <td >Path</td>
-                                        <td >Db Type</td>
-                                        <td >Language</td>
-                                        <td >edit</td>
+                                    <tbody data-genid="Shared_Layout_68">
+                                    <tr data-genid="Shared_Layout_69">
+                                        <td data-genid="Shared_Layout_70">Project Name</td>
+                                        <td data-genid="Shared_Layout_71">Path</td>
+                                        <td data-genid="Shared_Layout_72">Db Type</td>
+                                        <td data-genid="Shared_Layout_73">Language</td>
+                                        <td data-genid="Shared_Layout_74">edit</td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>*@
-            </div>
-            <div class="top col-xs-50 bg-primary">
-                <footer id="masthead" class="site-header" role="banner">
-                    <div class="col-lg-44 col-xs-50 col-md-48 col-md-offset-1 col-lg-offset-3">
-                        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-                    </div>
-                </footer>
-            </div>
+        </div>
+        <div class="top col-xs-50 bg-primary" data-genid="Shared_Layout_75">
+            <footer id="masthead" class="site-header" role="banner" data-genid="Shared_Layout_76">
+                <div class="col-lg-44 col-xs-50 col-md-48 col-md-offset-1 col-lg-offset-3" data-genid="Shared_Layout_77">
+                    <p data-genid="Shared_Layout_78">© @DateTime.Now.Year - My ASP.NET Application</p>
+                </div>
+            </footer>
         </div>
     </div>
+</div>
     @Scripts.Render("~/bundles/jquery")
-    <script src="@Url.Content("~/Scripts/commonscripts.js")"></script>
-    <script src="@Url.Content("~/Scripts/development.js")"></script>
-    <script src="@Url.Content("~/Scripts/localcache.js")"></script>
-    <script src="@Url.Content("~/Scripts/sessionstorage.js")"></script>
-    <script src="@Url.Content("~/Scripts/angular-modelvalidation.js")"></script>
-    <script src="@Url.Content("~/Scripts/ng/angular.js")"></script>
-    <script src="@Url.Content("~/Scripts/moment/moment.min.js")"></script>
-    <script src="@Url.Content("~/Scripts/material/arrive.min.js")"></script>
-    <script src="@Url.Content("~/Scripts/material/material.min.js")"></script>
-    <script src="@Url.Content("~/Scripts/material/ripples.min.js")"></script>
-    <script src="@Url.Content("~/Scripts/material-datepicker/js/bootstrap-material-datetimepicker.js")"></script>
-    <script src="@Url.Content("~/Scripts/chosen/chosen.jquery.min.js")"></script>
-    <script src="@Url.Content("~/Scripts/selectize/standalone/selectize.min.js")"></script>
-    <script src="@Url.Content("~/Scripts/htmldesigner.js")"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.min.js")" data-genid="Shared_Layout_79"></script>
+<script src="@Url.Content("~/Scripts/commonscripts.js")" data-genid="Shared_Layout_80"></script>
 
-    <script src="@Url.Content("~/Scripts/" + controllerName.ToLower() + "-" + actionName.ToLower() + ".js")"></script>
+    <script src="@Url.Content("~/Scripts/development.js")" data-genid="Shared_Layout_81"></script>
+    <script src="@Url.Content("~/Scripts/localcache.js")" data-genid="Shared_Layout_82"></script>
+    <script src="@Url.Content("~/Scripts/sessionstorage.js")" data-genid="Shared_Layout_83"></script>
+    <script src="@Url.Content("~/Scripts/angular-modelvalidation.js")" data-genid="Shared_Layout_84"></script>
+    <script src="@Url.Content("~/Scripts/ng/angular.js")" data-genid="Shared_Layout_85"></script>
+    <script src="@Url.Content("~/Scripts/moment/moment.min.js")" data-genid="Shared_Layout_86"></script>
+    <script src="@Url.Content("~/Scripts/material/arrive.min.js")" data-genid="Shared_Layout_87"></script>
+    <script src="@Url.Content("~/Scripts/material/material.min.js")" data-genid="Shared_Layout_88"></script>
+    <script src="@Url.Content("~/Scripts/material/ripples.min.js")" data-genid="Shared_Layout_89"></script>
+    <script src="@Url.Content("~/Scripts/material-datepicker/js/bootstrap-material-datetimepicker.js")" data-genid="Shared_Layout_90"></script>
+    <script src="@Url.Content("~/Scripts/chosen/chosen.jquery.min.js")" data-genid="Shared_Layout_91"></script>
+<script src="@Url.Content("~/Scripts/selectize/standalone/selectize.min.js")" data-genid="Shared_Layout_92"></script>
+    <script src="@Url.Content("~/Scripts/bindlist.js")" data-genid="Shared_Layout_93"></script>
+    <script src="@Url.Content("~/Scripts/htmldesigner.js")" data-genid="Shared_Layout_94"></script>
+
+    <script src="@Url.Content("~/Scripts/" + controllerName.ToLower() + "-" + actionName.ToLower() + ".js")" data-genid="Shared_Layout_95"></script>
     @RenderSection("scripts", required: false)
-    <script>
+    <script data-genid="Shared_Layout_96">
         $.material.init();
     </script>
 
@@ -173,5 +154,5 @@
         var displayname = ((System.ComponentModel.DataAnnotations.DisplayAttribute)attributes[0]).Name;
     *@
 
-</body>
-</html>
+
+</body></html>
