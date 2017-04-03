@@ -1,4 +1,4 @@
-<html data-genid="Shared_Layout_0"><head data-genid="Shared_Layout_1">
+﻿<html data-genid="Shared_Layout_0"><head data-genid="Shared_Layout_1">
    
     <meta charset="utf-8" data-genid="Shared_Layout_2">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" data-genid="Shared_Layout_3">
@@ -56,8 +56,8 @@
                         <div class="col-xs-48 " data-genid="Shared_Layout_39">
                             <ul class="nav nav-pills " data-genid="Shared_Layout_40">
                                 <li class="active" data-genid="Shared_Layout_41">@Html.ActionLink("Home", "Index", "Home")</li>
-                                <li data-genid="Shared_Layout_42">@Html.ActionLink("Settings", "Database", "Settings")</li>
-                                <li data-genid="Shared_Layout_43">@Html.ActionLink("Generate Model", "GenerateModel", "Model")</li>
+                                <li class="hidden" data-genid="Shared_Layout_42">@Html.ActionLink("Settings", "Database", "Settings")</li>
+                                <li class="hidden" data-genid="Shared_Layout_43">@Html.ActionLink("Generate Model", "GenerateModel", "Model")</li>
                             </ul>
                         </div>
                         <div class="col-xs-2 " data-genid="Shared_Layout_44">
@@ -69,8 +69,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-50 mt-10" data-genid="Shared_Layout_46">
-            <div class="breadcumbabs" data-genid="Shared_Layout_47">
+        <div class="col-xs-50 mt-10 " style="min-height:800px;" data-genid="Shared_Layout_46">
+            <div class="breadcumbabs hidden" data-genid="Shared_Layout_47">
 
                 <ul class="breadcrumb" style="margin-bottom: 5px;" data-genid="Shared_Layout_48">
                     <li data-genid="Shared_Layout_49"><span class="glyphicon glyphicon-pushpin" data-genid="Shared_Layout_50"></span></li>
@@ -141,7 +141,7 @@
     <script src="@Url.Content("~/Scripts/bindlist.js")" data-genid="Shared_Layout_93"></script>
     <script src="@Url.Content("~/Scripts/htmldesigner.js")" data-genid="Shared_Layout_94"></script>
 
-    <script src="@Url.Content("~/Scripts/" + controllerName.ToLower() + "-" + actionName.ToLower() + ".js")" data-genid="Shared_Layout_95"></script>
+    <script src="@Url.Content("~/Scripts/" + controllerName.ToLower() + "/" + actionName.ToLower() + ".js")" data-genid="Shared_Layout_95"></script>
     @RenderSection("scripts", required: false)
     <script data-genid="Shared_Layout_96">
         $.material.init();

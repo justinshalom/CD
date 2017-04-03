@@ -186,9 +186,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Code\Config\Project.cs" />
     <Compile Include="Code\File\FIleUtilities.cs" />
     <Compile Include="Code\HtmlParser.cs" />
     <Compile Include="Code\Html\cQuery.cs" />
+    <Compile Include="Controllers\DesignController.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\JsonApiController.cs" />
     <Compile Include="Controllers\JsonController.cs" />
@@ -258,6 +260,7 @@
     <Content Include="Content\bootstrap\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap\bootstrap.css.map" />
     <Content Include="Scripts\bindlist.js" />
+    <Content Include="Scripts\Design\editor.js" />
     <Content Include="Scripts\htmldesigner.js" />
     <Content Include="Scripts\material-datepicker\js\bootstrap-material-datetimepicker.js" />
     <Content Include="Scripts\material\arrive.min.js" />
@@ -1135,6 +1138,7 @@
     <Content Include="Scripts\material\material.min.js" />
     <Content Include="Scripts\material\ripples.js" />
     <Content Include="Scripts\material\ripples.min.js" />
+    <Content Include="Scripts\notification.js" />
     <Content Include="Scripts\selectize\selectize.js" />
     <Content Include="Scripts\selectize\selectize.min.js" />
     <Content Include="Scripts\selectize\standalone\selectize.js" />
@@ -1199,6 +1203,7 @@
     <Content Include="Scripts\material\ripples.min.js.map" />
     <Content Include="Scripts\chosen\package.json" />
     <Content Include="Views\File\FileManager.cshtml" />
+    <Content Include="Views\Design\Editor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
