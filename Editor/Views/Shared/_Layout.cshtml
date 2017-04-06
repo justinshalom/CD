@@ -1,5 +1,4 @@
-﻿<html data-genid="Shared_Layout_0"><head data-genid="Shared_Layout_1">
-   
+﻿<html data-genid="Shared_Layout_0"><head data-genid="Shared_Layout_1">   
     <meta charset="utf-8" data-genid="Shared_Layout_2">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" data-genid="Shared_Layout_3">
     <meta name="robots" content="no-cache" data-genid="Shared_Layout_4">
@@ -20,8 +19,6 @@
     <link href="@Url.Content("~/Content/chosen/chosen.min.css")" rel="stylesheet" data-genid="Shared_Layout_19">
     <link href="@Url.Content("~/Content/selectize/css/selectize.css")" rel="stylesheet" data-genid="Shared_Layout_20">
     <link href="@Url.Content("~/Content/css/site")" rel="stylesheet" data-genid="Shared_Layout_21">
-   
-    
 </head>
 
 <body data-genid="Shared_Layout_22">
@@ -49,7 +46,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-50" style="box-shadow: -1px 0px 1px 1px #aa935a;" data-genid="Shared_Layout_35">
+        <div class="col-xs-50 hidden" style="box-shadow: -1px 0px 1px 1px #aa935a;" data-genid="Shared_Layout_35">
             <div class="col-xs-50 col-sm-50 col-md-50 col-lg-50 header" data-genid="Shared_Layout_36">
                 <div class="col-xs-50 " data-genid="Shared_Layout_37">
                     <div class="col-xs-50 hiddendiv globalcontent" data-genid="Shared_Layout_38">
@@ -69,7 +66,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-50 mt-10 " style="min-height:800px;" data-genid="Shared_Layout_46">
+        <div class="col-xs-50 mt-10 "  data-genid="Shared_Layout_46">
             <div class="breadcumbabs hidden" data-genid="Shared_Layout_47">
 
                 <ul class="breadcrumb" style="margin-bottom: 5px;" data-genid="Shared_Layout_48">
@@ -113,7 +110,7 @@
                         </div>
                     </div>*@
         </div>
-        <div class="top col-xs-50 bg-primary" data-genid="Shared_Layout_75">
+        <div class="top col-xs-50 bg-primary hidden" data-genid="Shared_Layout_75">
             <footer id="masthead" class="site-header" role="banner" data-genid="Shared_Layout_76">
                 <div class="col-lg-44 col-xs-50 col-md-48 col-md-offset-1 col-lg-offset-3" data-genid="Shared_Layout_77">
                     <p data-genid="Shared_Layout_78">© @DateTime.Now.Year - My ASP.NET Application</p>
@@ -124,12 +121,11 @@
 </div>
     @Scripts.Render("~/bundles/jquery")
     <script src="@Url.Content("~/Scripts/bootstrap.min.js")" data-genid="Shared_Layout_79"></script>
-<script src="@Url.Content("~/Scripts/commonscripts.js")" data-genid="Shared_Layout_80"></script>
-
-    <script src="@Url.Content("~/Scripts/development.js")" data-genid="Shared_Layout_81"></script>
-    <script src="@Url.Content("~/Scripts/localcache.js")" data-genid="Shared_Layout_82"></script>
-    <script src="@Url.Content("~/Scripts/sessionstorage.js")" data-genid="Shared_Layout_83"></script>
-    <script src="@Url.Content("~/Scripts/angular-modelvalidation.js")" data-genid="Shared_Layout_84"></script>
+    <script src="@Url.Content("~/Scripts/internal/commonscripts.js")" data-genid="Shared_Layout_80"></script>
+    <script src="@Url.Content("~/Scripts/internal/development.js")" data-genid="Shared_Layout_81"></script>
+    <script src="@Url.Content("~/Scripts/internal/localcache.js")" data-genid="Shared_Layout_82"></script>
+    <script src="@Url.Content("~/Scripts/internal/sessionstorage.js")" data-genid="Shared_Layout_83"></script>
+    <script src="@Url.Content("~/Scripts/internal/angular-modelvalidation.js")" data-genid="Shared_Layout_84"></script>
     <script src="@Url.Content("~/Scripts/ng/angular.js")" data-genid="Shared_Layout_85"></script>
     <script src="@Url.Content("~/Scripts/moment/moment.min.js")" data-genid="Shared_Layout_86"></script>
     <script src="@Url.Content("~/Scripts/material/arrive.min.js")" data-genid="Shared_Layout_87"></script>
@@ -138,9 +134,9 @@
     <script src="@Url.Content("~/Scripts/material-datepicker/js/bootstrap-material-datetimepicker.js")" data-genid="Shared_Layout_90"></script>
     <script src="@Url.Content("~/Scripts/chosen/chosen.jquery.min.js")" data-genid="Shared_Layout_91"></script>
 <script src="@Url.Content("~/Scripts/selectize/standalone/selectize.min.js")" data-genid="Shared_Layout_92"></script>
-    <script src="@Url.Content("~/Scripts/bindlist.js")" data-genid="Shared_Layout_93"></script>
-    <script src="@Url.Content("~/Scripts/htmldesigner.js")" data-genid="Shared_Layout_94"></script>
-
+    <script src="@Url.Content("~/Scripts/internal/bindlist.js")" data-genid="Shared_Layout_93"></script>
+    <script src="@Url.Content("~/Scripts/internal/messenger.js")"></script>
+    <script src="@Url.Content("~/Scripts/internal/dependencysolver.js")"></script>
     <script src="@Url.Content("~/Scripts/" + controllerName.ToLower() + "/" + actionName.ToLower() + ".js")" data-genid="Shared_Layout_95"></script>
     @RenderSection("scripts", required: false)
     <script data-genid="Shared_Layout_96">

@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Editor.Controllers
 {
-    public class DesignController : BaseController
+    public class VisualController : BaseController
     {
         // GET: Design
         public ActionResult Editor()

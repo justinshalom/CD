@@ -1,25 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Editor.Code.StateManagement;
 
 namespace Editor.Code.Config
 {
-    public class Project
+    public static class Project
     {
-        private static string _url;
-        private static string _directory;
-
-        public static string Url
+        static Project()
         {
-            get { return "http://www.digit.in/samsung-mobile-phones/"; }
-            set { _url = value; }
+            if (Session.Peek("ProjectProperties") == null)
+            {
+                var project = new ProjectProperties();
+                project.Url = "http://localhost:53910";
+                project.Directory = @"D:\WorkOfJustin\Mundipharma\Main\MundipharmaEAS\EAS.Web";
+                Session.Keep("ProjectProperties", project);
+            }
+            if (Session.Peek("ProjectProperties") != null)
+            {
+                var project = Session.Peek("ProjectProperties") as ProjectProperties;
+                Url = project.Url;
+                Directory = project.Directory;
+                DbName = project.DbName;
+                DbUserName = project.DbUserName;
+                DbPassword = project.DbPassword;
+            }
         }
 
-        public static string Directory
-        {
-            get { return @"D:\WorkOfJustin\Mundipharma\Main\MundipharmaEAS\EAS.Web"; }
-            set { _directory = value; }
-        }
+        public static string DbPassword { get; set; }
+
+        public static string DbUserName { get; set; }
+
+        public static string Url { get; set; }
+
+        public static string Directory { get; set; }
+
+        public static string DbName { get; set; }
+    }
+
+    internal class ProjectProperties
+    {
+        internal string Url { get; set; }
+        internal string Directory { get; set; }
+
+        internal string DbName { get; set; }
+        internal string DbUserName { get; set; }
+        internal string DbPassword { get; set; }
     }
 }
