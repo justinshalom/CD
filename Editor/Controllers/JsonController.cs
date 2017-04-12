@@ -205,7 +205,7 @@ namespace Editor.Controllers
             var genidname = "data-genid";
             var html = "";
             var tempcontent = content;
-            var contenthider = new Dictionary<int,string>();
+            var contenthider = new Dictionary<int, string>();
             try
             {
                 var razorstarts = false;
@@ -213,51 +213,45 @@ namespace Editor.Controllers
                 var contenthiderkey = 0;
                 var commentdata = "";
                 var options = RegexOptions.Multiline | RegexOptions.IgnoreCase;
-                string cleanpattern = @"@\(*.+\)";
-                string razorcommentspattern= @"(@\*)(.*)(\*@)";
+                string cleanpattern = @"@(?<=\@).+?(?<=\().+?(?=\))\)";
+                string razorcommentspattern = @"(@\*)(.*)(\*@)";
+                var templinecontent = "";
                 using (StringReader reader = new StringReader(content))
                 {
                     string line;
                     while ((line = reader.ReadLine()) != null)
                     {
                         var regexcm = new Regex(razorcommentspattern);
-                        if (line.Contains("@*")&& line.Contains("*@")&&regexcm.Matches(line).Count > 0)
+                        if (line.Contains("@*") && line.Contains("*@") && regexcm.Matches(line).Count > 0)
                         {
-                           
-                           
-                                foreach (Match m in Regex.Matches(line, razorcommentspattern, options))
-                                {
-                                    var hdkey = "hdkey_" + m.Value + "_hdkey";
-                                    contenthider.Add(contenthiderkey, hdkey);
-                                    contenthiderkey++;
-                                    line = line.Replace(m.Value, hdkey);
-                                }
-                            
-                        }else
-                        if (line.Contains("@*"))
+                            foreach (Match m in Regex.Matches(line, razorcommentspattern, options))
+                            {
+                                var hdkey = "hdkey_" + contenthiderkey + "_hdkey";
+                                contenthider.Add(contenthiderkey, m.Value);
+                                contenthiderkey++;
+                                line = line.Replace(m.Value, hdkey);
+                            }
+                        }
+                        else if (line.Contains("@*"))
                         {
-                            var commentstartsarray=line.Split(new string[1] { "@*" },StringSplitOptions.None);
-                            commentdata=commentstartsarray[1];
+                            var commentstartsarray = line.Split(new string[1] { "@*" }, StringSplitOptions.None);
+                            commentdata = "@*" + commentstartsarray[1];
                             line = line.Replace(commentdata, "");
                             razorcommentstarts = true;
-
                         }
-                        else
-                        if (line.Contains("*@"))
+                        else if (line.Contains("*@"))
                         {
                             var commentstartsarray = line.Split(new string[1] { "*@" }, StringSplitOptions.None);
-                            commentdata = commentdata+commentstartsarray[0];
-                            var hdkey = "hdkey_" + commentdata + "_hdkey";
-                            contenthider.Add(contenthiderkey, hdkey);
+                            commentdata = commentdata + commentstartsarray[0] + "*@";
+                            var hdkey = "hdkey_" + contenthiderkey + "_hdkey";
+                            contenthider.Add(contenthiderkey, commentdata);
                             contenthiderkey++;
-                            line = line.Replace(commentstartsarray[0], hdkey);
+                            line = line.Replace(commentstartsarray[0] + "*@", hdkey);
                             razorcommentstarts = false;
-
                         }
-                        else
-                        if (razorcommentstarts == true)
+                        else if (razorcommentstarts == true)
                         {
-                            commentdata = commentdata+line;
+                            commentdata = commentdata + Environment.NewLine + line;
                             line = "";
                         }
                         var atoccurs = line.Split('@');
@@ -266,13 +260,12 @@ namespace Editor.Controllers
                         {
                             for (int i = 1; i < atoccurs.Length; i++)
                             {
-
                                 var razorcode = "@" + atoccurs[i];
                                 if (razorcode.Contains("@*"))
                                 {
                                     razorcode = razorcode + "@";
                                 }
-                                    if (razorcode.Contains("@{"))
+                                if (razorcode.Contains("@{"))
                                 {
                                     razorstarts = true;
                                 }
@@ -280,38 +273,37 @@ namespace Editor.Controllers
                                 regexcm = new Regex(razorcommentspattern);
                                 if (regexcm.Matches(razorcode).Count > 0)
                                 {
-
                                 }
-                              
-                                if (regexcp.Matches(razorcode).Count>0)
+
+                                if (regexcp.Matches(razorcode).Count > 0)
                                 {
-                                   
                                     foreach (Match m in Regex.Matches(razorcode, cleanpattern, options))
                                     {
-                                        var hdkey = "hdkey_" + m.Value + "_hdkey";
-                                        contenthider.Add(contenthiderkey, hdkey);
+                                        var hdkey = "hdkey_" + contenthiderkey + "_hdkey";
+                                        contenthider.Add(contenthiderkey, m.Value);
                                         contenthiderkey++;
                                         line = line.Replace(m.Value, hdkey);
                                     }
                                 }
                             }
                         }
+                        templinecontent += Environment.NewLine + line;
                     }
                 }
+                content = templinecontent;
 
-                string headcleanpattern = @"(?<=\().+?(?=\))";
-                
+                ////string headcleanpattern = @"(?<=\().+?(?=\))";
 
-                foreach (Match m in Regex.Matches(content, headcleanpattern, options))
-                {
-                    Console.WriteLine("'{0}' found at index {1}.", m.Value, m.Index);
-                    content = "<!--encrypted" + content.Replace(m.Value, Encrypt(m.Value)) + "encryptedend-->";
-                }
-                Regex regex = new Regex(@"(\()(.*)("")(.*)(\))");
-                while (regex.Match(content).Length > 0)
-                {
-                    content = regreplace(@"(\()(.*)("")(.*)(\))", @"$1$2" + seperator + "$4$5", content);
-                }
+                ////foreach (Match m in Regex.Matches(content, headcleanpattern, options))
+                ////{
+                ////    Console.WriteLine("'{0}' found at index {1}.", m.Value, m.Index);
+                ////    content = "<!--encrypted" + content.Replace(m.Value, Encrypt(m.Value)) + "encryptedend-->";
+                ////}
+                ////Regex regex = new Regex(@"(\()(.*)("")(.*)(\))");
+                ////while (regex.Match(content).Length > 0)
+                ////{
+                ////    content = regreplace(@"(\()(.*)("")(.*)(\))", @"$1$2" + seperator + "$4$5", content);
+                ////}
                 var parser = new HtmlParser();
                 var document = parser.Parse(content);
                 var id = document.QuerySelector("#generatedmaindetails");
@@ -321,13 +313,15 @@ namespace Editor.Controllers
                 }
                 var code = document.CreateElement("div");
                 code.SetAttribute("id", "generatedmaindetails");
-                code.InnerHtml = @"@{" + Environment.NewLine + "string actionName = this.ViewContext.RouteData.Values[" + '"' + "action" + '"' + "].ToString();" + Environment.NewLine +
-                    "string controllerName = this.ViewContext.RouteData.Values[" + '"' +
-                    "controller" + '"' + "].ToString();" + Environment.NewLine + "string areaName = " + '"' + "" + '"' + "; " + Environment.NewLine +
-                    "if (this.ViewContext.RouteData.DataTokens[" + '"' + "area" + '"' + "] != null) " + Environment.NewLine +
-                    "{" + Environment.NewLine +
-                    "  areaName = this.ViewContext.RouteData.DataTokens[" + '"' + "area" + '"' + "].ToString(); " + Environment.NewLine +
-                    "}};" + Environment.NewLine;
+                var mypath = @FIleUtilities.RootPath + FIleUtilities.ViewPath + "Visual\\PrependHeader." + FIleUtilities.Dot.cshtml;
+                var InnerHtml = FIleUtilities.GetFileContent(mypath);
+                var UriString =
+                    Url.Action("Designer", "Visual",
+                        routeValues: null /* specify if needed */,
+                        protocol: Request.Url.Scheme /* This is the trick */);
+                InnerHtml = InnerHtml.Replace("generatedurl", UriString);
+
+                code.InnerHtml = InnerHtml;
 
                 document.Body.AppendChild(code);
 
@@ -339,6 +333,19 @@ namespace Editor.Controllers
                 {
                     html = document.DocumentElement.OuterHtml;
                 }
+                string entitypattern = @"&gt;";
+                Regex entitypatternregex = new Regex(entitypattern);
+                html = entitypatternregex.Replace(html, ">");
+                entitypattern = @"&gt;";
+                entitypatternregex = new Regex(entitypattern);
+                html = entitypatternregex.Replace(html, ">");
+
+                foreach (var c in contenthider)
+                {
+                    html=html.Replace("hdkey_"+c.Key+"_hdkey",c.Value);
+                }
+
+
             }
             catch (Exception e)
             {
@@ -415,6 +422,17 @@ namespace Editor.Controllers
         /// <returns></returns>
         public JsonResult SolveDependency(string controllername = "", string view = "", string area = "")
         {
+
+            var htmlnew = FIleUtilities.GetFileContent(@"D:\\WorkOfJustin\\Replica\\Main\\Replika\\Replika.Neiman\\Default.html");
+            var parser = new HtmlParser();
+            var document = parser.Parse(htmlnew);
+
+            htmlnew = document.DocumentElement.OuterHtml;
+            htmlnew = Regex.Replace(htmlnew, @"^\s+$[\r\n]*", "", RegexOptions.Multiline);
+            FIleUtilities.SetFileContent(htmlnew, @"D:\\WorkOfJustin\\Replica\\Main\\Replika\\Replika.Neiman\\Default.html");
+           
+          
+
             if (controllername == "" && view == "")
             {
                 var url = Project.Url;

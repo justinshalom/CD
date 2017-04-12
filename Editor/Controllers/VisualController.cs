@@ -13,5 +13,9 @@ namespace Editor.Controllers
         {
             return View();
         }
+        public ActionResult Designer()
+        {
+            return View();
+        }
     }
 }

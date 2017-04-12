@@ -1219,6 +1219,9 @@
     <Content Include="Scripts\chosen\package.json" />
     <Content Include="Views\File\FileManager.cshtml" />
     <Content Include="Views\Visual\Editor.cshtml" />
+    <Content Include="Views\Visual\PrependHeader.cshtml" />
+    <Content Include="Views\Visual\AppendFooter.cshtml" />
+    <Content Include="Views\Visual\Designer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
