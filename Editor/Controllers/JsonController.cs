@@ -309,7 +309,7 @@ namespace Editor.Controllers
                 var id = document.QuerySelector("#generatedmaindetails");
                 if (id != null)
                 {
-                    document.RemoveChild(id);
+                    id.Remove();
                 }
                 var code = document.CreateElement("div");
                 code.SetAttribute("id", "generatedmaindetails");
@@ -423,13 +423,13 @@ namespace Editor.Controllers
         public JsonResult SolveDependency(string controllername = "", string view = "", string area = "")
         {
 
-            var htmlnew = FIleUtilities.GetFileContent(@"D:\\WorkOfJustin\\Replica\\Main\\Replika\\Replika.Neiman\\Default.html");
-            var parser = new HtmlParser();
-            var document = parser.Parse(htmlnew);
+            ////var htmlnew = FIleUtilities.GetFileContent(@"D:\\WorkOfJustin\\Replica\\Main\\Replika\\Replika.Neiman\\Default.html");
+            ////var parser = new HtmlParser();
+            ////var document = parser.Parse(htmlnew);
 
-            htmlnew = document.DocumentElement.OuterHtml;
-            htmlnew = Regex.Replace(htmlnew, @"^\s+$[\r\n]*", "", RegexOptions.Multiline);
-            FIleUtilities.SetFileContent(htmlnew, @"D:\\WorkOfJustin\\Replica\\Main\\Replika\\Replika.Neiman\\Default.html");
+            ////htmlnew = document.DocumentElement.OuterHtml;
+            ////htmlnew = Regex.Replace(htmlnew, @"^\s+$[\r\n]*", "", RegexOptions.Multiline);
+            ////FIleUtilities.SetFileContent(htmlnew, @"D:\\WorkOfJustin\\Replica\\Main\\Replika\\Replika.Neiman\\Default.html");
            
           
 
@@ -445,8 +445,12 @@ namespace Editor.Controllers
                     if (path.Contains("Layout"))
                     {
                         lhtml = FIleUtilities.GetFileContent(path);
-                        lhtml = ApplyDependencyDetails(lhtml, "Shared", "Layout");
-                        FIleUtilities.SetFileContent(lhtml, path);
+                        string changedlhtml = ApplyDependencyDetails(lhtml, "Shared", "Layout");
+                        if (changedlhtml != lhtml)
+                        {
+                            FIleUtilities.SetFileContent(lhtml, path);
+                            return Json(true, String.Empty, string.Empty);
+                        }
                     }
                 }
                 return Json(false, String.Empty, string.Empty);

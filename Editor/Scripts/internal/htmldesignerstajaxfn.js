@@ -2,7 +2,7 @@
 
     $.post(rooturl + "Json/Attribute", postdata,
        function (data) {
-           if (!data.IsError) {
+           if (!data.IsTrue) {
                originalfile = data.Data;
            } else {
                window.location.reload(true);

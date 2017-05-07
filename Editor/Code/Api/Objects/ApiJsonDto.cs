@@ -7,7 +7,7 @@ namespace Editor.Code.Api
 {
     public class ApiJsonDto
     {
-        public bool IsError { get; set; }
+        public bool IsTrue { get; set; }
         public string Message { get; set; }
         public object Data { get; set; }
     }

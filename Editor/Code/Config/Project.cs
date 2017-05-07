@@ -10,7 +10,7 @@ namespace Editor.Code.Config
             {
                 var project = new ProjectProperties();
                 project.Url = "http://localhost:53910";
-                project.Directory = @"D:\WorkOfJustin\Mundipharma\Main\MundipharmaEAS\EAS.Web";
+                project.Directory = @"F:\HolyWords\HolyWords";
                 Session.Keep("ProjectProperties", project);
             }
             if (Session.Peek("ProjectProperties") != null)

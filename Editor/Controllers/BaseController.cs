@@ -18,7 +18,7 @@ namespace Editor.Controllers
         {
             var rt = new ApiJsonDto
             {
-                IsError = error,
+                IsTrue = error,
                 Message = message,
                 Data = data
             };

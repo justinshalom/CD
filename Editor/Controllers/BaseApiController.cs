@@ -22,11 +22,11 @@ namespace Editor.Controllers
         /// <returns>
         /// Json Data
         /// </returns>
-        protected IHttpActionResult Ok(bool error, string message, object data)
+        protected IHttpActionResult Ok(bool IsTrue, string message, object data)
         {
             var rt = new ApiJsonDto
             {
-                IsError = error,
+                IsTrue = IsTrue,
                 Message = message,
                 Data = data
             };

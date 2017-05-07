@@ -9,6 +9,15 @@
         }
     }
 </div>
+<style>
+    #generatediframe {
+    width: 100%;
+    overflow: hidden;
+    /* zoom: 81%; */
+    height: 200px;
+    border: 0px;
+    }
+</style>
 <script>
     var hd_rooturl="@Url.Action("", "", new { area = "" })";
     var hd_contenturl="@Url.Content("~/Content/")";
@@ -16,4 +25,4 @@
     var hd_controller="@controllerName";
     var hd_area="@areaName";
 </script>
-<iframe src="generatedurl"></iframe>
+<iframe id="generatediframe" src="generatedurl"></iframe>

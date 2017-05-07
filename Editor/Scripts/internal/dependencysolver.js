@@ -8,7 +8,7 @@
         $.post(rooturl + "Json/SolveDependency",
             postdata,
             function(data) {
-                if (!data.IsError) {
+                if (!data.IsTrue) {
                     //originalfile = data.Data;
                 } else {
                     $('#editoriframe').attr('src', $('#editoriframe').attr('src'));
@@ -31,12 +31,27 @@ window.addEventListener('message',
     },
     false);
 var hd_postdata = {};
-$(document).ready(function() {
-    $('#editoriframe').on("load",
-        function() {
-            setTimeout(function() {
-                    $.hd.SolveDependency(hd_postdata);
-                },
-                1000);
-        });
+$(document).ready(function () {
+    $.hd.SolveDependency(hd_postdata);
+    //$('#editoriframe').on("load",
+    //    function() {
+    //        setTimeout(function() {
+    //                $.hd.SolveDependency(hd_postdata);
+    //            },
+    //            1000);
+    //    });
 });
+//$('#editoriframe').on("load",
+//        function () {
+//            setTimeout(function () {
+//                $.hd.SolveDependency(hd_postdata);
+//            },
+//                1000);
+//        });
+//$(document).on("load", '#editoriframe',
+//        function () {
+//            setTimeout(function () {
+//                $.hd.SolveDependency(hd_postdata);
+//            },
+//                1000);
+//        });
