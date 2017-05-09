@@ -7,6 +7,7 @@
         {
             areaName = this.ViewContext.RouteData.DataTokens["area"].ToString();
         }
+        string scriptpath = "http://localhost:2525/Scripts";
     }
 </div>
 <style>
@@ -23,6 +24,15 @@
     var hd_contenturl="@Url.Content("~/Content/")";
     var hd_function="@actionName";
     var hd_controller="@controllerName";
-    var hd_area="@areaName";
+    var hd_area = "@areaName";
+    var hd_scripturl = "@scriptpath";
+    //var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+    //var eventer = window[eventMethod];
+    //var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
+    //eventer(messageEvent, function (e) {
+    //    if (typeof e.data == 'function') {
+    //        e.data();
+    //    }
+    //}, false);
 </script>
-<iframe id="generatediframe" src="generatedurl"></iframe>
+<script src="@scriptpath/internal/htmldesigner.js" type="text/javascript"></script>
