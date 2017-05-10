@@ -448,8 +448,8 @@ namespace Editor.Controllers
                         string changedlhtml = ApplyDependencyDetails(lhtml, "Shared", "Layout");
                         if (changedlhtml != lhtml)
                         {
-                          
-                            FIleUtilities.SetFileContent(lhtml, path);
+
+                            FIleUtilities.SetFileContent(changedlhtml, path);
                             return Json(true, String.Empty, string.Empty);
                         }
                     }
