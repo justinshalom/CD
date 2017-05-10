@@ -265,7 +265,7 @@
     <Content Include="Scripts\internal\bindlist.js" />
     <Content Include="Scripts\internal\dependencysolver.js" />
     <Content Include="Scripts\visual\editor.js" />
-    <Content Include="Scripts\internal\htmldesignerinitilize.js" />
+    <Content Include="Scripts\internal\htmldesignerinitialize.js" />
     <Content Include="Scripts\internal\htmldesignerevents.js" />
     <Content Include="Scripts\internal\htmldesignerfunctions.js" />
     <Content Include="Scripts\internal\htmldesignerstajaxfn.js" />
