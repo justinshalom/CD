@@ -422,7 +422,7 @@ namespace Editor.Controllers
         /// <returns></returns>
         public JsonResult SolveDependency(string controllername = "", string view = "", string area = "")
         {
-
+            try{
             ////var htmlnew = FIleUtilities.GetFileContent(@"D:\\WorkOfJustin\\Replica\\Main\\Replika\\Replika.Neiman\\Default.html");
             ////var parser = new HtmlParser();
             ////var document = parser.Parse(htmlnew);
@@ -448,6 +448,7 @@ namespace Editor.Controllers
                         string changedlhtml = ApplyDependencyDetails(lhtml, "Shared", "Layout");
                         if (changedlhtml != lhtml)
                         {
+                          
                             FIleUtilities.SetFileContent(lhtml, path);
                             return Json(true, String.Empty, string.Empty);
                         }
@@ -484,6 +485,10 @@ namespace Editor.Controllers
             {
                 var success = FIleUtilities.SetFileContent(area, controllername, view, html, FIleUtilities.ViewPath, FIleUtilities.Dot.cshtml);
                 return Json(true, string.Empty, string.Empty);
+            }
+            }
+            catch(Exception e){
+                var obj=e;
             }
             return Json(false, String.Empty, string.Empty);
         }

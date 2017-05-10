@@ -111,8 +111,16 @@ namespace Editor.Code.File
 
         internal static object SetFileContent(string content,string path)
         {
-            System.IO.File.WriteAllText(path, content);
-            return true;
+            try
+            {
+                System.IO.File.WriteAllText(path, content);
+                return true;
+            }
+            catch (Exception e)
+            {
+                var obj = e;
+                return false;
+            }
         }
     }
 }
