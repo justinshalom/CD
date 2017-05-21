@@ -18,12 +18,12 @@ $(document).ready(function () {
                     e.stopPropagation();
                     var t = $(this);
                     hd_menu.show();
-                    setmenupositions(hd_menu);
+                    setmenupositions(hd_menu, t,e);
                     var classeslist =
                         (t.attr('class'))
                             ? t.attr('class').split(' ')
                             : false;
-                    setmenubasedonattributes(hdmenu, t, classeslist, allclasses);
+                    setmenubasedonattributes(hd_menu, t, classeslist, allclasses);
                     $('#hd_rightmenu_allattributes').append(newattributehtml);
                     selectise();
                     setmenuheader(t,classeslist);

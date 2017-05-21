@@ -21,5 +21,11 @@ namespace Editor.Controllers
         {
             return View();
         }
+        public ContentResult GetJson(string filename)
+        {
+            var file=Server.MapPath("~/Content/json/" + filename);
+            var content=System.IO.File.ReadAllText(filename);
+            return Content(content, "application/json");
+        }
 	}
 }

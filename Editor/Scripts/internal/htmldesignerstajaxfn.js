@@ -11,7 +11,7 @@
    );
 }
 function getallcssrules() {
-    $.get(contenturl + "json/properties.json",
+    $.get(hd_contenturl + "json/properties.json",
         function (data) {
             console.log(data);
             cssrules = data;

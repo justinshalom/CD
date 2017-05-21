@@ -2,6 +2,6 @@
 var hdCurrentobj = $('body');
 var cssrules = {};
 var postdata = {};
-postdata.area = area;
-postdata.controllername = controller;
-postdata.view = action;
+postdata.area = hd_area;
+postdata.controllername = hd_controller;
+postdata.view = hd_function;
