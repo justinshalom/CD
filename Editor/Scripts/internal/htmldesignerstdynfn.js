@@ -16,7 +16,7 @@
                         var formelement =
                             '<input type="text"  data-attributename="'
                                 + attributename
-                                + '" class="form-control input-sm" value = "'
+                                + '" class="hdform-control input-sm" value = "'
                                 + attributevalue
                                 + '"/>';
                         switch (attributename) {
@@ -25,7 +25,7 @@
                                 options =
                                     '<select data-attributename="'
                                     + attributename
-                                    + '" class="form-control chosen  input-sm" multiple="multiple" >';
+                                    + '" class="hdform-control chosen  input-sm" multiple="multiple" >';
                                 options += $.bindlist({
                                     array: classeslist,
                                     selected: true
@@ -42,7 +42,7 @@
                         }
                         $('#hd_rightmenu_allattributes').
                             append(''
-                                + '        <div class="form-group form-group-sm" id="hd_rightmenu_auto_'
+                                + '        <div class="hdform-group hdform-group-sm" id="hd_rightmenu_auto_'
                                 + attributename
                                 + '">'
                                 + '          <label class="control-label">'

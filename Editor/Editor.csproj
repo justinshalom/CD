@@ -243,6 +243,7 @@
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\fonts\Simple-Line-Icons.svg" />
+    <Content Include="Content\hd_styles.css" />
     <Content Include="Content\material-datepicker\css\bootstrap-material-datetimepicker.css" />
     <Content Include="Content\material-datepicker\font\Material-Design-Icons.svg" />
     <Content Include="Content\material\bootstrap-material-design.css" />

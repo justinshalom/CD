@@ -49,10 +49,10 @@ body.inverse .form-control {
   color: rgba(255,255,255, 0.84);
 }
 body.inverse .modal,
-body.inverse .panel-default,
+body.inverse .hdpanel-default,
 body.inverse .card,
 body.inverse .modal .form-control,
-body.inverse .panel-default .form-control,
+body.inverse .hdpanel-default .form-control,
 body.inverse .card .form-control {
   background-color: initial;
   color: initial;
@@ -3001,43 +3001,43 @@ fieldset[disabled] .navbar .btn-link:focus {
 .modal-backdrop {
   background: rgba(0, 0, 0, 0.3);
 }
-.panel {
+.hdpanel {
   border-radius: 2px;
   border: 0;
   -webkit-box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.12), 0 1px 6px 0 rgba(0, 0, 0, 0.12);
           box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.12), 0 1px 6px 0 rgba(0, 0, 0, 0.12);
 }
-.panel > .panel-heading,
-.panel.panel-default > .panel-heading {
+.hdpanel > .hdpanel-heading,
+.hdpanel.hdpanel-default > .hdpanel-heading {
   background-color: #eeeeee;
 }
-.panel.panel-inverse > .panel-heading {
+.hdpanel.hdpanel-inverse > .hdpanel-heading {
   background-color: #3f51b5;
 }
-.panel.panel-primary > .panel-heading {
+.hdpanel.hdpanel-primary > .hdpanel-heading {
   background-color: #009688;
 }
-.panel.panel-success > .panel-heading {
+.hdpanel.hdpanel-success > .hdpanel-heading {
   background-color: #4caf50;
 }
-.panel.panel-info > .panel-heading {
+.hdpanel.hdpanel-info > .hdpanel-heading {
   background-color: #03a9f4;
 }
-.panel.panel-warning > .panel-heading {
+.hdpanel.hdpanel-warning > .hdpanel-heading {
   background-color: #ff5722;
 }
-.panel.panel-danger > .panel-heading {
+.hdpanel.hdpanel-danger > .hdpanel-heading {
   background-color: #f44336;
 }
-[class*="panel-"] > .panel-heading {
+[class*="hdpanel-"] > .hdpanel-heading {
   color: rgba(255,255,255, 0.84);
   border: 0;
 }
-.panel-default > .panel-heading,
-.panel:not([class*="panel-"]) > .panel-heading {
+.hdpanel-default > .hdpanel-heading,
+.hdpanel:not([class*="hdpanel-"]) > .hdpanel-heading {
   color: rgba(0,0,0, 0.87);
 }
-.panel-footer {
+.hdpanel-footer {
   background-color: #eeeeee;
 }
 hr.on-dark {
