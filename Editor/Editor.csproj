@@ -187,12 +187,14 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Code\Config\Project.cs" />
+    <Compile Include="Code\Config\ProjectProperties.cs" />
     <Compile Include="Code\StateManagement\Cache.cs" />
     <Compile Include="Code\StateManagement\Cookie.cs" />
     <Compile Include="Code\File\FIleUtilities.cs" />
     <Compile Include="Code\HtmlParser.cs" />
     <Compile Include="Code\Html\cQuery.cs" />
     <Compile Include="Code\StateManagement\Session.cs" />
+    <Compile Include="Code\Utilities\SystemRel.cs" />
     <Compile Include="Controllers\VisualController.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\JsonApiController.cs" />
