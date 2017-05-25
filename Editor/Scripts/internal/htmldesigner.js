@@ -1,24 +1,33 @@
 ﻿////PrepareFileContent(postdata);
 
 $(document).ready(function () {
-
+    $.material.init();
+    $('body').
+      css("overflow", "hidden");
+    $(window).
+        resize(function () {
+            $('#editoriframe').height(window.innerHeight);
+        });
+    $('#editoriframe').on("load", function () {
+        $('#editoriframe').height(window.innerHeight);
+    });
     getallcssrules();
-        var allclasses = getall('class');
-        var allid = getall('id');
-        $('body').append(hd_rightmenu);
-        var hd_menu = $('#hd_rightmenu');
-        hd_menu.hide();
-    
+    var allclasses = getall('class');
+    var allid = getall('id');
+    $('body').append(hd_rightmenu);
+    var hd_menu = $('#hd_rightmenu');
+    hd_menu.hide();
+
     $('body').
             on('contextmenu',
                 '*',
-                function(e) {
+                function (e) {
                     hdCurrentobj = $(this);
                     e.preventDefault();
                     e.stopPropagation();
                     var t = $(this);
                     hd_menu.show();
-                    setmenupositions(hd_menu, t,e);
+                    setmenupositions(hd_menu, t, e);
                     var classeslist =
                         (t.attr('class'))
                             ? t.attr('class').split(' ')
@@ -26,7 +35,7 @@ $(document).ready(function () {
                     setmenubasedonattributes(hd_menu, t, classeslist, allclasses);
                     $('#hd_rightmenu_allattributes').append(newattributehtml);
                     selectise();
-                    setmenuheader(t,classeslist);
+                    setmenuheader(t, classeslist);
                 });
-        //autotest();
-    });
+    //autotest();
+});

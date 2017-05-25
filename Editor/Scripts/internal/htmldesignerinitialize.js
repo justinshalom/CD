@@ -39,12 +39,14 @@ function include(category, name) {
     $('head').prepend('<link href="' + hd_styleurl + "/" + category + '.css" rel="stylesheet" />');
 }
 $(document).ready(function () {
-    include('bootstrap','bootstrap');
-    include('material', 'bootstrap-material-design');
+    include('awe', 'css/font-awesome.min');
+   //include('bootstrap','bootstrap.min');
+    include('material', 'bootstrap-material-design.min');
     include('material', 'ripples.min');
     include('material-datepicker', 'css/bootstrap-material-datetimepicker');
     include('chosen', 'chosen.min');
     include('selectize', 'css/selectize');
+    include('hd_styles');
 
 
     var e =$.fn.jquery.split(" ")[0].split(".");
