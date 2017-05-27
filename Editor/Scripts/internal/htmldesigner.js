@@ -11,10 +11,13 @@ $(document).ready(function () {
     $('#editoriframe').on("load", function () {
         $('#editoriframe').height(window.innerHeight);
     });
-    getallcssrules();
+  
     var allclasses = getall('class');
     var allid = getall('id');
     $('body').append(hd_rightmenu);
+    getallcssproperties();
+
+    
     var hd_menu = $('#hd_rightmenu');
     hd_menu.hide();
 
@@ -22,6 +25,7 @@ $(document).ready(function () {
             on('contextmenu',
                 '*',
                 function (e) {
+
                     hdCurrentobj = $(this);
                     e.preventDefault();
                     e.stopPropagation();
@@ -34,8 +38,11 @@ $(document).ready(function () {
                             : false;
                     setmenubasedonattributes(hd_menu, t, classeslist, allclasses);
                     $('#hd_rightmenu_allattributes').append(newattributehtml);
-                    selectise();
+                    selectize();
                     setmenuheader(t, classeslist);
+                    $('#hd_styledesigner').hide();
+
+
                 });
     //autotest();
 });

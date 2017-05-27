@@ -44,7 +44,7 @@ $(document).ready(function () {
     include('material', 'bootstrap-material-design.min');
     include('material', 'ripples.min');
     include('material-datepicker', 'css/bootstrap-material-datetimepicker');
-    include('chosen', 'chosen.min');
+    //include('chosen', 'chosen.min');
     include('selectize', 'css/selectize');
     include('hd_styles');
 
@@ -61,7 +61,7 @@ $(document).ready(function () {
     require("material", "material.min");
     require("material", "ripples.min");
     require("material-datepicker", "js/bootstrap-material-datetimepicker");
-    require("chosen", "chosen.jquery.min");
+    //require("chosen", "chosen.jquery.min");
     require("selectize", "standalone/selectize.min");
     require("internal", "bindlist");
     require("internal", "htmldesignerhtml");

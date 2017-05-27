@@ -1,6 +1,13 @@
 ﻿var originalfile = "";
 var hdCurrentobj = $('body');
-var cssrules = {};
+var at_rules = {};
+var css_color_names = {};
+var css_font_weight_names = {};
+var properties = {};
+var selectors = {};
+var syntaxes = {};
+var types = {};
+var units = {};
 var postdata = {};
 postdata.area = hd_area;
 postdata.controllername = hd_controller;

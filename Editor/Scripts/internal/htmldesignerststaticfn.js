@@ -47,7 +47,7 @@ var autotest = function () {
 function css(a) {
     var sheets = document.styleSheets, o = {};
     for (var i in sheets) {
-        var rules = sheets[i].rules || sheets[i].cssRules;
+        var rules = sheets[i].rules || sheets[i].properties;
         for (var r in rules) {
             if (a.is(rules[r].selectorText)) {
                 o = $.extend(o,
@@ -65,9 +65,9 @@ function getall(type) {
             Array.prototype.slice.call(document.styleSheets).
             map(function(sheet) {
                 // Extract the rules
-                return sheet.cssRules != null
+                return sheet.properties != null
                     ? Array.prototype.concat.apply([],
-                        Array.prototype.slice.call(sheet.cssRules).
+                        Array.prototype.slice.call(sheet.properties).
                         map(function(rule) {
                             // Grab a list of classNames from each selector
                             switch (type) {
@@ -168,8 +168,8 @@ var setmenuheader = function(t,classeslist) {
     }
     }
 };
-var selectise = function() {
-    $('.chosen').
+var selectize = function () {
+    $('.selectize').
         selectize({
             delimiter: ',',
             persist: false,

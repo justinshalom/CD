@@ -14,18 +14,73 @@
                         && (attributename != "data-genid"
                             && attributename != "accesskeygenerated")) {
                         var formelement =
-                            '<input type="text"  data-attributename="'
+                            '<input type="text"   data-attributename="'
                                 + attributename
                                 + '" class="hdform-control input-sm" value = "'
                                 + attributevalue
                                 + '"/>';
                         switch (attributename) {
-                            case 'class':
+                            case 'style': {
+                                options =
+                                  '<select id="hd_styleinput" class="hdform-control selectize  input-sm"  ><option value=""></option>';
+                                options += $.bindlist({
+                                    array: properties,
+                                    key: 'index',
+                                    value: 'index'
+                                });
+                                options += '</select>';
+                            
+
+
+                                $('#hd_rightmenu_allattributes').
+                            append('<div id="existingstylelist" class="hdcol-xs-50"></div>'
+                                + '    <div class="hdcol-xs-50">    <div class="hdform-group hdform-group-sm" id="hd_rightmenu_auto_'
+                                + attributename
+                                + '">'
+                                + '          <label class="control-label pull-left">'
+                                + attributename
+                                + '</label>'
+                                //+ '<input type="text" list="hd_stylelist"  id="hd_styleinput"  class="hdform-control  input-sm" />'
+                                + options
+                                + '        </div>  '
+                                + '        </div>');
+                              
+                                var text = '    <div class="hdcol-xs-50" id="hd_styledesigner" style="position: absolute;z-index: 999999;top: 57px;left: 147px;background-color: rgba(255, 255, 255, 0.98);padding: 0px 18px;">   ';
+                                $.each(syntaxes, function (si, sv) {
+                                    if (sv.split("||").length == 0 && sv.split("[").length == 0 && sv.split("&lt;").length == 0 && sv.split("<").length == 0 && sv.split("|").length == 0) {
+
+                                        var style = '<div class="hdform-group hdform-group-sm styleinputs" id="hd_rightmenu_auto_'
+                                + attributename + '_'
+                                + si
+                                + '">'
+                                + '          <label class="control-label pull-left">'
+                                + 'Width'
+                                + '</label>'
+                                + '<select id="hd_stylevalueinput_'
+                                + si
+                                + '" class="hdform-control selectize  input-sm"  ><option value=""></option>';
+                                        style += $.bindlist({
+                                            array: sv.split("|"),
+                                            key: 'value',
+                                            value: 'value'
+                                        });
+                                        style += '</select>';
+                                        style += '        </div> ';
+                                        
+                                    }
+                                    text += style;
+                                });
+                              
+                                text += '        </div>';
+                                $('#hd_rightmenu_allattributes').append(text);
+                                break;
+                            }
+                            case 'class': {
                                 formelement = "";
                                 options =
                                     '<select data-attributename="'
                                     + attributename
-                                    + '" class="hdform-control chosen  input-sm" multiple="multiple" >';
+                                    + '" class="hdform-control selectize  input-sm" multiple="multiple" >';
                                 options += $.bindlist({
                                     array: classeslist,
                                     selected: true
@@ -38,19 +93,23 @@
                                 options += '</select>';
                                 formelement = options;
                                 break;
+                            }
                             default:
+                        
                         }
-                        $('#hd_rightmenu_allattributes').
+                        if (attributename != "style") {
+                            $('#hd_rightmenu_allattributes').
                             append(''
-                                + '        <div class="hdform-group hdform-group-sm" id="hd_rightmenu_auto_'
+                                + '    <div class="hdcol-xs-50 ">     <div class="hdform-group hdform-group-sm" id="hd_rightmenu_auto_'
                                 + attributename
                                 + '">'
-                                + '          <label class="control-label">'
+                                + '          <label class="control-label pull-left">'
                                 + attributename
                                 + '</label>'
                                 + formelement
                                 + '          '
-                                + '        </div>');
+                                + '      </div>   </div>');
+                        }
                     }
                 });
         };
