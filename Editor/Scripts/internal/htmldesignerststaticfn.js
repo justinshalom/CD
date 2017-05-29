@@ -169,7 +169,7 @@ var setmenuheader = function(t,classeslist) {
     }
 };
 var selectize = function () {
-    $('.selectize').
+    $('.selectize:not(.selectized)').
         selectize({
             delimiter: ',',
             persist: false,

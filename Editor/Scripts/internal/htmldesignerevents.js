@@ -72,12 +72,60 @@ $(document).
 
                       }
                       var syntax =obj.syntax;
-                      var order = syntax.split("||");
+                      var stylepieces = syntax.split("||");
                       $('.styleinputs').hide();
-                      $.each(order, function (ori,orv) {
-                          orv = orv.trim().replace("<", "").replace(">", "");
-                          $('#hd_rightmenu_auto_style_'+orv).show();
+                      $('#hd_styledesigner').html("");
+                      $('#hd_styledesigner').show();
+                      $.each(stylepieces, function (si, sv) {
+                         
+                           var styeinputs = "";
+                          var htmlinputscount = 0;
+                          if (sv.split("<").length > 1 &&
+                              sv.split(">").length > 1) {
+                              sv = sv.replace("<", "").replace(">", "").trim();
+                               styeinputs +=
+                                   '<div class="hdform-group hdform-group-sm styleinputs" id="hd_rightmenu_auto_style'
+                                   + '_'
+                                   + sv
+                                   + '">'
+                                   + '          <label class="control-label pull-left">'
+                                   + sv.replace(/-/, " ")
+                                   + '</label>'
+                                   + '<select id="hd_stylevalueinput_'
+                                   + sv
+                                   + '" class="hdform-control selectize  input-sm"  ><option value=""></option>';
+                               $.each(syntaxes[sv].split("|"), function (syi,syv) {
+                                   if (syv.split("<").length > 1 &&
+                             syv.split(">").length > 1) {
+
+                                   }
+                                   else {
+                                       htmlinputscount++;
+                                       syv = syv.trim();
+                                       styeinputs += '<option >' + syv + '</option>';
+                                   }
+
+                               })
+                               styeinputs += '</select>';
+                               styeinputs += '        </div> ';
+                           }
+                          if (htmlinputscount > 0) {
+                              $('#hd_styledesigner').append(styeinputs);
+                              styeinputs = "";
+                          }
+                          else {
+                          }
+
+
+                          //$('#hd_rightmenu_auto_style_' + orv).show();
+
+
+
+
                       });
+                      
+                     
+                      selectize();
                       $('#hd_styledesigner').show();
 
 

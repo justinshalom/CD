@@ -44,36 +44,7 @@
                             + '        </div>');
                     var text =
                         '    <div class="hdcol-xs-50" id="hd_styledesigner" style="position: absolute;z-index: 999999;top: 57px;left: 147px;background-color: rgba(255, 255, 255, 0.98);padding: 0px 18px;">   ';
-                    $.each(syntaxes,
-                        function(si, sv) {
-                            var style="";
-                            if (sv.split("||").length === 1
-                                && sv.split("[").length == 1
-                                && sv.split("&lt;").length == 1
-                                && sv.split("<").length == 1
-                                && sv.split("|").length > 1) {
-                                style =
-                                    '<div class="hdform-group hdform-group-sm styleinputs" id="hd_rightmenu_auto_'
-                                    + attributename
-                                    + '_'
-                                    + si
-                                    + '">'
-                                    + '          <label class="control-label pull-left">'
-                                    + si.replace(/-/, " ")
-                                    + '</label>'
-                                    + '<select id="hd_stylevalueinput_'
-                                    + si
-                                    + '" class="hdform-control selectize  input-sm"  ><option value=""></option>';
-                                style += $.bindlist({
-                                    array: sv.split("|"),
-                                    key: 'value',
-                                    value: 'value'
-                                });
-                                style += '</select>';
-                                style += '        </div> ';
-                            }
-                            text += style;
-                        });
+                   
                     text += '        </div>';
                     $('#hd_rightmenu_allattributes').append(text);
                     break;
