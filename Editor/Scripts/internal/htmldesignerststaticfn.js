@@ -65,9 +65,9 @@ function getall(type) {
             Array.prototype.slice.call(document.styleSheets).
             map(function(sheet) {
                 // Extract the rules
-                return sheet.properties != null
+                return sheet.cssRules != null
                     ? Array.prototype.concat.apply([],
-                        Array.prototype.slice.call(sheet.properties).
+                        Array.prototype.slice.call(sheet.cssRules).
                         map(function(rule) {
                             // Grab a list of classNames from each selector
                             switch (type) {

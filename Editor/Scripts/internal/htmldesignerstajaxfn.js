@@ -13,23 +13,23 @@
 
 
 function getallcssproperties() {
-    $.get(window.hd_contenturl + "json/at-rules.json",
+    requesthandler(window.hd_contenturl + "json/at-rules.json", false, "getJSON",
        function (data) {
            window.at_rules = data;
        });
-    $.get(window.hd_contenturl + "json/css-color-names.json",
+    requesthandler(window.hd_contenturl + "json/css-color-names.json", false, "getJSON",
       function (data) {
           window.css_color_names = data;
       });
-    $.get(window.hd_contenturl + "json/css-font-weight-names.json",
+    requesthandler(window.hd_contenturl + "json/css-font-weight-names.json", false, "getJSON",
       function (data) {
           window.css_font_weight_names = data;
       });
-    $.get(window.hd_contenturl + "json/selectors.json",
+    requesthandler(window.hd_contenturl + "json/selectors.json", false, "getJSON",
       function (data) {
           window.selectors = data;
       });
-    $.get(window.hd_contenturl + "json/syntaxes.json",
+    requesthandler(window.hd_contenturl + "json/syntaxes.json", false, "getJSON",
       function (data) {
           window.syntaxes = data;
           $.each(window.syntaxes,
@@ -37,16 +37,16 @@ function getallcssproperties() {
                   window.syntaxes[i] = $('<textarea />').html(window.syntaxes[i]).text();
               });
       });
-    $.get(window.hd_contenturl + "json/types.json",
+    requesthandler(window.hd_contenturl + "json/types.json", false, "getJSON",
       function (data) {
           window.types = data;
       });
-    $.get(window.hd_contenturl + "json/units.json",
+    requesthandler(window.hd_contenturl + "json/units.json", false, "getJSON",
       function (data) {
           window.units = data;
       });
    
-    $.get(window.hd_contenturl + "json/properties.json",
+    requesthandler(window.hd_contenturl + "json/properties.json", false, "getJSON",
         function (data) {
             console.log(data);
             window.properties = data;
@@ -57,7 +57,7 @@ function getallcssproperties() {
                 function(i, v) {
                     window.properties[i]
                         .syntax = $('<textarea />').html(window.properties[i].syntax).text();
-                    console.log(i+"="+window.properties[i].syntax);
+                    //console.log(i+"="+window.properties[i].syntax);
                 });
             //          $.each(properties,
             //              function (i, v) {

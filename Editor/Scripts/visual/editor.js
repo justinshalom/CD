@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
-    $('body').
-        css("overflow", "hidden");
+    //$('body').
+    //    css("overflow", "hidden");
     $(window).
         resize(function () {
             $('#editoriframe').height(window.innerHeight);

@@ -1,27 +1,65 @@
 ﻿/// <reference path="../bootstrap.min.js" />
 var activerequests = 0;
 var queueerequests = [];
+var queueerequestscallbacks = [];
 var queueerequestsi = 0;
-var requesthandler = function (toappend, reqi) {
+var queueerequestsmethods = [];
+var requesthandler = function (toappend, reqi,method,callbackfn) {
+  
     if (!reqi) {
         reqi = -1;
     }
     if ($.inArray(toappend, queueerequests) == -1) {
         queueerequests.push(toappend);
-        
+        queueerequestscallbacks.push(callbackfn);
+        queueerequestsmethods.push(method);
     }
+   
     if (activerequests === 0) {
         activerequests++;
         if (queueerequests[queueerequestsi]) {
-            $.getScript(queueerequests[queueerequestsi], function () {
+           
+            var setajax = false;
+           
+            if ($.ajaxSettings.cache == false) {
+                $.ajaxSetup({
+                    cache: true
+                });
+                setajax = true;
+            }
+            $[queueerequestsmethods[queueerequestsi]](queueerequests[queueerequestsi], function (response) {
+                if (setajax) {
+                    $.ajaxSetup({
+                        cache: false
+                    });
+                }
+                if (queueerequestscallbacks[queueerequestsi]) {
+                    queueerequestscallbacks[queueerequestsi](response);
+                }
+                console.log(queueerequests.length - 1);
+                console.log(queueerequestsi);
+               
+                if (queueerequests.length - 1 === queueerequestsi) {
+                    setTimeout(function() {
+                            $("#resultLoading").css("visibility", "visible");
+                        },
+                        20000);
+                } else {
+                        $("#resultLoading").css("visibility", "hidden");
+                    }
+                
                 queueerequestsi++;
                 activerequests--;
+              
+            }).always(function (e, response) {
+                
+                
             });
         }
     } else {
         setTimeout(function () {
             reqi++;
-            requesthandler(toappend, reqi);
+            requesthandler(toappend, reqi, method);
         },
             100);
     }
@@ -30,7 +68,7 @@ function require(category, name) {
     if (name) {
         category = category + "/" + name;
     }
-    requesthandler( hd_scripturl + "/" + category + '.js');
+    requesthandler( hd_scripturl + "/" + category + '.js',false,"getScript");
 }
 function include(category, name) {
     if (name) {
