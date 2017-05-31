@@ -78,26 +78,55 @@ $(document).
                       $('#hd_styledesigner').show();
                       $.each(stylepieces, function (si, sv) {
                          
-                           var styeinputs = "";
+                          var styeinputs = "";
+                          var additionalinputs = "";
                           var htmlinputscount = 0;
                           if (sv.split("<").length > 1 &&
                               sv.split(">").length > 1) {
                               sv = sv.replace("<", "").replace(">", "").trim();
-                               styeinputs +=
-                                   '<div class="hdform-group hdform-group-sm styleinputs" id="hd_rightmenu_auto_style'
+
+                              var boxstartsformgroup = '<div class="hdform-group hdform-group-sm styleinputs" id="hd_rightmenu_auto_style'
                                    + '_'
                                    + sv
                                    + '">'
                                    + '          <label class="control-label pull-left">'
                                    + sv.replace(/-/, " ")
-                                   + '</label>'
-                                   + '<select id="hd_stylevalueinput_'
+                                   + '</label>';
+                              var boxstartsinputgroup = '<div class="hdinput-group hdinput-group-sm styleinputs" id="hd_rightmenu_auto_style'
+                                  + '_'
+                                  + sv
+                                  + '">'
+                                  + '          <label class="control-label pull-left">'
+                                  + sv.replace(/-/, " ")
+                                  + '</label>';
+                              boxends = '        </div> ';
+                              styeinputs += boxstartsformgroup
+                                   + '<select name="' + sv + '" id="hd_stylevalueinput_'
                                    + sv
-                                   + '" class="hdform-control selectize  input-sm"  ><option value=""></option>';
+                                   + '" class="hdform-control  selectize  hdinput-sm"  ><option value=""></option>';
                                $.each(syntaxes[sv].split("|"), function (syi,syv) {
                                    if (syv.split("<").length > 1 &&
                              syv.split(">").length > 1) {
-
+                                       var valuefor = syv.replace("<", "").replace(">", "").trim();
+                                       switch(valuefor)
+                                       {
+                                           case "length": {
+                                               additionalinputs += boxstartsformgroup;
+                                               additionalinputs += '<input type="number" id="hd_stylevalueinput_'+valuefor+'_'
+                                   + sv
+                                   + '" name="' + sv + '"  class="hdform-control  hdinput-sm"  />';
+                                               additionalinputs += boxends;
+                                               additionalinputs += boxstartsformgroup;
+                                               additionalinputs += '<input type="checkbox" id="hd_stylevalueinput_' + valuefor + '_valueby_'
+                                  + sv
+                                  + '" name="' + sv + '" class="hdform-control hdinput-sm"  />';
+                                               additionalinputs += boxends;
+                                               break;
+                                           }
+                                           default: {
+                                               break;
+                                           }
+                                   }
                                    }
                                    else {
                                        htmlinputscount++;
@@ -106,11 +135,11 @@ $(document).
                                    }
 
                                })
-                               styeinputs += '</select>';
-                               styeinputs += '        </div> ';
+                               styeinputs += '</select>'+boxends;
+                               
                            }
                           if (htmlinputscount > 0) {
-                              $('#hd_styledesigner').append(styeinputs);
+                              $('#hd_styledesigner').append(styeinputs + additionalinputs);
                               styeinputs = "";
                           }
                           else {

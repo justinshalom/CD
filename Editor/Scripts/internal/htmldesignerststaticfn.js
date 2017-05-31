@@ -17,32 +17,39 @@
     };
 })($.fn.attr);
 var autotest = function () {
-    var autotest = 0;
-    var testelements = $('div:first *');
-    var testelementslength = testelements.length;
-    autotest = Math
-        .floor((Math
-                .random()
-                * (testelementslength - 1))
-            + 1);
-    function autotestfn() {
-        setTimeout(function () {
-            testelements.eq(autotest)
+    setTimeout(function () {
+    $('div:first *').first()
                 .trigger('contextmenu');
-            if (autotest < testelementslength) {
-                autotestfn();
-            }
-            autotest++;
-        },
-            2000);
-    }
-    autotestfn();
-    $('body')
-        .on('click',
-            '#hd_rightmenu',
-            function (e) {
-                autotest = testelementslength;
-            });
+    setTimeout(function () {
+        $("#hd_styleinput-selectized").val("border").trigger("keyup");
+    },2000);
+    }, 1000);
+    //var autotest = 0;
+    //var testelements = $('div:first *');
+    //var testelementslength = testelements.length;
+    //autotest = Math
+    //    .floor((Math
+    //            .random()
+    //            * (testelementslength - 1))
+    //        + 1);
+    //function autotestfn() {
+    //    setTimeout(function () {
+    //        testelements.eq(autotest)
+    //            .trigger('contextmenu');
+    //        if (autotest < testelementslength) {
+    //           // autotestfn();
+    //        }
+    //        autotest++;
+    //    },
+    //        2000);
+    //}
+    //autotestfn();
+    //$('body')
+    //    .on('click',
+    //        '#hd_rightmenu',
+    //        function (e) {
+    //            autotest = testelementslength;
+    //        });
 };
 function css(a) {
     var sheets = document.styleSheets, o = {};

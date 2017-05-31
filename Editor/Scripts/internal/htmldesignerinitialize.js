@@ -21,7 +21,7 @@ var requesthandler = function (toappend, reqi,method,callbackfn) {
            
             var setajax = false;
            
-            if ($.ajaxSettings.cache == false) {
+            if (!$.ajaxSettings.cache) {
                 $.ajaxSetup({
                     cache: true
                 });
@@ -96,8 +96,9 @@ $(document).ready(function () {
     }
     require("moment","moment.min");
     require("material", "arrive.min");
-    require("material", "material.min");
     require("material", "ripples.min");
+    require("material", "material.min");
+   
     require("material-datepicker", "js/bootstrap-material-datetimepicker");
     //require("chosen", "chosen.jquery.min");
     require("selectize", "standalone/selectize.min");

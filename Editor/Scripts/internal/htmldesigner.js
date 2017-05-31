@@ -6,12 +6,12 @@ $(document).ready(function () {
     //  css("overflow", "hidden");
     $(window).
         resize(function () {
-            $('#editoriframe').height(window.innerHeight);
+           // $('#editoriframe').height(window.innerHeight);
         });
     $('#editoriframe').on("load", function () {
-        $('#editoriframe').height(window.innerHeight);
+        //$('#editoriframe').height(window.innerHeight);
     });
-  
+    $('#editoriframe').height("1000");
     var allclasses = getall('class');
     var allid = getall('id');
     $('body').append(hd_rightmenu);
@@ -44,5 +44,8 @@ $(document).ready(function () {
 
 
                 });
-    //autotest();
+
+
+    autotest();
+
 });
