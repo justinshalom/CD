@@ -1,40 +1,40 @@
 ﻿////PrepareFileContent(postdata);
 $(document).
-    ready(function() {
+    ready(function () {
         $('body').
             on('keyup change blur',
                 '#hd_rightmenu select[data-attributename],#hd_rightmenu input[data-attributename]',
-                function(e) {
+                function (e) {
                     var attributename = $(this).attr('data-attributename');
                     switch (attributename) {
-                    case 'class':
-                        hdCurrentobj.removeAttr("tempclass");
-                        var classname = $(this).val().join(' ');
-                        hdCurrentobj.attr(attributename,
-                            classname);
-                        setAttribute(hdCurrentobj,
-                            "class",
-                            classname);
-                        break;  
-                    default:
-                    {
-                        var value = $(this).val();
-                        hdCurrentobj.attr(attributename, value);
-                        setAttribute(hdCurrentobj,
-                            attributename,
-                            value);
-                    }
+                        case 'class':
+                            hdCurrentobj.removeAttr("tempclass");
+                            var classname = $(this).val().join(' ');
+                            hdCurrentobj.attr(attributename,
+                                classname);
+                            setAttribute(hdCurrentobj,
+                                "class",
+                                classname);
+                            break;
+                        default:
+                            {
+                                var value = $(this).val();
+                                hdCurrentobj.attr(attributename, value);
+                                setAttribute(hdCurrentobj,
+                                    attributename,
+                                    value);
+                            }
                     }
                 });
         $('body').
             on('focus',
                 '#hd_rightmenu input[data-attributename]',
-                function(e) {
+                function (e) {
                 });
         $('body').
             on('keyup',
                 '#hd_rightmenu_allattributes #hd_rightmenu_attr_name,#hd_rightmenu_allattributes #hd_rightmenu_attr_value',
-                function(e) {
+                function (e) {
                     if (e.keyCode == 13) {
                         var value = $('#hd_rightmenu_attr_value').val();
                         var key = $('#hd_rightmenu_attr_name').val();
@@ -52,7 +52,7 @@ $(document).
           on('keyup change blur',
               '#hd_stylevalueinput,#hd_styleinput',
               function (e) {
-                  var hd_styleinputval=$('#hd_styleinput').val();
+                  var hd_styleinputval = $('#hd_styleinput').val();
                   if (e.keyCode == 13) {
                       $('#existingstylelist').append('<div class="hdcol-xs-25"><label class="control-label pull-left">'
                                 + $('#hd_styleinput').val()
@@ -63,7 +63,7 @@ $(document).
                   $('#hd_styledesigner').hide();
                   var obj = properties[hd_styleinputval];
                   if (obj) {
-                      debugger;
+
 
                       if (obj.percentages == "no") {
 
@@ -71,16 +71,17 @@ $(document).
                       else {
 
                       }
-                      var syntax =obj.syntax;
+                      var syntax = obj.syntax;
                       var stylepieces = syntax.split("||");
                       $('.styleinputs').hide();
                       $('#hd_styledesigner').html("");
                       $('#hd_styledesigner').show();
                       $.each(stylepieces, function (si, sv) {
-                         
+
                           var styeinputs = "";
                           var additionalinputs = "";
                           var htmlinputscount = 0;
+                          console.log("sv:"+sv);
                           if (sv.split("<").length > 1 &&
                               sv.split(">").length > 1) {
                               sv = sv.replace("<", "").replace(">", "").trim();
@@ -104,40 +105,50 @@ $(document).
                                    + '<select name="' + sv + '" id="hd_stylevalueinput_'
                                    + sv
                                    + '" class="hdform-control  selectize  hdinput-sm"  ><option value=""></option>';
-                               $.each(syntaxes[sv].split("|"), function (syi,syv) {
-                                   if (syv.split("<").length > 1 &&
-                             syv.split(">").length > 1) {
-                                       var valuefor = syv.replace("<", "").replace(">", "").trim();
-                                       switch(valuefor)
-                                       {
-                                           case "length": {
-                                               additionalinputs += boxstartsformgroup;
-                                               additionalinputs += '<input type="number" id="hd_stylevalueinput_'+valuefor+'_'
-                                   + sv
-                                   + '" name="' + sv + '"  class="hdform-control  hdinput-sm"  />';
-                                               additionalinputs += boxends;
-                                               additionalinputs += boxstartsformgroup;
-                                               additionalinputs += '<input type="checkbox" id="hd_stylevalueinput_' + valuefor + '_valueby_'
-                                  + sv
-                                  + '" name="' + sv + '" class="hdform-control hdinput-sm"  />';
-                                               additionalinputs += boxends;
-                                               break;
-                                           }
-                                           default: {
-                                               break;
-                                           }
-                                   }
-                                   }
-                                   else {
-                                       htmlinputscount++;
-                                       syv = syv.trim();
-                                       styeinputs += '<option >' + syv + '</option>';
-                                   }
+                              
+                              if (syntaxes[sv]) {
+                                  console.log("syntaxes[sv]):"+syntaxes[sv]);
+                                  $.each(syntaxes[sv].split("|"), function (syi, syv) {
+                                      if (syv.split("<").length > 1 &&
+                                syv.split(">").length > 1) {
+                                          var valuefor = syv.replace("<", "").replace(">", "").trim();
+                                          switch (valuefor) {
+                                              case "hex-color": {
+                                                  additionalinputs += boxstartsformgroup;
+                                                  additionalinputs += '<input type="color" id="hd_stylevalueinput_' + valuefor + '_'
+                                      + sv
+                                      + '" name="' + sv + '"  class="hdform-control  hdinput-sm"  />';
+                                                  additionalinputs += boxends;
+                                                  break;
+                                              }
+                                              case "length": {
+                                                  additionalinputs += boxstartsformgroup;
+                                                  additionalinputs += '<input type="number" id="hd_stylevalueinput_' + valuefor + '_'
+                                      + sv
+                                      + '" name="' + sv + '"  class="hdform-control  hdinput-sm"  />';
+                                                  additionalinputs += boxends; additionalinputs += boxstartsformgroup;
+                                                  additionalinputs += '<select id="hd_stylevalueinput_' + valuefor + '_valueby_'
+                                     + sv
+                                     + '" name="' + sv + '" class="hdform-control hdinput-sm selectize"  ><option value="px">Pixel</option><option value="%">Percentage</option></select>';
+                                                  additionalinputs += boxends;
+                                                  break;
+                                              }
+                                              default: {
+                                                  break;
+                                              }
+                                          }
+                                      }
+                                      else {
+                                          htmlinputscount++;
+                                          syv = syv.trim();
+                                          styeinputs += '<option >' + syv + '</option>';
+                                      }
 
-                               })
-                               styeinputs += '</select>'+boxends;
-                               
-                           }
+                                  });
+                              }
+                              styeinputs += '</select>' + boxends;
+
+                          }
                           if (htmlinputscount > 0) {
                               $('#hd_styledesigner').append(styeinputs + additionalinputs);
                               styeinputs = "";
@@ -152,8 +163,8 @@ $(document).
 
 
                       });
-                      
-                     
+
+
                       selectize();
                       $('#hd_styledesigner').show();
 
@@ -164,7 +175,7 @@ $(document).
               });
         $(document).
             bind('keydown keyup',
-                function(e) {
+                function (e) {
                     var obj =
                         $('#hd_rightmenu_allattributes #hd_rightmenu_auto_class .selectize-dropdown-content .option.active');
                     if (
@@ -178,18 +189,18 @@ $(document).
         $('body').
             on('hidden.bs.collapse show.bs.collapse',
                 '#absolutestyleeditor .panel-group',
-                function() {
-                    setTimeout(function() {
-                            $('body').
-                                css("margin-bottom",
-                                    $('#absolutestyleeditor').height());
-                        },
+                function () {
+                    setTimeout(function () {
+                        $('body').
+                            css("margin-bottom",
+                                $('#absolutestyleeditor').height());
+                    },
                         1000);
                 });
         $('body').
             on('click',
                 '*:not("#hd_rightmenu,#hd_rightmenu *,#absolutestyleeditor,#absolutestyleeditor *")',
-                function(e) {
+                function (e) {
                     $('#hd_rightmenu').hide();
                     hdCurrentobj.removeClass(hdCurrentobj.attr('tempclass'));
                     hdCurrentobj.removeAttr("tempclass");

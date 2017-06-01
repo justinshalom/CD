@@ -1,7 +1,7 @@
 ﻿////PrepareFileContent(postdata);
 
 $(document).ready(function () {
-    $.material.init();
+   
     //$('body').
     //  css("overflow", "hidden");
     $(window).
@@ -45,7 +45,7 @@ $(document).ready(function () {
 
                 });
 
-
+    $.material.init();
     autotest();
 
 });

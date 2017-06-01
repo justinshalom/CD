@@ -21,7 +21,12 @@ var autotest = function () {
     $('div:first *').first()
                 .trigger('contextmenu');
     setTimeout(function () {
-        $("#hd_styleinput-selectized").val("border").trigger("keyup");
+
+        var $select = $("#hd_styleinput");
+        var selectizeinput = $select[0].selectize;
+        selectizeinput.setValue(selectizeinput.search("box-shadow").items[0].id);
+
+        $("#hd_styleinput-selectized").trigger("keyup");
     },2000);
     }, 1000);
     //var autotest = 0;
