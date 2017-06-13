@@ -52,16 +52,17 @@ $(document).
           on('keyup change blur',
               '#hd_stylevalueinput,#hd_styleinput',
               function (e) {
-                  var hd_styleinputval = $('#hd_styleinput').val();
+                  var hdStyleinputval = $('#hd_styleinput').val();
                   if (e.keyCode == 13) {
-                      $('#existingstylelist').append('<div class="hdcol-xs-25"><label class="control-label pull-left">'
-                                + $('#hd_styleinput').val()
-                                + '</label></div><div class="hdcol-xs-25"><label class="control-label pull-left">'
-                                + $('#hd_stylevalueinput').val()
-                                + '</label></div>')
+                      $('#existingstylelist')
+                          .append('<div class="hdcol-xs-25"><label class="control-label pull-left">'
+                              + $('#hd_styleinput').val()
+                              + '</label></div><div class="hdcol-xs-25"><label class="control-label pull-left">'
+                              + $('#hd_stylevalueinput').val()
+                              + '</label></div>');
                   }
                   $('#hd_styledesigner').hide();
-                  var obj = properties[hd_styleinputval];
+                  var obj = properties[hdStyleinputval];
                   if (obj) {
 
 
@@ -76,103 +77,42 @@ $(document).
                       $('.styleinputs').hide();
                       $('#hd_styledesigner').html("");
                       $('#hd_styledesigner').show();
+                      console.log("obj:" + obj);
+                      console.log("synatax:" + syntax);
+                      var objbox = $('#hd_styledesigner');
                       $.each(stylepieces, function (si, sv) {
 
-                          var styeinputs = "";
-                          var additionalinputs = "";
-                          var htmlinputscount = 0;
-                          console.log("sv:"+sv);
-                          if (sv.split("<").length > 1 &&
-                              sv.split(">").length > 1) {
-                              sv = sv.replace("<", "").replace(">", "").trim();
-
-                              var boxstartsformgroup = '<div class="hdform-group hdform-group-sm styleinputs" id="hd_rightmenu_auto_style'
-                                   + '_'
-                                   + sv
-                                   + '">'
-                                   + '          <label class="control-label pull-left">'
-                                   + sv.replace(/-/, " ")
-                                   + '</label>';
-                              var boxstartsinputgroup = '<div class="hdinput-group hdinput-group-sm styleinputs" id="hd_rightmenu_auto_style'
-                                  + '_'
-                                  + sv
-                                  + '">'
-                                  + '          <label class="control-label pull-left">'
-                                  + sv.replace(/-/, " ")
-                                  + '</label>';
-                              boxends = '        </div> ';
-                              styeinputs += boxstartsformgroup
-                                   + '<select name="' + sv + '" id="hd_stylevalueinput_'
-                                   + sv
-                                   + '" class="hdform-control  selectize  hdinput-sm"  ><option value=""></option>';
+                        
+                          console.log("sv:" + sv);
+                          var stylesubpieces = sv.split("|");
+                          
+                        
+                          
+                          $.each(stylesubpieces, function (sbi, sbv) {
                               
-                              if (syntaxes[sv]) {
-                                  console.log("syntaxes[sv]):"+syntaxes[sv]);
-                                  $.each(syntaxes[sv].split("|"), function (syi, syv) {
-                                      if (syv.split("<").length > 1 &&
-                                syv.split(">").length > 1) {
-                                          var valuefor = syv.replace("<", "").replace(">", "").trim();
-                                          switch (valuefor) {
-                                              case "hex-color": {
-                                                  additionalinputs += boxstartsformgroup;
-                                                  additionalinputs += '<input type="color" id="hd_stylevalueinput_' + valuefor + '_'
-                                      + sv
-                                      + '" name="' + sv + '"  class="hdform-control  hdinput-sm"  />';
-                                                  additionalinputs += boxends;
-                                                  break;
-                                              }
-                                              case "length": {
-                                                  additionalinputs += boxstartsformgroup;
-                                                  additionalinputs += '<input type="number" id="hd_stylevalueinput_' + valuefor + '_'
-                                      + sv
-                                      + '" name="' + sv + '"  class="hdform-control  hdinput-sm"  />';
-                                                  additionalinputs += boxends; additionalinputs += boxstartsformgroup;
-                                                  additionalinputs += '<select id="hd_stylevalueinput_' + valuefor + '_valueby_'
-                                     + sv
-                                     + '" name="' + sv + '" class="hdform-control hdinput-sm selectize"  ><option value="px">Pixel</option><option value="%">Percentage</option></select>';
-                                                  additionalinputs += boxends;
-                                                  break;
-                                              }
-                                              default: {
-                                                  break;
-                                              }
-                                          }
-                                      }
-                                      else {
-                                          htmlinputscount++;
-                                          syv = syv.trim();
-                                          styeinputs += '<option >' + syv + '</option>';
-                                      }
-
-                                  });
-                              }
-                              styeinputs += '</select>' + boxends;
-
-                          }
-                          if (htmlinputscount > 0) {
-                              $('#hd_styledesigner').append(styeinputs + additionalinputs);
-                              styeinputs = "";
-                          }
-                          else {
-                          }
-
-
-                          //$('#hd_rightmenu_auto_style_' + orv).show();
-
-
-
+                              var basegroup = setgroupbox(objbox, "");
+                              setinnerstyles(basegroup, sbv, "options");
+                          });
 
                       });
-
-
                       selectize();
                       $('#hd_styledesigner').show();
-
-
+                      $(".hdgroup")
+                          .each(function () {
+                              if ($(this).text() == "") {
+                                  $(this).remove();
+                              }
+                          });
                   }
 
 
               });
+        
+        $(document).
+            on('click', '.hdgrouplabel',
+                function (e) {
+                    $(this).closest(".hdgroup").find(".hdgroupcontent").toggle();
+                });
         $(document).
             bind('keydown keyup',
                 function (e) {

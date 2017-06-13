@@ -22,11 +22,7 @@ var autotest = function () {
                 .trigger('contextmenu');
     setTimeout(function () {
 
-        var $select = $("#hd_styleinput");
-        var selectizeinput = $select[0].selectize;
-        selectizeinput.setValue(selectizeinput.search("box-shadow").items[0].id);
-
-        $("#hd_styleinput-selectized").trigger("keyup");
+      
     },2000);
     }, 1000);
     //var autotest = 0;
@@ -181,7 +177,7 @@ var setmenuheader = function(t,classeslist) {
     }
 };
 var selectize = function () {
-    $('.selectize:not(.selectized)').
+    $('select.selectize:not(.selectized)').
         selectize({
             delimiter: ',',
             persist: false,

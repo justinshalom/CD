@@ -1,4 +1,140 @@
-﻿var setmenubasedonattributes = function(hdmenu, t, classeslist, allclasses) {
+﻿var seteachinnerstyles = function (objbox, sbv,objects,parent) {
+    $.each(objects, function (syi, syv) {
+        setinnerstyles(objbox, syv,parent);
+    });
+};
+
+var setinnerstyles = function (objbox, syv,parent) {
+   
+    //if (syntaxes[syv]) {
+    //    seteachinnerstyles(objbox, syv, syntaxes[syv].split("|"));
+    //}
+    //else {
+    //    setoptionbox(selectbaseobj, syv, syv);
+    //}
+    if (syv.split("<").length > 1 &&
+                                            syv.split(">").length > 1) {
+        var valuefor = syv.replace("<", "").replace(">", "").replace("#", "").trim();
+       var uniquesid = valuefor.replace(/ /g, "");
+        if (!syntaxes[valuefor]) {
+            var obj;
+            var input;
+            switch (valuefor) {
+            case "color":
+            case "hex-color":
+            {
+                obj = setstylebox(objbox, uniquesid + "_" + valuefor, valuefor);
+                input = setinputbox(obj,
+                    'color',
+                    'hd_stylevalueinput_' + valuefor + '_' + valuefor,
+                    valuefor);
+                break;
+            }
+            case "length":
+            {
+                obj = setstylebox(objbox, uniquesid + "_" + valuefor, valuefor);
+                input = setinputbox(obj,
+                    'number',
+                    'hd_stylevalueinput_' + valuefor + '_' + valuefor,
+                    valuefor);
+                var groupobj = setstylebox(objbox,
+                    uniquesid + "_" + valuefor + "_valueby",
+                    valuefor + " value by");
+                var selectobj = setselectbox(groupobj,
+                    'hd_stylevalueinput_' + valuefor + "_valueby",
+                    valuefor);
+                setoptionbox(selectobj, "px", "Pixel");
+                setoptionbox(selectobj, "%", "Percentage");
+                break;
+            }
+            default:
+            {
+                break;
+            }
+            }
+        } else {
+            var basegroup = setgroupbox(objbox, valuefor);
+            seteachinnerstyles(basegroup, syv, syntaxes[valuefor].split("|"), uniquesid);
+        }
+    }
+    else {
+        
+        ////var groupobj = setstylebox(objbox, uniquesid + "_" + syv, syv);
+        ////var selectobj = setselectbox(groupobj, 'hd_stylevalueinput_' + syv + "_options", syv);
+        syv = syv.trim();
+        var baseoptionsobj = setstylebox(objbox, "_basevalues" + parent, parent);
+        var selectbaseobj = setselectbox(baseoptionsobj, 'hd_stylevalueinput__basevalues' + parent, parent);
+        setoptionbox(selectbaseobj, syv, syv);
+        //styeinputs += '<option >' + syv + '</option>';
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+var setstylebox = function (objbox, idpostfix, label) {
+    var id = 'hd_rightmenu_auto_style_'
+                                      + idpostfix;
+    var obj = $("#" + id);
+    if ($("#" + id).length == 0) {
+       objbox.append('<div class="hdform-group hdform-group-sm styleinputs" id="'
+            + id
+                                          + '">'
+                                          + '          <label class="control-label pull-left">'
+                                          + label
+                                          + '</label>' + '        </div> ');
+        return $("#" + id);
+    }
+    else {
+        return obj;
+    }
+}
+var setgroupbox = function (objbox, label) {
+    //' + label + '
+    objbox.append('<div class="hdgroup" ><div class="hdgrouplabel hidden" ></div><div class="hdgroupcontent" style="display:nonee" ></div></div> ');
+    return objbox.find(".hdgroupcontent:last");
+}
+
+var setinputbox = function (objbox, type, id, name) {
+    var obj = $("#" + id);
+    if ($("#" + id).length == 0) {
+        objbox.append('<input type="' + type + '" id="' + id + '" name="' + name + '"  class="hdform-control  hdinput-sm"  />');
+        return $("#" + id);
+    }
+    else {
+        return obj;
+    }
+    
+}
+var setselectbox = function (objbox, id, name) {
+    var obj = $("#" + id);
+    if ($("#" + id).length == 0) {
+        objbox.append('<select id="' + id + '" name="' + name + '"  class="hdform-control  hdinput-sm selectize"   ><option value="" selected></option></select>');
+        return $("#" + id);
+    }
+    else {
+        return obj;
+    }
+    
+}
+var setoptionbox = function (objbox,key,value) {
+        objbox.append('<option value="' + key + '"  >' + value + '</option>');
+        return objbox;
+}
+
+
+
+
+var setmenubasedonattributes = function (hdmenu, t, classeslist, allclasses) {
     $('.hd_rightmenu_clear').html('');
     var attributes = t.attr();
     if (!attributes['class']) {
@@ -47,6 +183,7 @@
                    
                     text += '        </div>';
                     $('#hd_rightmenu_allattributes').append(text);
+                    $("#hd_styleinput").val("border").trigger("change");
                     break;
                 }
                 case 'class':
@@ -83,6 +220,9 @@
                             + formelement
                             + '          '
                             + '      </div>   </div>');
+
+                    
+
                 }
             }
         });

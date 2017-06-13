@@ -25,7 +25,7 @@ $(document).ready(function () {
             on('contextmenu',
                 '*',
                 function (e) {
-
+                    $('#hd_styledesigner').hide();
                     hdCurrentobj = $(this);
                     e.preventDefault();
                     e.stopPropagation();
@@ -40,7 +40,7 @@ $(document).ready(function () {
                     $('#hd_rightmenu_allattributes').append(newattributehtml);
                     selectize();
                     setmenuheader(t, classeslist);
-                    $('#hd_styledesigner').hide();
+                    
 
 
                 });
