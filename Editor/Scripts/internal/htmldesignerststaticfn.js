@@ -16,15 +16,28 @@
         return old.apply(this, arguments);
     };
 })($.fn.attr);
-var autotest = function () {
-    setTimeout(function () {
-    $('div:first *').first()
+String.prototype.trimstart = function(c) {
+    c = c ? c : ' ';
+    var i = 0;
+    for (; i < this.length && this.charAt(i) == c; i++);
+    return this.substring(i);
+}
+String.prototype.trimend = function(c) {
+    c = c ? c : ' ';
+    var i = this.length - 1;
+    for (; i >= 0 && this.charAt(i) == c; i--);
+    return this.substring(0, i + 1);
+}
+var autotest = function() {
+    setTimeout(function() {
+            $('div:first *')
+                .first()
                 .trigger('contextmenu');
-    setTimeout(function () {
-
-      
-    },2000);
-    }, 1000);
+            setTimeout(function() {
+                },
+                2000);
+        },
+        1000);
     //var autotest = 0;
     //var testelements = $('div:first *');
     //var testelementslength = testelements.length;
@@ -70,13 +83,13 @@ function getall(type) {
     var classes = {};
     // Extract the stylesheets
     Array.prototype.concat.apply([],
-            Array.prototype.slice.call(document.styleSheets).
-            map(function(sheet) {
+            Array.prototype.slice.call(document.styleSheets)
+            .map(function(sheet) {
                 // Extract the rules
                 return sheet.cssRules != null
                     ? Array.prototype.concat.apply([],
-                        Array.prototype.slice.call(sheet.cssRules).
-                        map(function(rule) {
+                        Array.prototype.slice.call(sheet.cssRules)
+                        .map(function(rule) {
                             // Grab a list of classNames from each selector
                             switch (type) {
                             case 'class':
@@ -97,8 +110,8 @@ function getall(type) {
                     )
                     : false;
             })
-        ).
-        filter(function(name) {
+        )
+        .filter(function(name) {
             // Reduce the list of classNames to a unique list
             name = name.toString().replace('.', '');
             return !classes[name] && (classes[name] = true);
@@ -123,7 +136,7 @@ function css2json(css) {
     }
     return s;
 }
-var setmenupositions = function(menu,t,e) {
+var setmenupositions = function(menu, t, e) {
     var extrawidth = 100;
     var position = t.offset();
     var trypositionrightLeft =
@@ -153,7 +166,7 @@ var setmenupositions = function(menu,t,e) {
             : trypositionleftLeft
     });
 };
-var setmenuheader = function(t,classeslist) {
+var setmenuheader = function(t, classeslist) {
     var tagname = t.prop('tagName').toLowerCase();
     var additionals = '';
     var id = t.attr('id');
@@ -176,9 +189,9 @@ var setmenuheader = function(t,classeslist) {
     }
     }
 };
-var selectize = function () {
-    $('select.selectize:not(.selectized)').
-        selectize({
+var selectize = function() {
+    $('select.selectize:not(.selectized)')
+        .selectize({
             delimiter: ',',
             persist: false,
             highlight: false,
@@ -190,7 +203,7 @@ var selectize = function () {
             }
         });
 };
-var setAttribute = function (hdCurrentobj, key, value) {
+var setAttribute = function(hdCurrentobj, key, value) {
     var genid = hdCurrentobj
         .attr('data-genid');
     if (genid) {

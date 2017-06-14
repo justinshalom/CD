@@ -47,7 +47,59 @@ $(document).
                     }
                 });
 
+        (function ($) {
+            $.fn.getCursorPosition = function () {
+                var input = this.get(0);
+                if (!input) return; // No (input) element found
+                if ('selectionStart' in input) {
+                    // Standard-compliant browsers
+                    return input.selectionStart;
+                } else if (document.selection) {
+                    // IE
+                    input.focus();
+                    var sel = document.selection.createRange();
+                    var selLen = document.selection.createRange().text.length;
+                    sel.moveStart('character', -input.value.length);
+                    return sel.text.length - selLen;
+                }
+            }
+        })(jQuery);
+        $('body').on('keyup change blur',
+           '.subdynamicinput',
+           function (e) {
 
+               $(".dynamicinput").val("");
+               $(".subdynamicinput").each(function (i, v) {
+                   $(".dynamicinput").val($(this).val() + " ");
+
+                   });
+
+
+           });
+        $('body').on('keyup change blur',
+            '.dynamicinput',
+            function (e) {
+                console.log($(this).getCursorPosition());
+                var pieces = $(this).val().split(" ");
+                var objbox = $('#hd_styledesigner');
+
+                $.each(pieces,
+                    function (i, v) {
+                        if (isNaN(v)) {
+
+                        } else {
+                            
+                            var baseobj = setstylebox(objbox, "dynamicinput"+i, "");
+                            var input = setinputbox(baseobj, "number", "dynamicinput" + i, "subdynamicinput");
+                            input.val(v);
+                            input.focus();
+                            
+                        }
+
+                    });
+
+
+            });
         $('body').
           on('keyup change blur',
               '#hd_stylevalueinput,#hd_styleinput',
@@ -80,29 +132,34 @@ $(document).
                       console.log("obj:" + obj);
                       console.log("synatax:" + syntax);
                       var objbox = $('#hd_styledesigner');
-                      $.each(stylepieces, function (si, sv) {
 
-                        
-                          console.log("sv:" + sv);
-                          var stylesubpieces = sv.split("|");
-                          
-                        
-                          
-                          $.each(stylesubpieces, function (sbi, sbv) {
-                              
-                              var basegroup = setgroupbox(objbox, "");
-                              setinnerstyles(basegroup, sbv, "options");
-                          });
+                      var baseobj = setstylebox(objbox, "dynamicinput","");
 
-                      });
-                      selectize();
-                      $('#hd_styledesigner').show();
-                      $(".hdgroup")
-                          .each(function () {
-                              if ($(this).text() == "") {
-                                  $(this).remove();
-                              }
-                          });
+                      setinputbox(baseobj, "text", "", "dynamicinput");
+
+
+                      ////$.each(stylepieces, function (si, sv) {
+
+
+                      ////    console.log("sv:" + sv);
+                      ////    var stylesubpieces = sv.split("|");
+
+
+                      ////    $.each(stylesubpieces, function (sbi, sbv) {
+
+                      ////        var basegroup = setgroupbox(objbox, "");
+                      ////        setinnerstyles(basegroup, sbv, "options");
+                      ////    });
+
+                      ////});
+                      ////selectize();
+                      ////$('#hd_styledesigner').show();
+                      ////$(".hdgroup")
+                      ////    .each(function () {
+                      ////        if ($(this).text() == "") {
+                      ////            $(this).remove();
+                      ////        }
+                      ////    });
                   }
 
 
