@@ -10,7 +10,7 @@ var setlengthbox = function(objbox, uniquesid, valuefor) {
     var obj = setstylebox(objbox, uniquesid + "_" + valuefor, valuefor);
     var input = setinputbox(obj,
         'number',
-        'hd_stylevalueinput_' + valuefor + '_' + valuefor,
+        uniquesid,
         valuefor);
 }
 var setpixelbox = function(objbox, uniquesid, valuefor) {
@@ -24,11 +24,16 @@ var setpixelbox = function(objbox, uniquesid, valuefor) {
     setoptionbox(selectobj, "%", "Percentage");
 }
 var setcolorbox = function(objbox, uniquesid, valuefor) {
-    var obj = setstylebox(objbox, uniquesid + "_" + valuefor, valuefor);
-    var input = setinputbox(obj,
-        'color',
-        'hd_stylevalueinput_' + valuefor + '_' + valuefor,
+    ////var obj = setstylebox(objbox, uniquesid + "_" + valuefor, valuefor);
+    var input = setinputbox(objbox,
+        'text',
+        uniquesid,
         valuefor);
+
+    input.colorpicker({
+        horizontal: true
+    });
+    return input;
 }
 var setinnerstyles = function(objbox, syv, parent) {
     //if (syntaxes[syv]) {
@@ -48,25 +53,25 @@ var setinnerstyles = function(objbox, syv, parent) {
 
         case "shadow":
         {
-            setlengthbox(objbox, uniquesid + "_x", valuefor + "-x");
-            setlengthbox(objbox, uniquesid + "_y", valuefor + "-y");
-            setlengthbox(objbox, uniquesid + "_g", valuefor + "-grow");
-            setlengthbox(objbox, uniquesid + "_s", valuefor + "-spread");
-            setpixelbox(objbox, uniquesid, valuefor);
-            setcolorbox(objbox, uniquesid, valuefor);
+            //setlengthbox(objbox, uniquesid + "_x", valuefor + "-x");
+            //setlengthbox(objbox, uniquesid + "_y", valuefor + "-y");
+            //setlengthbox(objbox, uniquesid + "_g", valuefor + "-grow");
+            //setlengthbox(objbox, uniquesid + "_s", valuefor + "-spread");
+            //setpixelbox(objbox, uniquesid, valuefor);
+            //setcolorbox(objbox, uniquesid, valuefor);
             break;
         }
         case "color":
         case "hex-color":
         {
-            setcolorbox(objbox, uniquesid, valuefor);
+            //setcolorbox(objbox, uniquesid, valuefor);
             break;
         }
         case "percentage":
         case "length":
         {
-            setlengthbox(objbox, uniquesid, valuefor);
-            setpixelbox(objbox, uniquesid, valuefor);
+            //setlengthbox(objbox, uniquesid, valuefor);
+            //setpixelbox(objbox, uniquesid, valuefor);
             break;
         }
         default:
@@ -81,8 +86,8 @@ var setinnerstyles = function(objbox, syv, parent) {
                     .replace(/\|\|/g, "|");
                 var pieces = synatx
                     .split("|");
-                var basegroup = setgroupbox(objbox, valuefor);
-                seteachinnerstyles(basegroup, syv, pieces, uniquesid);
+                //var basegroup = setgroupbox(objbox, valuefor);
+                seteachinnerstyles(objbox, syv, pieces, uniquesid);
             }
             break;
         }
@@ -91,11 +96,11 @@ var setinnerstyles = function(objbox, syv, parent) {
         ////var groupobj = setstylebox(objbox, uniquesid + "_" + syv, syv);
         ////var selectobj = setselectbox(groupobj, 'hd_stylevalueinput_' + syv + "_options", syv);
         syv = syv.trim();
-        var baseoptionsobj = setstylebox(objbox, "_basevalues" + parent, parent);
-        var selectbaseobj = setselectbox(baseoptionsobj,
-            'hd_stylevalueinput__basevalues' + parent,
-            parent);
-        setoptionbox(selectbaseobj, syv, syv);
+        //var baseoptionsobj = setstylebox(objbox, "_basevalues" + parent, parent);
+        //var selectbaseobj = setselectbox(baseoptionsobj,
+        //    'hd_stylevalueinput__basevalues' + parent,
+        //    parent);
+        setoptionbox(objbox, syv, syv);
         //styeinputs += '<option >' + syv + '</option>';
     }
 };
@@ -149,7 +154,8 @@ var setselectbox = function(objbox, id, name) {
             id +
             '" name="' +
             name +
-            '"  class="hdform-control  hdinput-sm selectize"   ><option value="" selected></option></select>');
+            '"  class="hdform-control  hdinput-sm selectize ' + name +
+            '"   ><option value="" selected></option></select>');
         return $("#" + id);
     } else {
         return obj;
@@ -159,7 +165,7 @@ var setoptionbox = function(objbox, key, value) {
     if (objbox.find('[value="' + key + '"]').length == 0) {
         objbox.append('<option value="' + key + '"  >' + value + '</option>');
     } else {
-        objbox.attr("multiple", "multiple");
+       // objbox.attr("multiple", "multiple");
     }
     return objbox;
 }

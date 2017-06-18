@@ -48,11 +48,17 @@ $(document).
                 });
 
         (function ($) {
-            $.fn.getCursorPosition = function () {
+            $.fn.getCursorPosition = function (setstart, setend) {
                 var input = this.get(0);
                 if (!input) return; // No (input) element found
                 if ('selectionStart' in input) {
                     // Standard-compliant browsers
+                    if (setstart) {
+                        input.selectionStart = setstart;  
+                    }
+                    if (setend) {
+                        input.selectionEnd = setend;
+                    }
                     return input.selectionStart;
                 } else if (document.selection) {
                     // IE
@@ -64,46 +70,185 @@ $(document).
                 }
             }
         })(jQuery);
-        $('body').on('keyup change blur',
+        var dynamicposition = 0;
+        $('body').on('change',
            '.subdynamicinput',
            function (e) {
-
-               $(".dynamicinput").val("");
-               $(".subdynamicinput").each(function (i, v) {
-                   $(".dynamicinput").val($(this).val() + " ");
-
-                   });
-
-
+               if ($(".colorpicker:visible").length == 0) {
+                   setTimeout(function() {
+                           $("#subdynamicinput").colorpicker('hide');
+                           if ($("#subdynamicinput").val()) {
+                               $(".dynamicinput").val($(".dynamicinput").val().substring(0, dynamicposition) + " " + $("#subdynamicinput").val() + " " + $(".dynamicinput").val().substring(dynamicposition) + " ");
+                           } else {
+                               $(".dynamicinput").val($(".dynamicinput").val());
+                           }
+                           $(".dynamicinput").val($(".dynamicinput").val().replace(/  /g, " ").replace(/ px/g, "px"));
+                           $(".dynamicinput").focus();
+                           if ($("#subdynamicinput").val()) {
+                               dynamicposition = $(this)
+                                   .getCursorPosition(dynamicposition + parseInt($("#subdynamicinput").val().length),
+                                       dynamicposition + $("#subdynamicinput").val().length);
+                           } 
+                           $("#subdynamicinput").closest(".hdform-group").remove();
+                         
+                           $("#hd_styledesigner").css("width", (($(".dynamicinput").val().length) * 5) + "%");
+                       },
+                       100);
+                  
+                   var cssstyle = {};
+                   cssstyle[$("#hd_styleinput").val()] = $(this).val();
+                   window.hdCurrentobj.removeAttr("style");
+                   hdCurrentobj.css(cssstyle);
+               }
            });
-        $('body').on('keyup change blur',
+        $('body').on('keydown',
             '.dynamicinput',
-            function (e) {
-                console.log($(this).getCursorPosition());
-                var pieces = $(this).val().split(" ");
-                var objbox = $('#hd_styledesigner');
+            function(e) {
+                if (e.keyCode == 38 || e.keyCode == 40) {
+                    e.preventDefault();
+                    var currenpos = $(this).getCursorPosition();
+                    $(this).trigger("keyup", e);
+                }
 
-                $.each(pieces,
-                    function (i, v) {
-                        if (isNaN(v)) {
+            });
+        $('body').on('keyup click',
+            '.dynamicinput',
+            function (e, inherit) {
+                if (inherit) {
+                    //e = inherit;
+                }
+                $("#subdynamicinput").closest(".hdform-group").remove();
+                if (e.originalEvent) {
 
-                        } else {
-                            
-                            var baseobj = setstylebox(objbox, "dynamicinput"+i, "");
-                            var input = setinputbox(baseobj, "number", "dynamicinput" + i, "subdynamicinput");
-                            input.val(v);
-                            input.focus();
-                            
+                    var currenpos = $(this).getCursorPosition();
+                    if (e.keyCode == 8 ) {
+                        dynamicposition = currenpos;
+                    }else
+                    if (e.keyCode == 16 || e.keyCode == 35 || e.keyCode == 36 || e.keyCode == 37 || e.keyCode == 39 || e.keyCode == 46) {
+                        dynamicposition = currenpos;
+                    }else
+                    if (e.type == "click" ) {
+                        dynamicposition = currenpos;
+                    } else {
+                        $("#hd_styledesigner").css("min-width", 100+"%");
+                        $("#hd_styledesigner").css("width", (($(".dynamicinput").val().length) * 5) + "%");
+                       
+                        var hdStyleinputval = $('#hd_styleinput').val();
+                        //if (e.keyCode == 13) {
+                        //    $('#existingstylelist')
+                        //        .append('<div class="hdcol-xs-25"><label class="control-label pull-left">' +
+                        //            $('#hd_styleinput').val() +
+                        //            '</label></div><div class="hdcol-xs-25"><label class="control-label pull-left">' +
+                        //            $('#hd_stylevalueinput').val() +
+                        //            '</label></div>');
+                        //}
+                        //$('#hd_styledesigner').hide();
+                        var obj = properties[hdStyleinputval];
+                        var stylepieces = {};
+                        if (obj) {
+                            if (obj.percentages == "no") {
+
+                            } else {
+
+                            }
+                            var syntax = obj.syntax;
+                            stylepieces = syntax.split("||");
                         }
 
-                    });
 
+                        var value = $(this).val();
+                       
+                        var lastchar = value[currenpos - 1];
+                        var uptochar = value.substring(0, currenpos).replace(/ /g, "");
+                        currenpos = uptochar.length;
+                        var pieces = value.match(/rgb\(?.*\)+|#[0-9A-Za-z]+|#|[0-9]+|[A-Za-z]+/g);
+                        var objbox = $("#hd_styledesigner");
+                        var stringlength = 0;
+                        var currChar = "";
+                        var currindex = "";
+                        $.each(pieces,
+                            function(pi, pv) {
+                                stringlength += pv.length;
+                                if (stringlength >= currenpos && currChar=="") {
+                                    currChar = pv;
+                                    currindex = pi;
+                                }
+                            });
+                        //value.substring(0, index);
+
+
+                        //$.each(pieces,
+                        //    function(i, v) {
+                        if (e.keyCode == 38 && !isNaN(currChar)) {
+                            pieces[currindex] = parseInt(currChar) + 1;
+                            $(this).val(pieces.join(" ").replace(/ px/g, "px"));
+                            $(this).getCursorPosition(currenpos, currenpos);
+                        }else
+                        if (e.keyCode == 40 && !isNaN(currChar)) {
+                            pieces[currindex] = parseInt(currChar) - 1;
+                            $(this).val(pieces.join(" ").replace(/ px/g, "px"));
+                            $(this).getCursorPosition(currenpos, currenpos);
+                        }else
+                        if (dynamicposition < value.length && lastchar != " ") {
+                            var baseobj;
+
+                            if (currChar.startsWith("rgb")||currChar.startsWith("#")) {
+                                pieces[currindex] = "";
+                                $(this).val(pieces.join(" ").replace(/ px/g, "px"));
+
+                                baseobj = setstylebox(objbox, "subdynamicinput", "");
+                                var inputbox = setcolorbox(baseobj, "subdynamicinput", "subdynamicinput");
+                                inputbox.val(currChar);
+                                inputbox.focus();
+                            } else if (isNaN(currChar)) {
+                                pieces[currindex] = "";
+                                $(this).val(pieces.join(" ").replace(/ px/g, "px"));
+
+                                baseobj = setstylebox(objbox, "subdynamicinput", "");
+                                var input = setselectbox(baseobj, "subdynamicinput", "subdynamicinput");
+                                setoptionbox(input, "px", "Pixel");
+                                setoptionbox(input, "%", "Percentage");
+
+                                $.each(stylepieces,
+                                    function(si, sv) {
+                                        console.log("sv:" + sv);
+                                        var stylesubpieces = sv.split("|");
+                                        $.each(stylesubpieces,
+                                            function(sbi, sbv) {
+                                                setinnerstyles(input, sbv, "options");
+                                            });
+
+                                    });
+                                selectize();
+
+                                //input.val(v);
+                                //input.focus();
+
+                                var selectizeinput = $("#subdynamicinput" + "-selectized");
+                                selectizeinput.val(currChar);
+                                selectizeinput.focus();
+
+
+                            }
+                        }
+                        dynamicposition = currenpos;
+                    }
+                    
+                }
+                //});
+                
+                var cssstyle = {};
+                cssstyle[$("#hd_styleinput").val()] = $(this).val();
+                    window.hdCurrentobj.removeAttr("style");
+                    hdCurrentobj.css(cssstyle);
+                
 
             });
         $('body').
           on('keyup change blur',
               '#hd_stylevalueinput,#hd_styleinput',
               function (e) {
+                  dynamicposition = 0;
                   var hdStyleinputval = $('#hd_styleinput').val();
                   if (e.keyCode == 13) {
                       $('#existingstylelist')
@@ -196,7 +341,7 @@ $(document).
                 });
         $('body').
             on('click',
-                '*:not("#hd_rightmenu,#hd_rightmenu *,#absolutestyleeditor,#absolutestyleeditor *")',
+                '*:not(".colorpicker,.colorpicker *,#hd_rightmenu,#hd_rightmenu *,#absolutestyleeditor,#absolutestyleeditor *")',
                 function (e) {
                     $('#hd_rightmenu').hide();
                     hdCurrentobj.removeClass(hdCurrentobj.attr('tempclass'));

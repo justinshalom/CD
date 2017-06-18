@@ -78,7 +78,8 @@ function include(category, name) {
 }
 $(document).ready(function () {
     include('awe', 'css/font-awesome.min');
-   //include('bootstrap','bootstrap.min');
+    //include('bootstrap','bootstrap.min');
+    include("colorpicker", "css/bootstrap-colorpicker.min");
     include('material', 'bootstrap-material-design.min');
     include('material', 'ripples.min');
     include('material-datepicker', 'css/bootstrap-material-datetimepicker');
@@ -101,6 +102,7 @@ $(document).ready(function () {
    
     require("material-datepicker", "js/bootstrap-material-datetimepicker");
     //require("chosen", "chosen.jquery.min");
+    require("colorpicker", "js/bootstrap-colorpicker.min");
     require("selectize", "standalone/selectize.min");
     require("internal", "bindlist");
     require("internal", "htmldesignerhtml");

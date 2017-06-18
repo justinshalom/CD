@@ -18,25 +18,25 @@ $(document).ready(function () {
     getallcssproperties();
 
     
-    var hd_menu = $('#hd_rightmenu');
-    hd_menu.hide();
+    var hdMenu = $('#hd_rightmenu');
+    hdMenu.hide();
 
     $('body').
             on('contextmenu',
                 '*',
                 function (e) {
                     $('#hd_styledesigner').hide();
-                    hdCurrentobj = $(this);
+                    window.hdCurrentobj = $(this);
                     e.preventDefault();
                     e.stopPropagation();
                     var t = $(this);
-                    hd_menu.show();
-                    setmenupositions(hd_menu, t, e);
+                    hdMenu.show();
+                    setmenupositions(hdMenu, t, e);
                     var classeslist =
                         (t.attr('class'))
                             ? t.attr('class').split(' ')
                             : false;
-                    setmenubasedonattributes(hd_menu, t, classeslist, allclasses);
+                    setmenubasedonattributes(hdMenu, t, classeslist, allclasses);
                     $('#hd_rightmenu_allattributes').append(newattributehtml);
                     selectize();
                     setmenuheader(t, classeslist);

@@ -242,6 +242,13 @@
     <Content Include="Content\bootstrap\bootstrap.css" />
     <Content Include="Content\bootstrap\bootstrap.min.css" />
     <Content Include="Content\bootstrap\hd_bootstrap.css" />
+    <Content Include="Content\colorpicker\css\bootstrap-colorpicker.css" />
+    <Content Include="Content\colorpicker\css\bootstrap-colorpicker.min.css" />
+    <Content Include="Content\colorpicker\img\bootstrap-colorpicker\alpha-horizontal.png" />
+    <Content Include="Content\colorpicker\img\bootstrap-colorpicker\alpha.png" />
+    <Content Include="Content\colorpicker\img\bootstrap-colorpicker\hue-horizontal.png" />
+    <Content Include="Content\colorpicker\img\bootstrap-colorpicker\hue.png" />
+    <Content Include="Content\colorpicker\img\bootstrap-colorpicker\saturation.png" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\fonts\Simple-Line-Icons.svg" />
@@ -266,6 +273,8 @@
     <Content Include="Content\bootstrap\bootstrap-grid.css.map" />
     <Content Include="Content\bootstrap\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap\bootstrap.css.map" />
+    <Content Include="Scripts\colorpicker\js\bootstrap-colorpicker.js" />
+    <Content Include="Scripts\colorpicker\js\bootstrap-colorpicker.min.js" />
     <Content Include="Scripts\internal\bindlist.js" />
     <Content Include="Scripts\internal\dependencysolver.js" />
     <Content Include="Scripts\visual\editor.js" />
@@ -418,6 +427,8 @@
     <Content Include="Content\json\syntaxes.json" />
     <Content Include="Content\json\types.json" />
     <Content Include="Content\json\units.json" />
+    <Content Include="Content\colorpicker\css\bootstrap-colorpicker.css.map" />
+    <Content Include="Content\colorpicker\css\bootstrap-colorpicker.min.css.map" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

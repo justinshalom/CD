@@ -193,14 +193,15 @@ var selectize = function() {
     $('select.selectize:not(.selectized)')
         .selectize({
             delimiter: ',',
-            persist: false,
-            highlight: false,
-            create: function(input) {
-                return {
-                    value: input,
-                    text: input
-                }
-            }
+            //persist: false,
+            //highlight: false,
+            //create: function (input) {
+            //    debugger;
+            //    return {
+            //        value: input,
+            //        text: input
+            //    }
+            //}
         });
 };
 var setAttribute = function(hdCurrentobj, key, value) {
