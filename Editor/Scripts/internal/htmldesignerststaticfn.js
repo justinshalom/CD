@@ -194,7 +194,8 @@ var selectize = function() {
         .selectize({
             delimiter: ',',
             //persist: false,
-            //highlight: false,
+            highlight: false,
+            searchField: ['value', 'text']
             //create: function (input) {
             //    debugger;
             //    return {

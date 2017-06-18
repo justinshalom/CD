@@ -163,12 +163,22 @@ var setselectbox = function(objbox, id, name) {
 }
 var setoptionbox = function(objbox, key, value) {
     if (objbox.find('[value="' + key + '"]').length == 0) {
-        objbox.append('<option value="' + key + '"  >' + value + '</option>');
+        objbox.append('<option data-text="' + value + '" data-value="' + key + '" value="' + key + '"  >' + value + '</option>');
     } else {
        // objbox.attr("multiple", "multiple");
     }
     return objbox;
 }
+var setstylelabels= function(key,value) {
+    $('#existingstylelist')
+                               .append('<div class="hdcol-xs-50"><div class="hdcol-xs-25"><label class="hdstylename control-label pull-left">' +
+                                   key +
+                                   '</label></div><div class="hdcol-xs-25"><label class="hdstylevalue control-label pull-left">' +
+                                   value +
+                                   '</label></div></div>');
+
+}
+
 var setmenubasedonattributes = function(hdmenu, t, classeslist, allclasses) {
     $('.hd_rightmenu_clear').html('');
     var attributes = t.attr();
@@ -191,6 +201,8 @@ var setmenubasedonattributes = function(hdmenu, t, classeslist, allclasses) {
                 switch (attributename) {
                 case 'style':
                 {
+
+                   
                     options =
                         '<select id="hd_styleinput" class="hdform-control selectize  input-sm"  ><option value=""></option>';
                     options += $.bindlist({
@@ -217,6 +229,14 @@ var setmenubasedonattributes = function(hdmenu, t, classeslist, allclasses) {
                     text += '        </div>';
                     $('#hd_rightmenu_allattributes').append(text);
                     $("#hd_styleinput").val("border").trigger("change");
+                    $.each(attributevalue.split(";"),
+                       function (attri, attrv) {
+                           var attrpieces = attrv.split(":");
+                           if (attrpieces[0] && attrpieces[1]) {
+                               setstylelabels(attrpieces[0], attrpieces[1]);
+                           }
+
+                       });
                     break;
                 }
                 case 'class':

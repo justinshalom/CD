@@ -111,6 +111,19 @@ $(document).
                 }
 
             });
+        $('body').on('click',
+            '#existingstylelist > div',
+            function(e, inherit) {
+                var key = $(this).find(".hdstylename").text();
+                var value = $(this).find(".hdstylevalue").text();
+                $(this).remove();
+                $("#hd_styleinput").val(key).trigger("change");
+                $(".dynamicinput").val(value);
+                $(".dynamicinput").focus();
+
+            });
+
+        var clickedenter = false;
         $('body').on('keyup click',
             '.dynamicinput',
             function (e, inherit) {
@@ -132,103 +145,104 @@ $(document).
                     } else {
                         $("#hd_styledesigner").css("min-width", 100+"%");
                         $("#hd_styledesigner").css("width", (($(".dynamicinput").val().length) * 5) + "%");
-                       
-                        var hdStyleinputval = $('#hd_styleinput').val();
-                        //if (e.keyCode == 13) {
-                        //    $('#existingstylelist')
-                        //        .append('<div class="hdcol-xs-25"><label class="control-label pull-left">' +
-                        //            $('#hd_styleinput').val() +
-                        //            '</label></div><div class="hdcol-xs-25"><label class="control-label pull-left">' +
-                        //            $('#hd_stylevalueinput').val() +
-                        //            '</label></div>');
-                        //}
-                        //$('#hd_styledesigner').hide();
-                        var obj = properties[hdStyleinputval];
-                        var stylepieces = {};
-                        if (obj) {
-                            if (obj.percentages == "no") {
-
-                            } else {
-
-                            }
-                            var syntax = obj.syntax;
-                            stylepieces = syntax.split("||");
-                        }
-
-
                         var value = $(this).val();
-                       
-                        var lastchar = value[currenpos - 1];
-                        var uptochar = value.substring(0, currenpos).replace(/ /g, "");
-                        currenpos = uptochar.length;
-                        var pieces = value.match(/rgb\(?.*\)+|#[0-9A-Za-z]+|#|[0-9]+|[A-Za-z]+/g);
-                        var objbox = $("#hd_styledesigner");
-                        var stringlength = 0;
-                        var currChar = "";
-                        var currindex = "";
-                        $.each(pieces,
-                            function(pi, pv) {
-                                stringlength += pv.length;
-                                if (stringlength >= currenpos && currChar=="") {
-                                    currChar = pv;
-                                    currindex = pi;
+                        var hdStyleinputval = $('#hd_styleinput').val();
+                        if (e.keyCode == 13 && value && clickedenter) {
+                            
+                            setstylelabels($('#hd_styleinput').val(), value);
+                            $('#hd_styledesigner').hide();
+                        }
+                        if (e.keyCode == 13) {
+                            clickedenter = true;
+                        } else {
+                            clickedenter = false;
+
+                            var obj = properties[hdStyleinputval];
+                            var stylepieces = {};
+                            if (obj) {
+                                if (obj.percentages == "no") {
+
+                                } else {
+
                                 }
-                            });
-                        //value.substring(0, index);
+                                var syntax = obj.syntax;
+                                stylepieces = syntax.split("||");
+                            }
 
 
-                        //$.each(pieces,
-                        //    function(i, v) {
-                        if (e.keyCode == 38 && !isNaN(currChar)) {
-                            pieces[currindex] = parseInt(currChar) + 1;
-                            $(this).val(pieces.join(" ").replace(/ px/g, "px"));
-                            $(this).getCursorPosition(currenpos, currenpos);
-                        }else
-                        if (e.keyCode == 40 && !isNaN(currChar)) {
-                            pieces[currindex] = parseInt(currChar) - 1;
-                            $(this).val(pieces.join(" ").replace(/ px/g, "px"));
-                            $(this).getCursorPosition(currenpos, currenpos);
-                        }else
-                        if (dynamicposition < value.length && lastchar != " ") {
-                            var baseobj;
+                            if (currenpos == 0 && value.length > 0) {
+                                currenpos = 1;
+                            }
+                            var lastchar = value[currenpos - 1];
+                            var uptochar = value.substring(0, currenpos).replace(/ /g, "");
+                            currenpos = uptochar.length;
+                            var pieces = value.match(/rgb\(?.*\)+|#[0-9A-Za-z]+|#|[0-9]+|[A-Za-z]+/g);
+                            var objbox = $("#hd_styledesigner");
+                            var stringlength = 0;
+                            var currChar = "";
+                            var currindex = "";
+                            $.each(pieces,
+                                function(pi, pv) {
+                                    stringlength += pv.length;
+                                    if (stringlength >= currenpos && currChar == "") {
+                                        currChar = pv;
+                                        currindex = pi;
+                                    }
+                                });
+                            //value.substring(0, index);
 
-                            if (currChar.startsWith("rgb")||currChar.startsWith("#")) {
-                                pieces[currindex] = "";
+
+                            //$.each(pieces,
+                            //    function(i, v) {
+                            if (e.keyCode == 38 && !isNaN(currChar)) {
+                                pieces[currindex] = parseInt(currChar) + 1;
                                 $(this).val(pieces.join(" ").replace(/ px/g, "px"));
-
-                                baseobj = setstylebox(objbox, "subdynamicinput", "");
-                                var inputbox = setcolorbox(baseobj, "subdynamicinput", "subdynamicinput");
-                                inputbox.val(currChar);
-                                inputbox.focus();
-                            } else if (isNaN(currChar)) {
-                                pieces[currindex] = "";
+                                $(this).getCursorPosition(currenpos, currenpos);
+                            } else if (e.keyCode == 40 && !isNaN(currChar)) {
+                                pieces[currindex] = parseInt(currChar) - 1;
                                 $(this).val(pieces.join(" ").replace(/ px/g, "px"));
+                                $(this).getCursorPosition(currenpos, currenpos);
+                            } else if (dynamicposition < value.length && lastchar != " ") {
+                                var baseobj;
 
-                                baseobj = setstylebox(objbox, "subdynamicinput", "");
-                                var input = setselectbox(baseobj, "subdynamicinput", "subdynamicinput");
-                                setoptionbox(input, "px", "Pixel");
-                                setoptionbox(input, "%", "Percentage");
+                                if (currChar.startsWith("rgb") || currChar.startsWith("#")) {
+                                    pieces[currindex] = "";
+                                    $(this).val(pieces.join(" ").replace(/ px/g, "px"));
 
-                                $.each(stylepieces,
-                                    function(si, sv) {
-                                        console.log("sv:" + sv);
-                                        var stylesubpieces = sv.split("|");
-                                        $.each(stylesubpieces,
-                                            function(sbi, sbv) {
-                                                setinnerstyles(input, sbv, "options");
-                                            });
+                                    baseobj = setstylebox(objbox, "subdynamicinput", "");
+                                    var inputbox = setcolorbox(baseobj, "subdynamicinput", "subdynamicinput");
+                                    inputbox.val(currChar);
+                                    inputbox.focus();
+                                } else if (isNaN(currChar)) {
+                                    pieces[currindex] = "";
+                                    $(this).val(pieces.join(" ").replace(/ px/g, "px"));
 
-                                    });
-                                selectize();
+                                    baseobj = setstylebox(objbox, "subdynamicinput", "");
+                                    var input = setselectbox(baseobj, "subdynamicinput", "subdynamicinput");
+                                    setoptionbox(input, "px", "Pixel");
+                                    setoptionbox(input, "%", "Percentage");
 
-                                //input.val(v);
-                                //input.focus();
+                                    $.each(stylepieces,
+                                        function(si, sv) {
+                                            console.log("sv:" + sv);
+                                            var stylesubpieces = sv.split("|");
+                                            $.each(stylesubpieces,
+                                                function(sbi, sbv) {
+                                                    setinnerstyles(input, sbv, "options");
+                                                });
 
-                                var selectizeinput = $("#subdynamicinput" + "-selectized");
-                                selectizeinput.val(currChar);
-                                selectizeinput.focus();
+                                        });
+                                    selectize();
+
+                                    //input.val(v);
+                                    //input.focus();
+
+                                    var selectizeinput = $("#subdynamicinput" + "-selectized");
+                                    selectizeinput.val(currChar);
+                                    selectizeinput.focus();
 
 
+                                }
                             }
                         }
                         dynamicposition = currenpos;
@@ -238,8 +252,17 @@ $(document).
                 //});
                 
                 var cssstyle = {};
+               
+                window.hdCurrentobj.removeAttr("style");
+                $('#existingstylelist > div').each(
+           function (ei,ev) {
+               var key = $(this).find(".hdstylename").text();
+               var value = $(this).find(".hdstylevalue").text();
+               
+               cssstyle[key] = value;
+
+           });
                 cssstyle[$("#hd_styleinput").val()] = $(this).val();
-                    window.hdCurrentobj.removeAttr("style");
                     hdCurrentobj.css(cssstyle);
                 
 
@@ -250,14 +273,14 @@ $(document).
               function (e) {
                   dynamicposition = 0;
                   var hdStyleinputval = $('#hd_styleinput').val();
-                  if (e.keyCode == 13) {
-                      $('#existingstylelist')
-                          .append('<div class="hdcol-xs-25"><label class="control-label pull-left">'
-                              + $('#hd_styleinput').val()
-                              + '</label></div><div class="hdcol-xs-25"><label class="control-label pull-left">'
-                              + $('#hd_stylevalueinput').val()
-                              + '</label></div>');
-                  }
+                  //if (e.keyCode == 13) {
+                  //    $('#existingstylelist')
+                  //        .append('<div class="hdcol-xs-25"><label class="control-label pull-left">'
+                  //            + $('#hd_styleinput').val()
+                  //            + '</label></div><div class="hdcol-xs-25"><label class="control-label pull-left">'
+                  //            + $('#hd_stylevalueinput').val()
+                  //            + '</label></div>');
+                  //}
                   $('#hd_styledesigner').hide();
                   var obj = properties[hdStyleinputval];
                   if (obj) {
@@ -274,14 +297,13 @@ $(document).
                       $('.styleinputs').hide();
                       $('#hd_styledesigner').html("");
                       $('#hd_styledesigner').show();
-                      console.log("obj:" + obj);
-                      console.log("synatax:" + syntax);
+                     
                       var objbox = $('#hd_styledesigner');
 
                       var baseobj = setstylebox(objbox, "dynamicinput","");
 
-                      setinputbox(baseobj, "text", "", "dynamicinput");
-
+                      var input=setinputbox(baseobj, "text", "", "dynamicinput");
+                      input.focus();
 
                       ////$.each(stylepieces, function (si, sv) {
 
