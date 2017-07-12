@@ -228,7 +228,7 @@ var setmenubasedonattributes = function(hdmenu, t, classeslist, allclasses) {
                         '    <div class="hdcol-xs-50" id="hd_styledesigner" style="position: absolute;z-index: 999999;top: 57px;left: 147px;background-color: rgba(255, 255, 255, 0.98);padding: 0px 18px;">   ';
                     text += '        </div>';
                     $('#hd_rightmenu_allattributes').append(text);
-                    $("#hd_styleinput").val("border").trigger("change");
+                    ///$("#hd_styleinput").val("border").trigger("change");
                     $.each(attributevalue.split(";"),
                        function (attri, attrv) {
                            var attrpieces = attrv.split(":");

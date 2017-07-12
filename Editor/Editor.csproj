@@ -222,6 +222,7 @@
     <Compile Include="Models\FieldName.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ProjectPropertiesModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -403,7 +404,6 @@
     <Content Include="Content\awe\scss\_screen-reader.scss" />
     <Content Include="Content\awe\scss\_stacked.scss" />
     <Content Include="Content\awe\scss\_variables.scss" />
-    <Content Include="Editor.sln.DotSettings" />
     <Content Include="Content\material-datepicker\font\Material-Design-Icons.eot" />
     <Content Include="Content\material-datepicker\font\Material-Design-Icons.ttf" />
     <Content Include="Content\material-datepicker\font\Material-Design-Icons.woff" />
@@ -1237,6 +1237,7 @@
     <Content Include="Views\Visual\PrependHeader.cshtml" />
     <Content Include="Views\Visual\AppendFooter.cshtml" />
     <Content Include="Views\Visual\Designer.cshtml" />
+    <Content Include="Views\Settings\Project.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

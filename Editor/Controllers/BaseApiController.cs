@@ -16,9 +16,15 @@ namespace Editor.Controllers
         /// <summary>
         /// Return the Output of Json
         /// </summary>
-        /// <param name="error">if set to <c>true</c> [error].</param>
-        /// <param name="message">The message.</param>
-        /// <param name="data">The data.</param>
+        /// <param name="IsTrue">
+        /// The Is True.
+        /// </param>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        /// <param name="data">
+        /// The data.
+        /// </param>
         /// <returns>
         /// Json Data
         /// </returns>

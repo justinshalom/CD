@@ -53,5 +53,10 @@ namespace Editor.Code.Config
         /// Gets or sets the DB password.
         /// </summary>
         internal string DbPassword { get; set; }
+
+        /// <summary>
+        /// Gets or sets the db server.
+        /// </summary>
+        public string DbServer { get; set; }
     }
 }

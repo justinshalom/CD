@@ -28,13 +28,21 @@ namespace Editor.Code.Config
                 var project = new ProjectProperties();
                 if (SystemRel.GetLocalIPAddress() == "10.10.3.141")
                 {
-                    project.Url = "http://localhost:63518";
+                    project.Url = "http://localhost:63517";
                     project.Directory = @"D:\WorkOfJustin\Replica\Main\Replika\Replika.Web";
+                    project.DbName = "Replika_Dev";
+                    project.DbServer = "FTS-DSK-178.ftsindia.in";
+                    project.DbUserName = "monnieuser";
+                    project.DbPassword = "Monnie@123";
                 }
                 else
                 {
                     project.Url = "http://localhost:53910";
                     project.Directory = @"F:\HolyWords\HolyWords";
+                    project.DbName = "Replika_Dev";
+                    project.DbServer = "FTS-DSK-178.ftsindia.in";
+                    project.DbUserName = "monnieuser";
+                    project.DbPassword = "Monnie@123";
                 }
                 Session.Keep("ProjectProperties", project);
             }
@@ -46,8 +54,14 @@ namespace Editor.Code.Config
                 DbName = project.DbName;
                 DbUserName = project.DbUserName;
                 DbPassword = project.DbPassword;
+                DbServer = project.DbServer;
             }
         }
+
+        /// <summary>
+        /// Gets or sets the db server.
+        /// </summary>
+        public static string DbServer { get; set; }
 
         /// <summary>
         /// Gets or sets the DB password.

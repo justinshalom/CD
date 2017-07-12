@@ -16,6 +16,8 @@ using Editor.Code.File;
 
 namespace Editor.Controllers
 {
+    using System.Diagnostics.CodeAnalysis;
+
     /// <summary>
     /// Json Controller
     /// </summary>
@@ -42,7 +44,7 @@ namespace Editor.Controllers
                 content = regreplace(@"(\()(.*)("")(.*)(\))", @"$1$2" + seperator + "$4$5", content);
             }
             var genidname = "data-genid";
-            var html = "";
+            var html = string.Empty;
             try
             {
                 var parser = new HtmlParser();
@@ -56,7 +58,7 @@ namespace Editor.Controllers
                     el.SetAttribute(genidname, controller + "_" + view + "_" + uniquekey);
                     uniquekey++;
                 }
-                if (appendfrom != "")
+                if (appendfrom != string.Empty)
                 {
                     html = document.DocumentElement.QuerySelector(appendfrom).InnerHtml;
                 }
@@ -173,8 +175,8 @@ namespace Editor.Controllers
         {
             string[] htmlsplit = { "<body" };
             string[] htmlaftersplit = { @"</body>", @"</ body>" };
-            var beforehtml = "";
-            var afterhtml = "";
+            var beforehtml = string.Empty;
+            var afterhtml = string.Empty;
             var beforehtmlarray = content.Split(htmlsplit, StringSplitOptions.None);
             if (beforehtmlarray.Length == 2)
             {
@@ -203,7 +205,7 @@ namespace Editor.Controllers
             var seperator = "-$-";
             var seperatorreg = @"-\$-";
             var genidname = "data-genid";
-            var html = "";
+            var html = string.Empty;
             var tempcontent = content;
             var contenthider = new Dictionary<int, string>();
             try
@@ -211,11 +213,11 @@ namespace Editor.Controllers
                 var razorstarts = false;
                 var razorcommentstarts = false;
                 var contenthiderkey = 0;
-                var commentdata = "";
+                var commentdata = string.Empty;
                 var options = RegexOptions.Multiline | RegexOptions.IgnoreCase;
                 string cleanpattern = @"@(?<=\@).+?(?<=\().+?(?=\))\)";
                 string razorcommentspattern = @"(@\*)(.*)(\*@)";
-                var templinecontent = "";
+                var templinecontent = string.Empty;
                 using (StringReader reader = new StringReader(content))
                 {
                     string line;
@@ -236,7 +238,7 @@ namespace Editor.Controllers
                         {
                             var commentstartsarray = line.Split(new string[1] { "@*" }, StringSplitOptions.None);
                             commentdata = "@*" + commentstartsarray[1];
-                            line = line.Replace(commentdata, "");
+                            line = line.Replace(commentdata, string.Empty);
                             razorcommentstarts = true;
                         }
                         else if (line.Contains("*@"))
@@ -252,7 +254,7 @@ namespace Editor.Controllers
                         else if (razorcommentstarts == true)
                         {
                             commentdata = commentdata + Environment.NewLine + line;
-                            line = "";
+                            line = string.Empty;
                         }
                         var atoccurs = line.Split('@');
 
@@ -325,7 +327,7 @@ namespace Editor.Controllers
 
                 document.Body.AppendChild(code);
 
-                if (appendfrom != "")
+                if (appendfrom != string.Empty)
                 {
                     html = document.DocumentElement.QuerySelector(appendfrom).OuterHtml;
                 }
@@ -369,9 +371,9 @@ namespace Editor.Controllers
         /// <returns></returns>
         public JsonResult Attribute(string genid, string key = "", string value = "", string controllername = "", string view = "layout", string area = "")
         {
-            var content = "";
-            var filepath = "";
-            if (area == "" && controllername == "shared")
+            var content = string.Empty;
+            var filepath = string.Empty;
+            if (area == string.Empty && controllername == "shared")
             {
                 filepath = FIleUtilities.RootPath + FIleUtilities.ViewPath + FIleUtilities.SharedPath +
                     "_" + view + FIleUtilities.Dot.cshtml;
@@ -390,7 +392,7 @@ namespace Editor.Controllers
                 var parser = new HtmlParser();
                 var document = parser.Parse(content);
                 document.QuerySelector("[data-genid=" + genid + "]").SetAttribute(key, value);
-                var html = "";
+                var html = string.Empty;
                 html = area == "shared" ? document.DocumentElement.OuterHtml : document.DocumentElement.QuerySelector("body").InnerHtml;
                 if (filepath.Length == 0)
                 {
@@ -420,6 +422,7 @@ namespace Editor.Controllers
         /// <param name="view">The view.</param>
         /// <param name="area">The area.</param>
         /// <returns></returns>
+        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1616:ElementReturnValueDocumentationMustHaveText", Justification = "Reviewed. Suppression is OK here.")]
         public JsonResult SolveDependency(string controllername = "", string view = "", string area = "")
         {
             try{
@@ -430,16 +433,13 @@ namespace Editor.Controllers
             ////htmlnew = document.DocumentElement.OuterHtml;
             ////htmlnew = Regex.Replace(htmlnew, @"^\s+$[\r\n]*", "", RegexOptions.Multiline);
             ////FIleUtilities.SetFileContent(htmlnew, @"D:\\WorkOfJustin\\Replica\\Main\\Replika\\Replika.Neiman\\Default.html");
-           
-          
-
-            if (controllername == "" && view == "")
+            if (controllername == string.Empty && view == string.Empty)
             {
                 var url = Project.Url;
                 var dir = Project.Directory;
 
                 var paths = Directory.GetFiles(dir + FIleUtilities.ViewPath + FIleUtilities.SharedPath);
-                var lhtml = "";
+                var lhtml = string.Empty;
                 foreach (var path in paths)
                 {
                     if (path.Contains("Layout"))
@@ -460,7 +460,7 @@ namespace Editor.Controllers
             var content = FIleUtilities.GetFileContent(area, controllername, view, FIleUtilities.ViewPath, FIleUtilities.Dot.cshtml);
             var html = ApplyGeneratedId(content, controllername, view, "body");
             var layout = content.Split(new string[2] { "Layout=", "Layout =" }, StringSplitOptions.None);
-            var layoutFile = "";
+            var layoutFile = string.Empty;
             if (layout.Length < 2)
             {
                 layoutFile = FIleUtilities.RootPath + FIleUtilities.ViewPath + FIleUtilities.SharedPath +
@@ -468,7 +468,7 @@ namespace Editor.Controllers
             }
             else
             {
-                layoutFile = FIleUtilities.RootPath + string.Join("", layout[1].Split(new string[2] { System.Environment.NewLine, ";" }, StringSplitOptions.RemoveEmptyEntries)[0].Split(new string[1] { '"' + "" }, StringSplitOptions.RemoveEmptyEntries)).Replace("~", "").Replace(" ", "");
+                layoutFile = FIleUtilities.RootPath + string.Join(string.Empty, layout[1].Split(new string[2] { System.Environment.NewLine, ";" }, StringSplitOptions.RemoveEmptyEntries)[0].Split(new string[1] { '"' + string.Empty }, StringSplitOptions.RemoveEmptyEntries)).Replace("~", string.Empty).Replace(" ", string.Empty);
             }
 
             var layoutcontent = FIleUtilities.GetFileContent(layoutFile);
