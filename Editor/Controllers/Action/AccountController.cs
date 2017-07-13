@@ -4,16 +4,15 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Editor.Controllers
+namespace Editor.Controllers.Action
 {
-    public class ModelController : Controller
+    public class AccountController : BaseController
     {
-        // GET: Model
-        public ActionResult GenerateModel()
+        //
+        // GET: /Account/
+        public ActionResult Index()
         {
             return View();
         }
-        // GET: Model
-        
     }
 }
