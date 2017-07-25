@@ -1,29 +1,49 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="FieldName.cs" company="">
+//   Code Editor
+// </copyright>
+// <summary>
+//   Defines the FieldNameAttribute type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Editor.Models
 {
-    class FieldNameAttribute : Attribute
+    using System;
+
+    /// <summary>
+    /// The field name attribute.
+    /// </summary>
+    public class FieldNameAttribute : Attribute
     {
-      
+        /// <summary>
+        /// The name.
+        /// </summary>
+        private readonly string name;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FieldNameAttribute"/> class.
+        /// </summary>
+        /// <param name="name">
+        /// The name.
+        /// </param>
+        [DynamicallyInvokable]
         public FieldNameAttribute(string name)
         {
-            this.Name = name;
-           
+            this.name = name;
         }
-        //
-        // Summary:
-        //     Initializes a new instance of the System.ComponentModel.DisplayNameAttribute
-        //     class using the display name.
-        //
-        // Parameters:
-        //   displayName:
-        //     The display name.
-       
 
-
-        public string Name { get; set; }
+        /// <summary>
+        /// Gets the name.
+        /// </summary>
+        [DynamicallyInvokable]
+        public string Name
+        {
+            [DynamicallyInvokable]
+            get
+            {
+                return this.name;
+            }
+        }
     }
 }

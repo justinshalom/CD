@@ -219,6 +219,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DatabaseModel.cs" />
     <Compile Include="Models\DataAccess\DbModel.cs" />
+    <Compile Include="Models\DynamicallyInvokableAttribute.cs" />
     <Compile Include="Models\FieldName.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
