@@ -1,22 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Web;
-using System.Web.Http;
-using System.Web.Mvc;
-using AngleSharp.Parser.Html;
-using CsQuery;
-using Editor.Code.Config;
-using Editor.Code.File;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="JsonController.cs" company="Code Editor">
+//   
+// </copyright>
+// <summary>
+//   Json Controller
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Editor.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Configuration;
     using System.Diagnostics.CodeAnalysis;
+    using System.IO;
+    using System.Linq;
+    using System.Security.Cryptography;
+    using System.Text;
+    using System.Text.RegularExpressions;
+    using System.Web;
+    using System.Web.Http;
+    using System.Web.Mvc;
+
+    using AngleSharp.Parser.Html;
+
+    using CsQuery;
+
+    using Editor.Code.Config;
+    using Editor.Code.File;
 
     /// <summary>
     /// Json Controller

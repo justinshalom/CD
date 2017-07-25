@@ -6,16 +6,14 @@ using System.Web.Mvc;
 
 namespace Editor.Controllers
 {
-    public class SettingsController : Controller
+    public class ModelController : BaseController
     {
-        // GET: Settings
-        public ActionResult DataBase()
+        // GET: Model
+        public ActionResult GenerateModel()
         {
             return View();
         }
-        public ActionResult Project()
-        {
-            return View();
-        }
+        // GET: Model
+        
     }
 }

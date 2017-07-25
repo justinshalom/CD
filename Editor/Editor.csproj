@@ -151,40 +151,11 @@
     <Reference Include="Owin">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin">
-      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Host.SystemWeb">
-      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security">
-      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.Facebook">
-      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.Cookies">
-      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.OAuth">
-      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.Google">
-      <HintPath>..\packages\Microsoft.Owin.Security.Google.3.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.Twitter">
-      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
-      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Code\Config\Project.cs" />
     <Compile Include="Code\Config\ProjectProperties.cs" />
@@ -195,34 +166,30 @@
     <Compile Include="Code\Html\cQuery.cs" />
     <Compile Include="Code\StateManagement\Session.cs" />
     <Compile Include="Code\Utilities\SystemRel.cs" />
-    <Compile Include="Controllers\VisualController.cs" />
-    <Compile Include="Controllers\FileController.cs" />
-    <Compile Include="Controllers\JsonApiController.cs" />
-    <Compile Include="Controllers\JsonController.cs" />
+    <Compile Include="Controllers\Action\AccountController.cs" />
+    <Compile Include="Controllers\Action\VisualController.cs" />
+    <Compile Include="Controllers\Action\FileController.cs" />
+    <Compile Include="Controllers\Api\JsonApiController.cs" />
+    <Compile Include="Controllers\Json\JsonController.cs" />
     <Compile Include="Models\DataAccess\BaseDA.cs" />
     <Compile Include="Models\DataAccess\SettingsModel.cs" />
     <Compile Include="Code\Api\Objects\ApiJsonDto.cs" />
     <Compile Include="Code\Config\DbConnection.cs" />
     <Compile Include="Code\Sql\Sql.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\BaseApiController.cs" />
-    <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\ModelController.cs" />
-    <Compile Include="Controllers\SettingsApiController.cs" />
-    <Compile Include="Controllers\SettingsController.cs" />
-    <Compile Include="Controllers\DbApiController.cs" />
+    <Compile Include="Controllers\Action\BaseController.cs" />
+    <Compile Include="Controllers\Action\HomeController.cs" />
+    <Compile Include="Controllers\Api\BaseApiController.cs" />
+    <Compile Include="Controllers\Action\ModelController.cs" />
+    <Compile Include="Controllers\Api\SettingsApiController.cs" />
+    <Compile Include="Controllers\Action\SettingsController.cs" />
+    <Compile Include="Controllers\Api\DbApiController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DatabaseModel.cs" />
     <Compile Include="Models\DataAccess\DbModel.cs" />
     <Compile Include="Models\DynamicallyInvokableAttribute.cs" />
     <Compile Include="Models\FieldName.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ProjectPropertiesModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -230,7 +197,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\awe\css\font-awesome.css" />

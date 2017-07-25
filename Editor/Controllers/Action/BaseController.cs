@@ -3,6 +3,7 @@ using Editor.Code.Api;
 
 namespace Editor.Controllers
 {
+    [Authorize]
     public class BaseController:Controller
     {
         /// <summary>

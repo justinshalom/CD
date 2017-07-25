@@ -87,15 +87,15 @@ namespace Editor.Models.DataAccess
         /// <summary>
         /// The get all databases.
         /// </summary>
-        /// <param name="ServerName">
+        /// <param name="serverName">
         /// The server name.
         /// </param>
         /// <returns>
         /// The <see cref="DataTable"/>.
         /// </returns>
-        internal static DataTable GetAllDatabases(string ServerName)
+        internal static DataTable GetAllDatabases(string serverName)
         {
-            using (var con = new SqlConnection("Data Source=" + ServerName + "; Integrated Security=True;"))
+            using (var con = new SqlConnection("Data Source=" + serverName + "; Integrated Security=True;"))
             {
                 con.Open();
                 DataTable databases = con.GetSchema("Databases");

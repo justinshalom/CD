@@ -1,36 +1,52 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Web;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="BaseDA.cs" company="Code Editor">
+//   
+// </copyright>
+// <summary>
+//   The base DA.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Editor.Models.DataAccess
 {
+    using System;
+    using System.Collections.Generic;
+
+    /// <summary>
+    /// The base DA.
+    /// </summary>
     public class BaseDA
     {
-        
+        /// <summary>
+        /// The get attribute.
+        /// </summary>
+        /// <param name="t">The Type
+        /// </param>
+        /// <returns>
+        /// The <see cref="Dictionary"/>.
+        /// </returns>
         public static Dictionary<string, string> GetAttribute(Type t)
         {
-            Dictionary<string, string> _dict = new Dictionary<string, string>();
+            var dict = new Dictionary<string, string>();
 
-            PropertyInfo[] props = t.GetProperties();
-            foreach (PropertyInfo prop in props)
+            var props = t.GetProperties();
+            foreach (var prop in props)
             {
-                object[] attrs = prop.GetCustomAttributes(true);
-                foreach (object attr in attrs)
+                var attributes = prop.GetCustomAttributes(true);
+                foreach (var attr in attributes)
                 {
-                    FieldNameAttribute authAttr = attr as FieldNameAttribute;
+                    var authAttr = attr as FieldNameAttribute;
                     if (authAttr != null)
                     {
-                        string propName = prop.Name;
-                        string auth = authAttr.Name;
+                        var propName = prop.Name;
+                        var auth = authAttr.Name;
 
-                        _dict.Add(propName, auth);
+                        dict.Add(propName, auth);
                     }
                 }
             }
 
-            return _dict;
+            return dict;
         }
     }
 }

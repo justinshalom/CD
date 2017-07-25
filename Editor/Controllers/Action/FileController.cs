@@ -10,7 +10,7 @@ namespace Editor.Controllers
     /// File Controller
     /// </summary>
     /// <seealso cref="System.Web.Mvc.Controller" />
-    public class FileController : Controller
+    public class FileController : BaseController
     {
 
         /// <summary>
