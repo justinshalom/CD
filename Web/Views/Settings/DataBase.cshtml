@@ -1,0 +1,26 @@
+﻿@model Web.Models.DatabaseConnectionModel
+@{
+    ViewBag.Title = "DataBase";
+}
+
+@section scripts{
+    <script>
+    </script>
+}
+<div class="col-xs-25" ng-app="form">
+    <form ng-submit="submit()" name="myForm" ng-controller="FormController" class="my-form" novalidate>
+        <div class="box box-info well">
+            <div class="col-xs-50 formrows">
+                @Html.LabelFor(m => m.Server)
+                @Html.TextBoxFor(m => m.Server, new {ng_model = "Server"})
+                @Html.LabelFor(m => m.Database)
+                @Html.TextBoxFor(m => m.Database, new {ng_model = "Database"})
+                @Html.LabelFor(m => m.UID)
+                @Html.TextBoxFor(m => m.UID, new {ng_model = "UID"})
+                @Html.LabelFor(m => m.Password)
+                @Html.TextBoxFor(m => m.Password, new {ng_model = "Password"})
+                <button class="btn btn-primary pull-right">Save</button>
+            </div>
+        </div>
+    </form>
+</div>

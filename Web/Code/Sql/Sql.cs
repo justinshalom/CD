@@ -1,10 +1,11 @@
-﻿using System;
-using System.Data;
-using System.Xml;
-using System.Data.SqlClient;
-using System.Collections;
-namespace Editor.Code.Sql
+﻿namespace Web.Code.Sql
 {
+    using System;
+    using System.Collections;
+    using System.Data;
+    using System.Data.SqlClient;
+    using System.Xml;
+
     public sealed class Sql
     {
         //===============================================================================

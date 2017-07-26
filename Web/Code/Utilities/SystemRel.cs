@@ -7,10 +7,9 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Editor.Code.Utilities
+namespace Web.Code.Utilities
 {
     using System;
-    using System.Collections.Generic;
     using System.Net;
     using System.Net.Sockets;
 

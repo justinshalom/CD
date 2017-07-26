@@ -1,7 +1,7 @@
-﻿using System.Web;
-
-namespace Editor.Code.StateManagement
+﻿namespace Web.Code.StateManagement
 {
+    using System.Web;
+
     public class Session
     {
         public static void Keep(string sessionname, object value)

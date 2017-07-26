@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Editor.Code.Config
+﻿namespace Web.Code.Config
 {
     public class DbConnection
     {

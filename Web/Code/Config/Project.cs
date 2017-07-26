@@ -7,10 +7,10 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Editor.Code.Config
+namespace Web.Code.Config
 {
-    using Editor.Code.StateManagement;
-    using Editor.Code.Utilities;
+    using Web.Code.StateManagement;
+    using Web.Code.Utilities;
 
     /// <summary>
     /// The project.

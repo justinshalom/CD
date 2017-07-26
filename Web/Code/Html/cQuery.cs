@@ -1,10 +1,7 @@
-﻿using System;
-using System.CodeDom;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Editor.Code.Html
+﻿namespace Web.Code.Html
 {
+    using System;
+
     /// <summary>
     /// Jquery Like Dom Manipulations
     /// </summary>
@@ -27,7 +24,7 @@ namespace Editor.Code.Html
         /// <param name="html">The HTML.</param>
         public cQuery(string selector, string html)
         {
-            find(selector);
+            this.find(selector);
             this._htmlData = html;
             this._selector = selector;
         }
@@ -50,7 +47,7 @@ namespace Editor.Code.Html
         internal cQuery addClass(string className)
         {
             var content = this._htmlData;
-            string[] separators = { "genid='"+_selector+"'" };
+            string[] separators = { "genid='"+this._selector+"'" };
             var array = content.Split(separators,StringSplitOptions.None);
             ////var temparray=array[1].Split('>');
             ////temparray[0].

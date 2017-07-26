@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Editor.Code.Config
+namespace Web.Code.Config
 {
     /// <summary>
     /// The project properties.

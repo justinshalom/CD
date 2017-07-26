@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Editor.Code.Api
+﻿namespace Web.Code.Api.Objects
 {
     public class ApiJsonDto
     {

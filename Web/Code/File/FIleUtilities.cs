@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Editor.Code.File
+﻿namespace Web.Code.File
 {
+    using System;
+
     /// <summary>
     /// File Utilities
     /// </summary>

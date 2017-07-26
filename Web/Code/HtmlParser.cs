@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Xml.Linq;
-
-namespace Editor.Code
+﻿namespace Web.Code
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Linq;
+
     public class MyHtmlParser
     {
         public static NodesList parse(string content)

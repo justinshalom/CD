@@ -1,9 +1,9 @@
-﻿using System;
-using System.Web;
-using System.Web.Caching;
-
-namespace Editor.Code.StateManagement
+﻿namespace Web.Code.StateManagement
 {
+    using System;
+    using System.Web;
+    using System.Web.Caching;
+
     public class Cache
     {
         public static void Keep(string cachename, object value)
