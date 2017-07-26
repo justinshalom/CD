@@ -970,6 +970,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Code\Api\Objects\ApiJsonDto.cs" />
     <Compile Include="Code\Config\DbConnection.cs" />

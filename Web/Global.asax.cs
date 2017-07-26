@@ -10,6 +10,7 @@
 namespace Web
 {
     using System.Web.Mvc;
+    using System.Web.Optimization;
     using System.Web.Routing;
 
     /// <summary>
@@ -24,6 +25,7 @@ namespace Web
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
     }
 }
