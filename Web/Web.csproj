@@ -138,7 +138,10 @@
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\fonts\Simple-Line-Icons.svg" />
+    <Content Include="Content\hdcustomstyles.css" />
     <Content Include="Content\hd_styles.css" />
+    <Content Include="Scripts\internal\codeeditorbackupdata.js" />
+    <Content Include="Scripts\internal\codeeditormenumanager.js" />
     <Content Include="Scripts\internal\utilities.js" />
     <Content Include="Scripts\jlbinder.js" />
     <Content Include="Content\material-datepicker\css\bootstrap-material-datetimepicker.css" />
@@ -1139,6 +1142,7 @@
     <Content Include="Views\Visual\Editor.cshtml" />
     <Content Include="Views\Visual\PrependHeader.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Visual\MenuTemplate.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

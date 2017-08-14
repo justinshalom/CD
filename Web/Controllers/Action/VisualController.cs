@@ -13,5 +13,14 @@
         {
             return this.View();
         }
+
+        public ActionResult MenuTemplate(string editormode,bool isjquery, bool isbootstrap)
+        {
+            ViewBag.editormode = editormode;
+            ViewBag.isjquery = isjquery;
+            ViewBag.isbootstrap = isbootstrap;
+            return this.View();
+        }
+
     }
 }

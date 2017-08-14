@@ -50,7 +50,7 @@ function getallcssproperties() {
         function (data) {
             console.log(data);
             window.properties = data;
-            $('body').append(hdstylemenu);
+            //$('body').append(hdstylemenu);
             var classes = ["panel-primary", "panel-success", "panel-warning", "panel-danger", "panel-info", "panel-default"];
             var uni = 0;
             $.each(window.properties,
