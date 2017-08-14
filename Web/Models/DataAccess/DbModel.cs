@@ -34,6 +34,7 @@ namespace Web.Models.DataAccess
         {
             try
             {
+                
                 DataSet db = Sql.ExecuteDataset(DbConnection.DefaultString, CommandType.StoredProcedure, "Auto_GetTables");
                 return db;
             }

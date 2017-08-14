@@ -1,8 +1,8 @@
 ﻿function Attribute(postdata) {
 
-    $.post(rooturl + "Json/Attribute", postdata,
+    $.post(cd_rooturl + "Json/Attribute", postdata,
        function (data) {
-           if (!data.IsTrue) {
+           if (!data.Data) {
                window.originalfile = data.Data;
            } else {
                window.location.reload(true);
@@ -13,23 +13,23 @@
 
 
 function getallcssproperties() {
-    requesthandler(window.hd_contenturl + "json/at-rules.json", false, "getJSON",
+    requesthandler(window.cd_contenturl + "json/at-rules.json", false, "getJSON",
        function (data) {
            window.at_rules = data;
        });
-    requesthandler(window.hd_contenturl + "json/css-color-names.json", false, "getJSON",
+    requesthandler(window.cd_contenturl + "json/css-color-names.json", false, "getJSON",
       function (data) {
           window.css_color_names = data;
       });
-    requesthandler(window.hd_contenturl + "json/css-font-weight-names.json", false, "getJSON",
+    requesthandler(window.cd_contenturl + "json/css-font-weight-names.json", false, "getJSON",
       function (data) {
           window.css_font_weight_names = data;
       });
-    requesthandler(window.hd_contenturl + "json/selectors.json", false, "getJSON",
+    requesthandler(window.cd_contenturl + "json/selectors.json", false, "getJSON",
       function (data) {
           window.selectors = data;
       });
-    requesthandler(window.hd_contenturl + "json/syntaxes.json", false, "getJSON",
+    requesthandler(window.cd_contenturl + "json/syntaxes.json", false, "getJSON",
       function (data) {
           window.syntaxes = data;
           $.each(window.syntaxes,
@@ -37,16 +37,16 @@ function getallcssproperties() {
                   window.syntaxes[i] = $('<textarea />').html(window.syntaxes[i]).text();
               });
       });
-    requesthandler(window.hd_contenturl + "json/types.json", false, "getJSON",
+    requesthandler(window.cd_contenturl + "json/types.json", false, "getJSON",
       function (data) {
           window.types = data;
       });
-    requesthandler(window.hd_contenturl + "json/units.json", false, "getJSON",
+    requesthandler(window.cd_contenturl + "json/units.json", false, "getJSON",
       function (data) {
           window.units = data;
       });
    
-    requesthandler(window.hd_contenturl + "json/properties.json", false, "getJSON",
+    requesthandler(window.cd_contenturl + "json/properties.json", false, "getJSON",
         function (data) {
             console.log(data);
             window.properties = data;

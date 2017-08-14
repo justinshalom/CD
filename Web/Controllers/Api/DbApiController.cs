@@ -1,11 +1,27 @@
-﻿namespace Web.Controllers.Api
-{
-    using System.Web.Mvc;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="DbApiController.cs" company="CD">
+//  CD
+// </copyright>
+// <summary>
+//   The database API controller.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
+namespace Web.Controllers.Api
+{
+    using System.Configuration;
+    using System.Web.Mvc;
+    using System.Xml.Linq;
+
+    using Code.File;
+
+    using Newtonsoft.Json;
+
+    using Web.Code.Config;
     using Web.Models.DataAccess;
 
     /// <summary>
-    /// The db api controller.
+    /// The database API controller.
     /// </summary>
     public class DbApiController : BaseApiController
     {
@@ -13,13 +29,14 @@
         /// The get all tables.
         /// </summary>
         /// <returns>
-        /// The <see cref="IHttpActionResult"/>.
+        /// The <see cref="JsonResult"/>.
         /// </returns>
         public JsonResult GetAllTables()
         {
-            var TableNames = DbModel.GetAllTableNames();
-            return this.Ok(false, "Get", TableNames);
+            var tableNames = DbModel.GetAllTableNames();
+            return this.Json(false, "Get", tableNames);
         }
+
         /// <summary>
         /// Get all fields for corresponding table
         /// </summary>
@@ -27,41 +44,63 @@
         /// The table Name.
         /// </param>
         /// <returns>
+        /// The <see cref="JsonResult"/>.
         /// </returns>
         public JsonResult GetTableWithColumn(string tableName)
         {
-            var Tablecolumns = DbModel.GetTableColumns(tableName);
-            return this.Ok(false, "Get", Tablecolumns);
+            var tablecolumns = DbModel.GetTableColumns(tableName);
+            return this.Json(false, "Get", tablecolumns);
         }
 
         /// <summary>
         /// The get all server names.
         /// </summary>
         /// <returns>
-        /// The <see cref="IHttpActionResult"/>.
+        /// The <see cref="JsonResult"/>.
         /// </returns>
         public JsonResult GetAllServerNames()
         {
-            var ServerList = DbModel.GetAllServerNames();
-            return this.Ok(false, "Get", ServerList);
+            var serverList = DbModel.GetAllServerNames();
+            return this.Json(false, "Get", serverList);
         }
 
         /// <summary>
         /// The get all databases.
         /// </summary>
-        /// <param name="ServerName">
+        /// <param name="serverName">
         /// The server name.
         /// </param>
         /// <returns>
-        /// The <see cref="IHttpActionResult"/>.
+        /// The <see cref="JsonResult"/>.
         /// </returns>
-        public JsonResult GetAllDatabases(string ServerName)
+        public JsonResult GetAllDatabases(string serverName)
         {
-            var DatabaseList = DbModel.GetAllDatabases(ServerName);
-            return this.Ok(false, "Get", DatabaseList);
-
+            var databaseList = DbModel.GetAllDatabases(serverName);
+            return this.Json(false, "Get", databaseList);
         }
 
-       
+        /// <summary>
+        /// The get all databases.
+        /// </summary>
+        /// <param name="directory">
+        /// The directory.
+        /// </param>
+        /// <returns>
+        /// The <see cref="FileResult"/>.
+        /// </returns>
+        public FileResult GetConfigDetails(string directory = null)
+        {
+            if (string.IsNullOrEmpty(directory))
+            {
+                directory = Project.DbDirectory;
+            }
+            else if (directory == "web")
+            {
+                directory = Project.WebDirectory;
+            }
+
+            var webConfigPath = directory + "web.config";
+            return this.File(webConfigPath, "text/xml");
+        }
     }
 }

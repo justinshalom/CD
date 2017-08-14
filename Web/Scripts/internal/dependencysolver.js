@@ -8,7 +8,7 @@
         $.post(rooturl + "Json/SolveDependency",
             postdata,
             function(data) {
-                if (!data.IsTrue) {
+                if (!data.Data) {
                     //originalfile = data.Data;
                 } else {
                     $('#editoriframe').attr('src', $('#editoriframe').attr('src'));

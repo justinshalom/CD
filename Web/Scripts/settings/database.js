@@ -12,6 +12,6 @@ m.config(function($httpProvider) {
              $scope.submit = function (data) {
                  $scope.submitted = true;
                  console.log($scope.formData);
-                 $http.post(apirooturl + 'SettingsApi/SaveDBConnection',$element.serialize()).then(successCallback, errorCallback);
+                 $http.post(cd_apirooturl + 'SettingsApi/SaveDBConnection',$element.serialize()).then(successCallback, errorCallback);
              }
          }]);

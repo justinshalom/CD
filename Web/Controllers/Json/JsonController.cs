@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="JsonController.cs" company="Code Editor">
-//   
+//   Code Editor
 // </copyright>
 // <summary>
 //   Json Controller
@@ -91,7 +91,8 @@ namespace Web.Controllers.Json
                 new AppSettingsReader();
             // Get the key from config file
 
-            string key = (string)settingsReader.GetValue("SecurityKey",
+            string key = (string)settingsReader.GetValue(
+                "SecurityKey",
                 typeof(String));
             //System.Windows.Forms.MessageBox.Show(key);
             //If hashing use get hashcode regards to your key
@@ -120,9 +121,11 @@ namespace Web.Controllers.Json
             ICryptoTransform cTransform = tdes.CreateEncryptor();
             //transform the specified region of bytes array to resultArray
             byte[] resultArray =
-                cTransform.TransformFinalBlock(toEncryptArray,
+                cTransform.TransformFinalBlock(
+                    toEncryptArray,
                     0,
                     toEncryptArray.Length);
+
             //Release resources held by TripleDes Encryptor
             tdes.Clear();
             //Return the encrypted data into unreadable string format
@@ -139,7 +142,8 @@ namespace Web.Controllers.Json
             System.Configuration.AppSettingsReader settingsReader =
                 new AppSettingsReader();
             //Get your key from config file to open the lock!
-            string key = (string)settingsReader.GetValue("SecurityKey",
+            string key = (string)settingsReader.GetValue(
+                "SecurityKey",
                 typeof(String));
 
             if (useHashing)
@@ -180,8 +184,15 @@ namespace Web.Controllers.Json
 
         private string ApplyDependencyDetails(string content, string controller, string view, string appendfrom = "body")
         {
-            string[] htmlsplit = { "<body" };
-            string[] htmlaftersplit = { @"</body>", @"</ body>" };
+            string[] htmlsplit =
+                {
+                    "<body"
+                };
+            string[] htmlaftersplit =
+                {
+                    @"</body>",
+                    @"</ body>"
+                };
             var beforehtml = string.Empty;
             var afterhtml = string.Empty;
             var beforehtmlarray = content.Split(htmlsplit, StringSplitOptions.None);
@@ -243,14 +254,24 @@ namespace Web.Controllers.Json
                         }
                         else if (line.Contains("@*"))
                         {
-                            var commentstartsarray = line.Split(new string[1] { "@*" }, StringSplitOptions.None);
+                            var commentstartsarray = line.Split(
+                                new string[1]
+                                    {
+                                        "@*"
+                                    },
+                                StringSplitOptions.None);
                             commentdata = "@*" + commentstartsarray[1];
                             line = line.Replace(commentdata, string.Empty);
                             razorcommentstarts = true;
                         }
                         else if (line.Contains("*@"))
                         {
-                            var commentstartsarray = line.Split(new string[1] { "*@" }, StringSplitOptions.None);
+                            var commentstartsarray = line.Split(
+                                new string[1]
+                                    {
+                                        "*@"
+                                    },
+                                StringSplitOptions.None);
                             commentdata = commentdata + commentstartsarray[0] + "*@";
                             var hdkey = "hdkey_" + contenthiderkey + "_hdkey";
                             contenthider.Add(contenthiderkey, commentdata);
@@ -325,7 +346,9 @@ namespace Web.Controllers.Json
                 var mypath = @FIleUtilities.RootPath + FIleUtilities.ViewPath + "Visual\\PrependHeader." + FIleUtilities.Dot.cshtml;
                 var InnerHtml = FIleUtilities.GetFileContent(mypath);
                 var UriString =
-                    this.Url.Action("Designer", "Visual",
+                    this.Url.Action(
+                        "Designer",
+                        "Visual",
                         routeValues: null /* specify if needed */,
                         protocol: this.Request.Url.Scheme /* This is the trick */);
                 InnerHtml = InnerHtml.Replace("generatedurl", UriString);
@@ -351,10 +374,8 @@ namespace Web.Controllers.Json
 
                 foreach (var c in contenthider)
                 {
-                    html=html.Replace("hdkey_"+c.Key+"_hdkey",c.Value);
+                    html = html.Replace("hdkey_" + c.Key + "_hdkey", c.Value);
                 }
-
-
             }
             catch (Exception e)
             {
@@ -383,12 +404,13 @@ namespace Web.Controllers.Json
             if (area == string.Empty && controllername == "shared")
             {
                 filepath = FIleUtilities.RootPath + FIleUtilities.ViewPath + FIleUtilities.SharedPath +
-                    "_" + view + FIleUtilities.Dot.cshtml;
+                           "_" + view + FIleUtilities.Dot.cshtml;
                 content = FIleUtilities.GetFileContent(filepath);
             }
             else
             {
-                content = FIleUtilities.GetFileContent(area,
+                content = FIleUtilities.GetFileContent(
+                    area,
                     controllername,
                     view,
                     FIleUtilities.ViewPath,
@@ -403,7 +425,8 @@ namespace Web.Controllers.Json
                 html = area == "shared" ? document.DocumentElement.OuterHtml : document.DocumentElement.QuerySelector("body").InnerHtml;
                 if (filepath.Length == 0)
                 {
-                    FIleUtilities.SetFileContent(area,
+                    FIleUtilities.SetFileContent(
+                        area,
                         controllername,
                         view,
                         html,
@@ -419,7 +442,7 @@ namespace Web.Controllers.Json
             {
                 var eobj = e;
             }
-            return this.Json(false, String.Empty, string.Empty);
+            return this.OutPut(false);
         }
 
         /// <summary>
@@ -432,72 +455,96 @@ namespace Web.Controllers.Json
         [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1616:ElementReturnValueDocumentationMustHaveText", Justification = "Reviewed. Suppression is OK here.")]
         public JsonResult SolveDependency(string controllername = "", string view = "", string area = "")
         {
-            try{
-            ////var htmlnew = FIleUtilities.GetFileContent(@"D:\\WorkOfJustin\\Replica\\Main\\Replika\\Replika.Neiman\\Default.html");
-            ////var parser = new HtmlParser();
-            ////var document = parser.Parse(htmlnew);
-
-            ////htmlnew = document.DocumentElement.OuterHtml;
-            ////htmlnew = Regex.Replace(htmlnew, @"^\s+$[\r\n]*", "", RegexOptions.Multiline);
-            ////FIleUtilities.SetFileContent(htmlnew, @"D:\\WorkOfJustin\\Replica\\Main\\Replika\\Replika.Neiman\\Default.html");
-            if (controllername == string.Empty && view == string.Empty)
+            try
             {
-                var url = Project.Url;
-                var dir = Project.Directory;
+                ////var htmlnew = FIleUtilities.GetFileContent(@"D:\\WorkOfJustin\\Replica\\Main\\Replika\\Replika.Neiman\\Default.html");
+                ////var parser = new HtmlParser();
+                ////var document = parser.Parse(htmlnew);
 
-                var paths = Directory.GetFiles(dir + FIleUtilities.ViewPath + FIleUtilities.SharedPath);
-                var lhtml = string.Empty;
-                foreach (var path in paths)
+                ////htmlnew = document.DocumentElement.OuterHtml;
+                ////htmlnew = Regex.Replace(htmlnew, @"^\s+$[\r\n]*", "", RegexOptions.Multiline);
+                ////FIleUtilities.SetFileContent(htmlnew, @"D:\\WorkOfJustin\\Replica\\Main\\Replika\\Replika.Neiman\\Default.html");
+                if (controllername == string.Empty && view == string.Empty)
                 {
-                    if (path.Contains("Layout"))
-                    {
-                        lhtml = FIleUtilities.GetFileContent(path);
-                        string changedlhtml = this.ApplyDependencyDetails(lhtml, "Shared", "Layout");
-                        if (changedlhtml != lhtml)
-                        {
+                    var url = Project.Url;
+                    var dir = Project.WebDirectory;
 
-                            FIleUtilities.SetFileContent(changedlhtml, path);
-                            return this.Json(true, String.Empty, string.Empty);
+                    var paths = Directory.GetFiles(dir + FIleUtilities.ViewPath + FIleUtilities.SharedPath);
+                    var lhtml = string.Empty;
+                    foreach (var path in paths)
+                    {
+                        if (path.Contains("Layout"))
+                        {
+                            lhtml = FIleUtilities.GetFileContent(path);
+                            string changedlhtml = this.ApplyDependencyDetails(lhtml, "Shared", "Layout");
+                            if (changedlhtml != lhtml)
+                            {
+                                FIleUtilities.SetFileContent(changedlhtml, path);
+                                return this.OutPut(true);
+                            }
                         }
                     }
+                    return this.OutPut(false);
                 }
-                return this.Json(false, String.Empty, string.Empty);
-            }
 
-            var content = FIleUtilities.GetFileContent(area, controllername, view, FIleUtilities.ViewPath, FIleUtilities.Dot.cshtml);
-            var html = this.ApplyGeneratedId(content, controllername, view, "body");
-            var layout = content.Split(new string[2] { "Layout=", "Layout =" }, StringSplitOptions.None);
-            var layoutFile = string.Empty;
-            if (layout.Length < 2)
-            {
-                layoutFile = FIleUtilities.RootPath + FIleUtilities.ViewPath + FIleUtilities.SharedPath +
-                    "_Layout.cshtml";
-            }
-            else
-            {
-                layoutFile = FIleUtilities.RootPath + string.Join(string.Empty, layout[1].Split(new string[2] { System.Environment.NewLine, ";" }, StringSplitOptions.RemoveEmptyEntries)[0].Split(new string[1] { '"' + string.Empty }, StringSplitOptions.RemoveEmptyEntries)).Replace("~", string.Empty).Replace(" ", string.Empty);
-            }
+                var content = FIleUtilities.GetFileContent(area, controllername, view, FIleUtilities.ViewPath, FIleUtilities.Dot.cshtml);
+                var html = this.ApplyGeneratedId(content, controllername, view, "body");
+                var layout = content.Split(
+                    new string[2]
+                        {
+                            "Layout=",
+                            "Layout ="
+                        },
+                    StringSplitOptions.None);
+                var layoutFile = string.Empty;
+                if (layout.Length < 2)
+                {
+                    layoutFile = FIleUtilities.RootPath + FIleUtilities.ViewPath + FIleUtilities.SharedPath +
+                                 "_Layout.cshtml";
+                }
+                else
+                {
+                    layoutFile = FIleUtilities.RootPath + string.Join(
+                                         string.Empty,
+                                         layout[1]
+                                             .Split(
+                                                 new string[2]
+                                                     {
+                                                         System.Environment.NewLine,
+                                                         ";"
+                                                     },
+                                                 StringSplitOptions.RemoveEmptyEntries)[0]
+                                             .Split(
+                                                 new string[1]
+                                                     {
+                                                         '"' + string.Empty
+                                                     },
+                                                 StringSplitOptions.RemoveEmptyEntries))
+                                     .Replace("~", string.Empty)
+                                     .Replace(" ", string.Empty);
+                }
 
-            var layoutcontent = FIleUtilities.GetFileContent(layoutFile);
-            var layouthtml = this.ApplyGeneratedId(layoutcontent, "Shared", "Layout");
+                var layoutcontent = FIleUtilities.GetFileContent(layoutFile);
+                var layouthtml = this.ApplyGeneratedId(layoutcontent, "Shared", "Layout");
 
-            if (layouthtml != layoutcontent)
+                if (layouthtml != layoutcontent)
+                {
+                    ////layoutcontent = editorSignature[0] + System.Environment.NewLine + layoutcontent + System.Environment.NewLine +
+                    ////editorSignature[0];
+                    FIleUtilities.SetFileContent(layouthtml, layoutFile);
+                    return this.OutPut(true);
+                }
+                if (html != content)
+                {
+                    var success = FIleUtilities.SetFileContent(area, controllername, view, html, FIleUtilities.ViewPath, FIleUtilities.Dot.cshtml);
+                    return this.OutPut(true);
+                }
+            }
+            catch (Exception e)
             {
-                ////layoutcontent = editorSignature[0] + System.Environment.NewLine + layoutcontent + System.Environment.NewLine +
-                ////editorSignature[0];
-                FIleUtilities.SetFileContent(layouthtml, layoutFile);
-                return this.Json(true, string.Empty, string.Empty);
+                var obj = e;
             }
-            if (html != content)
-            {
-                var success = FIleUtilities.SetFileContent(area, controllername, view, html, FIleUtilities.ViewPath, FIleUtilities.Dot.cshtml);
-                return this.Json(true, string.Empty, string.Empty);
-            }
-            }
-            catch(Exception e){
-                var obj=e;
-            }
-            return this.Json(false, String.Empty, string.Empty);
+            return this.OutPut(false);
         }
     }
 }

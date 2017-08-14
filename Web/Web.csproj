@@ -139,6 +139,8 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\fonts\Simple-Line-Icons.svg" />
     <Content Include="Content\hd_styles.css" />
+    <Content Include="Scripts\internal\utilities.js" />
+    <Content Include="Scripts\jlbinder.js" />
     <Content Include="Content\material-datepicker\css\bootstrap-material-datetimepicker.css" />
     <Content Include="Content\material-datepicker\font\Material-Design-Icons.svg" />
     <Content Include="Content\material\bootstrap-material-design.css" />
@@ -893,11 +895,12 @@
     <Content Include="Scripts\internal\commonscripts.js" />
     <Content Include="Scripts\internal\dependencysolver.js" />
     <Content Include="Scripts\internal\development.js" />
+    <Content Include="Scripts\internal\codeeditor.js" />
     <Content Include="Scripts\internal\htmldesigner.js" />
     <Content Include="Scripts\internal\htmldesignerevents.js" />
     <Content Include="Scripts\internal\htmldesignerfunctions.js" />
     <Content Include="Scripts\internal\htmldesignerhtml.js" />
-    <Content Include="Scripts\internal\htmldesignerinitialize.js" />
+    <Content Include="Scripts\internal\editorinitialize.js" />
     <Content Include="Scripts\internal\htmldesignerobj.js" />
     <Content Include="Scripts\internal\htmldesignerstajaxfn.js" />
     <Content Include="Scripts\internal\htmldesignerstdynfn.js" />

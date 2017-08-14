@@ -34,7 +34,7 @@ namespace Web.Controllers.Api
             {
                 SettingsDA.SaveDbConnection(model);
             }
-            return this.Ok(false, "", "");
+            return this.OutPut(string.Empty);
 
         }
     }

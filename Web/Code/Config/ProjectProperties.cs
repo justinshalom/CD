@@ -15,9 +15,9 @@ namespace Web.Code.Config
     internal class ProjectProperties
     {
         /// <summary>
-        /// The directory.
+        /// Gets or sets the database server.
         /// </summary>
-        private string directory;
+        internal string DbServer { get; set; }
 
         /// <summary>
         /// Gets or sets the url.
@@ -27,17 +27,7 @@ namespace Web.Code.Config
         /// <summary>
         /// Gets or sets the directory.
         /// </summary>
-        internal string Directory
-        {
-            get
-            {
-                return this.directory;
-            }
-            set
-            {
-                this.directory = value;
-            }
-        }
+        internal string WebDirectory { get; set; }
 
         /// <summary>
         /// Gets or sets the DB name.
@@ -55,8 +45,24 @@ namespace Web.Code.Config
         internal string DbPassword { get; set; }
 
         /// <summary>
-        /// Gets or sets the db server.
+        /// Gets or sets the business logic code directory.
         /// </summary>
-        public string DbServer { get; set; }
+        internal string BlDirectory { get; set; }
+
+        /// <summary>
+        /// Gets or sets the database configurations directory.
+        /// </summary>
+        internal string DbDirectory { get; set; }
+
+        /// <summary>
+        /// Gets or sets the view side model properties directory.
+        /// </summary>
+        internal string VmDirectory { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Data Objects directory.
+        /// </summary>
+        internal string DtoDirectory { get; set; }
+
     }
 }

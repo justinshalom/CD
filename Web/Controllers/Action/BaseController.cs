@@ -1,5 +1,7 @@
 ﻿namespace Web.Controllers.Action
 {
+    using System.Collections.Generic;
+    using System.Data;
     using System.Web.Mvc;
 
     using Web.Code.Api.Objects;
@@ -7,23 +9,79 @@
     public class BaseController:Controller
     {
         /// <summary>
-        /// Return the Output of Json
+        /// Return the Output of JSON
         /// </summary>
-        /// <param name="error">if set to <c>true</c> [error].</param>
-        /// <param name="message">The message.</param>
         /// <param name="data">The data.</param>
         /// <returns>
-        /// Json Data
+        /// JSON Data
         /// </returns>
-        protected JsonResult Json(bool error, string message, object data)
+        protected JsonResult OutPut(object data)
         {
             var rt = new ApiJsonDto
             {
-                IsTrue = error,
-                Message = message,
                 Data = data
             };
             return this.Json(rt);
+        }
+
+        /// <summary>
+        /// The JSON.
+        /// </summary>
+        /// <param name="error">
+        /// The error.
+        /// </param>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        /// <param name="data">
+        /// The data.
+        /// </param>
+        /// <returns>
+        /// The <see cref="JsonResult"/>.
+        /// </returns>
+        protected JsonResult Json(bool error, string message, DataTable data)
+        {
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in data.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in data.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+
+                rows.Add(row);
+            }
+
+            return this.OutPut(rows);
+        }
+
+        /// <summary>
+        /// The JSON.
+        /// </summary>
+        /// <param name="error">
+        /// The error.
+        /// </param>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        /// <param name="dataSet">
+        /// The data set.
+        /// </param>
+        /// <returns>
+        /// The <see cref="JsonResult"/>.
+        /// </returns>
+        protected JsonResult Json(bool error, string message, DataSet dataSet)
+        {
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            if (dataSet.Tables.Count > 0)
+            {
+                var data = dataSet.Tables[0];
+                this.Json(error, message, data);
+            }
+
+            return this.OutPut(string.Empty);
         }
     }
 }

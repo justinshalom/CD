@@ -1,6 +1,14 @@
 ﻿namespace Web.Code.File
 {
     using System;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.Xml;
+    using System.Xml.Linq;
+
+    using Newtonsoft.Json;
+
+    using Web.Code.Config;
 
     /// <summary>
     /// File Utilities
@@ -74,6 +82,7 @@
             {
                 filepath = string.Format(@"{0}{1}\{2}\{3}.{4}", root, a, c, v, dot.ToString());
             }
+
             return System.IO.File.ReadAllText(filepath);
         }
 
@@ -101,9 +110,18 @@
             return true;
         }
 
-        internal static string GetFileContent(string layoutFile)
+        /// <summary>
+        /// The get file content.
+        /// </summary>
+        /// <param name="FilePath">
+        /// The file path.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        internal static string GetFileContent(string FilePath)
         {
-            return System.IO.File.ReadAllText(layoutFile);
+            return System.IO.File.ReadAllText(FilePath);
         }
 
         internal static object SetFileContent(string content,string path)
