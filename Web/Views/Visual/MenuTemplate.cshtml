@@ -17,7 +17,7 @@
         {
             category = category + "/" + name;
         }
-        cdScripts += "<script src='" + cdScriptpath + category + ".js' type='text/javascript' ></script>";
+        cdScripts += "<script src='" + cdScriptpath + category + ".js' type='text/javascript'  ></script>";
 
     }
 
@@ -33,7 +33,54 @@
 
 }
 @{
+
+
+    if (!ViewBag.isjquery)
+    {
+        require("jquery-3.1.1.min");
+    }
+
     require("internal", "utilities");
+
+    require("moment", "moment.min");
+    require("material", "arrive.min");
+    require("material", "ripples.min");
+    require("material", "material.min");
+    require("material-datepicker", "js/bootstrap-material-datetimepicker");
+    //require("chosen", "chosen.jquery.min");
+    require("colorpicker", "js/bootstrap-colorpicker.min");
+    require("selectize", "standalone/selectize.min");
+    //require("internal", "htmldesignerhtml");
+    require("internal", "htmldesignerststaticfn");
+    require("internal", "htmldesignerstdynfn");
+
+
+
+
+    if (ViewBag.editormode == "design")
+    {
+        require("internal", "htmldesignerfunctions");
+        require("internal", "htmldesignerstajaxfn");
+        require("internal", "bindlist");
+        //require("internal", "htmldesignerhtml");
+        require("internal", "htmldesignerobj");
+
+        require("internal", "htmldesignerevents");
+
+        require("internal", "htmldesigner");
+    }
+
+    if (ViewBag.editormode == "db")
+    {
+        require("jlbinder");
+        require("internal", "codeeditorbackupdata");
+        require("internal", "codeeditormenumanager");
+        require("internal", "codeeditor");
+    }
+    //if (!ViewBag.isbootstrap)
+    //{
+    //    require("bootstrap.min");
+    //}
     include("awe", "css/font-awesome.min");
     //include("bootstrap","bootstrap.min");
     include("colorpicker", "css/bootstrap-colorpicker.min");
@@ -44,98 +91,124 @@
     include("selectize", "css/selectize");
     include("hd_styles");
     include("hdcustomstyles");
-    if (!ViewBag.isjquery)
-    {
-        require("jquery-3.1.1.min");
-    }
-    if (!ViewBag.isbootstrap)
-    {
-        require("bootstrap.min");
-    }
-    require("moment", "moment.min");
-    require("material", "arrive.min");
-    require("material", "ripples.min");
-    require("material", "material.min");
-    require("material-datepicker", "js/bootstrap-material-datetimepicker");
-    //require("chosen", "chosen.jquery.min");
-    require("colorpicker", "js/bootstrap-colorpicker.min");
-    require("selectize", "standalone/selectize.min");
-    require("internal", "htmldesignerhtml");
-    require("internal", "htmldesignerststaticfn");
-    require("internal", "htmldesignerstdynfn");
-    if (ViewBag.editormode == "design") {
-        require("internal", "bindlist");
-        require("internal", "htmldesignerhtml");
-        require("internal", "htmldesignerobj");
-        require("internal", "htmldesignerstajaxfn");
-        require("internal", "htmldesignerevents");
-        require("internal", "htmldesignerfunctions");
-        require("internal", "htmldesigner");
-    }
-
-    if (ViewBag.editormode == "db") {
-        require("jlbinder");
-        require("internal", "codeeditorbackupdata");
-        require("internal", "codeeditormenumanager");
-        require("internal", "codeeditor");
-    }
 
 }
-@Html.Raw(cdLinks)
-@Html.Raw(cdScripts)
 
 
 
-<div id="absolutestyleeditor" style="display: none; position: fixed; bottom: 0px; width: 100%;">
-    <div class="hdpanel-group" id="accordion" role="tablist" aria-multiselectable="true" style="margin-bottom: 0px;">
-        <div class="hdpanel hdpanel-success">
-            <div class="hdpanel-heading" style="padding: 4px;">
-                <h6 class="hdpanel-title">
-                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseStyle" style="font-size: 12px !important;" aria-expanded="true" aria-controls="collapseStyle">Style Editor</a>
-                  </h6>
-            </div>
-            <div id="collapseStyle" class="hdpanel-collapse collapse in" role="tabhdpanel" aria-labelledby="headingOne">
-                <div class="hdpanel-body">
-                    <div class="hdpanel-group" id="hdstylemenu" role="tablist" aria-multiselectable="false"></div>
+
+
+
+    @Html.Raw(cdScripts)
+
+    @Html.Raw(cdLinks)
+
+
+    @*<div id="absolutestyleeditor">
+        <div class="hdpanel-group" id="accordion" role="tablist" aria-multiselectable="true" style="margin-bottom: 0px;">
+            <div class="hdpanel hdpanel-success">
+                <div class="hdpanel-heading" style="padding: 4px;">
+                    <h6 class="hdpanel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseStyle" aria-expanded="true" aria-controls="collapseStyle">Style Editor</a>
+                    </h6>
+                </div>
+                <div id="collapseStyle" class="hdpanel-collapse collapse in" role="tabhdpanel" aria-labelledby="headingOne">
+                    <div class="hdpanel-body">
+                        <div class="hdpanel-group" id="hdstylemenu" role="tablist" aria-multiselectable="false"></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    </div>*@
 
-<div style="position: absolute; top: 40px; left: 20px; width: 180px; z-index: 10000; font-size: 12px !important;" id="hd_rightmenu">
-    <div class="hdcol-xs-50">
-        <div class="hdpanel hdpanel-info hdcol-xs-50" style="background-color: rgba(255, 255, 255, 0.83); padding: 0px">
-            <div class="hdpanel-heading hdcol-xs-50" id="hd_rightmenu_header">
-                <h3 class="hdpanel-title">hdpanel info</h3>' + '
-            </div>
-            <div class="hdpanel-body open hdcol-xs-50" id="hd_rightmenu_body" style="">
-                <div class="hdcol-xs-50"  id="hd_rightmenu_allattributes" style="">
-                    <div class="hdcol-xs-50 hd_menubox" id="hdservernameslist">
-                        <div class="hdcol-xs-50">
-                            <div class="hdform-group hdform-group-sm">
-                                <select id="hd_servername" class="hdform-control selectize  input-sm"><option data-key="ServerName"></option></select>
-                            </div>
-
-                        </div>
-                    </div>
-                        <div class="hdcol-xs-50 hd_menubox">
-                            <div class="hdcol-xs-50 ">
+    <div id="hd_rightmenu">
+        <div class="hdcol-xs-50">
+            <div class="hdpanel hdpanel-info hdcol-xs-50 hdpanelheading">
+                <div class="hdpanel-heading hdcol-xs-50" id="hd_rightmenu_header">
+                    <h3 class="hdpanel-title">hdpanel info</h3>
+                </div>
+                <div class="hdpanel-body open hdcol-xs-50" id="hd_rightmenu_body" style="">
+                    <div class="hdcol-xs-50" id="hd_rightmenu_allattributes" style="">
+                        <div class="hdcol-xs-50 hd_menubox" id="hd_servernames_box">
+                            <div class="hdcol-xs-50">
                                 <div class="hdform-group hdform-group-sm">
-                                    <label class="control-label pull-left">New Attribute</label>
-                                    <input type = "text" class="hdform-control input-sm " placeholder="Key" id="hd_rightmenu_attr_name" />
-                                    <input type = "text" class="hdform-control input-sm " placeholder="Value" id="hd_rightmenu_attr_value"/>
+                                    <select id="hd_servernames" class="hdform-control selectize  input-sm" placeholder="Servers"><option data-key="ServerName"></option></select>
                                 </div>
+
+                            </div>
+                           
+                        </div>
+                       
+                        <div class="hdcol-xs-50 hd_menubox" id="hd_authentications_box">
+                            <div class="hdcol-xs-50">
+                                <div class="hdform-group hdform-group-sm">
+                                    <select id="hd_authentications" class="hdform-control selectize  input-sm"><option data-key="authentication"></option></select>
+                                </div>
+
                             </div>
 
                         </div>
-                    <div class="hdcol-xs-50 hd_menubox">
-                        <a href="javascript:void(0)" > Style </ a >
-                        <div id="hd_rightmenu_styles" class="hd_rightmenu_clear  hdcol-xs-50 "></div>
-                    </div>
+                      
+                       
+                        <div class="hdcol-xs-50 hd_menubox" id="hd_dbnames_box">
+                            <div class="hdcol-xs-50">
+                                <div class="hdform-group hdform-group-sm">
+                                    <select id="hd_dbnames" class="hdform-control selectize  input-sm" placeholder="Databases">
+                                        <option data-follow="true" data-key="database_name"></option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        
+                        <div class="hdcol-xs-50 hd_menubox" id="hd_usernames_box">
+                            <div class="hdcol-xs-50">
+                                <div class="hdform-group hdform-group-sm">
+                                    <select id="hd_usernames" class="hdform-control selectize  input-sm"><option data-key="user_name"></option></select>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="hdcol-xs-50 hd_menubox" id="hd_passwords_box">
+                            <div class="hdcol-xs-50">
+                                <div class="hdform-group hdform-group-sm">
+                                    <select id="hd_passwords" class="hdform-control selectize  input-sm"><option data-key="password"></option></select>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="hdcol-xs-50 hd_menubox" id="hd_tables_box">
+                            <div class="hdcol-xs-50">
+                                <div class="hdform-group hdform-group-sm">
+                                    <select id="hd_tables" class="hdform-control selectize  input-sm"><option data-key="table"></option></select>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="hdcol-xs-50 hd_menubox">
+                                <div class="hdcol-xs-50 ">
+                                    <div class="hdform-group hdform-group-sm">
+                                        <label class="control-label pull-left">New Attribute</label>
+                                        <input type="text" class="hdform-control input-sm " placeholder="Key" id="hd_rightmenu_attr_name" />
+                                        <input type="text" class="hdform-control input-sm " placeholder="Value" id="hd_rightmenu_attr_value" />
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="hdcol-xs-50 hd_menubox">
+                                <a href="javascript:void(0)"> Style </a>
+                                <div id="hd_rightmenu_styles" class="hd_rightmenu_clear  hdcol-xs-50 "></div>
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>
+        <datalist id="hd_stylelist"></datalist>
     </div>
-</div>
-<datalist id="hd_stylelist" ></datalist >
+   
+
+

@@ -1,0 +1,5 @@
+F:\CodeEditor\CD\AngleSharp\AngleSharp\bin\Debug\v4.5\AngleSharp.dll
+F:\CodeEditor\CD\AngleSharp\AngleSharp\bin\Debug\v4.5\AngleSharp.pdb
+F:\CodeEditor\CD\AngleSharp\AngleSharp\obj\Debug\AngleSharp.Core.csprojResolveAssemblyReference.cache
+F:\CodeEditor\CD\AngleSharp\AngleSharp\obj\Debug\AngleSharp.dll
+F:\CodeEditor\CD\AngleSharp\AngleSharp\obj\Debug\AngleSharp.pdb

@@ -28,8 +28,13 @@ String.prototype.trimend = function(c) {
     for (; i >= 0 && this.charAt(i) == c; i--);
     return this.substring(0, i + 1);
 }
-
-var setmenupositions = function(menu, t, e) {
+var hd_menuX = 0;
+var hd_menuY = 0;
+$(document).on("mousemove", function (event) {
+    hd_menuX = event.pageX;
+    hd_menuY = event.pageY;
+});
+var setmenupositions = function (menu, t, e) {
     var extrawidth = 100;
     var position = t.offset();
     var trypositionrightLeft =
@@ -49,17 +54,33 @@ var setmenupositions = function(menu, t, e) {
         trypositionleftLeft =
             e.pageX;
     }
+    //menu.css({
+    //    top: position.top,
+    //    left: ($(window).width()
+    //            > trypositionrightOverlow)
+    //        ? trypositionrightLeft
+    //        : (trypositionleftLeft < 0)
+    //        ? position.left
+    //        : trypositionleftLeft
+    //});
+    var half = (menu.width() / 2);
+    var righthalf = $(window).width() - menu.width();
+    var leftposition = hd_menuX - (menu.width() / 2);
+    
+    var topposition = hd_menuY + 50;
+    if (leftposition < 0) {
+        leftposition = 0;
+    }
+    if (leftposition > righthalf) {
+        leftposition = righthalf;
+    }
     menu.css({
-        top: position.top,
-        left: ($(window).width()
-                > trypositionrightOverlow)
-            ? trypositionrightLeft
-            : (trypositionleftLeft < 0)
-            ? position.left
-            : trypositionleftLeft
-    });
+        top: topposition,
+        left: leftposition
+});
 };
-var setmenuheader = function(t, classeslist) {
+var setmenuheader = function (t, classeslist) {
+  
     var tagname = t.prop('tagName').toLowerCase();
     var additionals = '';
     var id = t.attr('id');
@@ -82,19 +103,22 @@ var setmenuheader = function(t, classeslist) {
     }
     }
 };
-var selectize = function() {
-    $('select.selectize:not(.selectized)')
-        .selectize({
-            delimiter: ',',
-            //persist: false,
-            highlight: false,
-            searchField: ['value', 'text']
-            //create: function (input) {
-            //    debugger;
-            //    return {
-            //        value: input,
-            //        text: input
-            //    }
-            //}
-        });
+var selectize = function (obj,fn,destroy) {
+    if (destroy) {
+        obj.selectize()[0].selectize.destroy();
+    }
+    var options = {
+        delimiter: ',',
+        //persist: false,
+        highlight: false,
+        searchField: ['value', 'text']
+    }
+    if (fn) {
+        options.create = fn;
+    }
+    
+
+    var selector = (obj) ? obj : $('select.selectize:not(.selectized):visible');
+
+    selector.selectize(options);
 };

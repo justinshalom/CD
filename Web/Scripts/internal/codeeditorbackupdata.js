@@ -1,19 +1,41 @@
-﻿var hdbackupdata = {};
-var requestandsavebackup = function (url, callback, variablename, postdata) {
+var hdbackupdata = {};
+function pushandsave(variablename, keyname, value) {
+    debugger;
     if (!hdbackupdata[variablename]) {
+        hdbackupdata[variablename] = [];
+    }
+    var data={};
+    data[keyname]= value;
+    hdbackupdata[variablename].push(data);
+    setcache("hdbackupdata", JSONstringify(hdbackupdata));
+}
+var requestandsavebackup = function (url, callback, variablename, postdata, aftercallback) {
+    
         $.post(url,
             postdata,
             function (data) {
-                hdbackupdata[variablename] = callback(data);
+                var cl = callback(data);
+                if (cl != false) {
+                    hdbackupdata[variablename] = cl;
+                }
+               
                 setcache("hdbackupdata", JSONstringify(hdbackupdata));
+                if (aftercallback) {
+                    aftercallback(cl);
+                }
             });
-    }
+    
 };
+
+function requestandsavebackupfromeditorapi(url, callback, variablename, postdata, aftercallback) {
+    requestandsavebackup(window.cd_rooturl + url, callback, variablename, postdata,aftercallback);
+}
+    
 var StoreAllProperties = function () {
-    var servers = {};
+   
     var postdata = {};
 
-    requestandsavebackup(window.cd_rooturl + "DbApi/GetConfigDetails",
+    requestandsavebackupfromeditorapi("DbApi/GetConfigDetails",
         function (data) {
             if ($(data).find("connectionStrings add[connectionString]").length > 0) {
                 var connectionstrings = [];
@@ -23,6 +45,7 @@ var StoreAllProperties = function () {
                     connobj.name = $(conn).attr("name");
                     connectionstrings.push(connobj);
                 });
+
                 return connectionstrings;
             }
             return false;
@@ -30,7 +53,7 @@ var StoreAllProperties = function () {
         "connectionstring",
         postdata);
 
-    requestandsavebackup(window.cd_rooturl + "DbApi/GetAllServerNames",
+    requestandsavebackupfromeditorapi("DbApi/GetAllServerNames",
         function (data) {
             if (data.Data && data.Data.length > 0) {
                 return data.Data;

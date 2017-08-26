@@ -1,6 +1,7 @@
-﻿var hdCurrentobj = $("body");
+﻿
+var hdCurrentobj = $("body");
 $(document).ready(function () {
-    
+   
     var backupdata = getcache("hdbackupdata");
     if (backupdata != false) {
         window.hdbackupdata = JSONparse(backupdata);
@@ -11,7 +12,8 @@ $(document).ready(function () {
         $(".hd_menubox").hide();
     $('body').on('contextmenu',
         '*',
-        function(e) {
+        function (e) {
+
             window.hdCurrentobj = $(this);
             e.preventDefault();
             e.stopPropagation();

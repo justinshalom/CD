@@ -13,23 +13,23 @@
 
 
 function getallcssproperties() {
-    requesthandler(window.cd_contenturl + "json/at-rules.json", false, "getJSON",
+    $.getJSON(window.cd_contenturl + "json/at-rules.json",
        function (data) {
            window.at_rules = data;
        });
-    requesthandler(window.cd_contenturl + "json/css-color-names.json", false, "getJSON",
+    $.getJSON(window.cd_contenturl + "json/css-color-names.json",
       function (data) {
           window.css_color_names = data;
       });
-    requesthandler(window.cd_contenturl + "json/css-font-weight-names.json", false, "getJSON",
+    $.getJSON(window.cd_contenturl + "json/css-font-weight-names.json",
       function (data) {
           window.css_font_weight_names = data;
       });
-    requesthandler(window.cd_contenturl + "json/selectors.json", false, "getJSON",
+    $.getJSON(window.cd_contenturl + "json/selectors.json",
       function (data) {
           window.selectors = data;
       });
-    requesthandler(window.cd_contenturl + "json/syntaxes.json", false, "getJSON",
+    $.getJSON(window.cd_contenturl + "json/syntaxes.json",
       function (data) {
           window.syntaxes = data;
           $.each(window.syntaxes,
@@ -37,16 +37,16 @@ function getallcssproperties() {
                   window.syntaxes[i] = $('<textarea />').html(window.syntaxes[i]).text();
               });
       });
-    requesthandler(window.cd_contenturl + "json/types.json", false, "getJSON",
+    $.getJSON(window.cd_contenturl + "json/types.json",
       function (data) {
           window.types = data;
       });
-    requesthandler(window.cd_contenturl + "json/units.json", false, "getJSON",
+    $.getJSON(window.cd_contenturl + "json/units.json",
       function (data) {
           window.units = data;
       });
    
-    requesthandler(window.cd_contenturl + "json/properties.json", false, "getJSON",
+    $.getJSON(window.cd_contenturl + "json/properties.json",
         function (data) {
             console.log(data);
             window.properties = data;

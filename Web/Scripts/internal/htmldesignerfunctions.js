@@ -1,41 +1,4 @@
-﻿var autotest = function () {
-    setTimeout(function () {
-            $('div:first *')
-                .first()
-                .trigger('contextmenu');
-            setTimeout(function () {
-                },
-                2000);
-        },
-        1000);
-    //var autotest = 0;
-    //var testelements = $('div:first *');
-    //var testelementslength = testelements.length;
-    //autotest = Math
-    //    .floor((Math
-    //            .random()
-    //            * (testelementslength - 1))
-    //        + 1);
-    //function autotestfn() {
-    //    setTimeout(function () {
-    //        testelements.eq(autotest)
-    //            .trigger('contextmenu');
-    //        if (autotest < testelementslength) {
-    //           // autotestfn();
-    //        }
-    //        autotest++;
-    //    },
-    //        2000);
-    //}
-    //autotestfn();
-    //$('body')
-    //    .on('click',
-    //        '#hd_rightmenu',
-    //        function (e) {
-    //            autotest = testelementslength;
-    //        });
-};
-function css(a) {
+﻿function css(a) {
     var sheets = document.styleSheets, o = {};
     for (var i in sheets) {
         var rules = sheets[i].rules || sheets[i].properties;
@@ -135,6 +98,7 @@ var setmenubasedonattributes = function(hdmenu, t, classeslist, allclasses) {
     if (!attributes['style']) {
         attributes['style'] = "";
     }
+    $('#hd_rightmenu_allattributes').html("");
     $.each(attributes,
         function(attributename, attributevalue) {
             var options;

@@ -7804,3 +7804,26 @@ button.hdclose {
         display: none !important
     }
 }
+
+#absolutestyleeditor {
+    display: none;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+}
+.hdpanel-title a {
+    font-size: 12px !important;
+}
+#hd_rightmenu  {
+    position: absolute;
+    top: 40px;
+    left: 20px;
+    width: 180px;
+    z-index: 10000;
+    display:none;
+    font-size: 12px !important;
+}
+.hdpanelheading {
+    background-color: rgba(255, 255, 255, 0.83);
+    padding: 0px;
+}
