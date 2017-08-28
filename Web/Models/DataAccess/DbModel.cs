@@ -30,12 +30,12 @@ namespace Web.Models.DataAccess
         /// </returns>
         /// <exception cref="Exception">Throw exception
         /// </exception>
-        public static DataSet GetAllTableNames()
+        public static DataSet GetAllTableNames(DatabaseConnectionModel databaseConnectionModel)
         {
             try
             {
                 
-                DataSet db = Sql.ExecuteDataset(DbConnection.DefaultString, CommandType.StoredProcedure, "Auto_GetTables");
+                DataSet db = Sql.ExecuteDataset(DbConnection.GenerateString(databaseConnectionModel), CommandType.StoredProcedure, "Auto_GetTables");
                 return db;
             }
             catch (Exception ex)

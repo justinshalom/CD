@@ -7,6 +7,9 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System.Collections.Generic;
+using Web.Models;
+
 namespace Web.Controllers.Api
 {
     using System.Configuration;
@@ -31,9 +34,9 @@ namespace Web.Controllers.Api
         /// <returns>
         /// The <see cref="JsonResult"/>.
         /// </returns>
-        public JsonResult GetAllTables()
+        public JsonResult GetAllTables(DatabaseConnectionModel databaseConnectionModel)
         {
-            var tableNames = DbModel.GetAllTableNames();
+            var tableNames = DbModel.GetAllTableNames(databaseConnectionModel);
             return this.Json(false, "Get", tableNames);
         }
 
@@ -77,6 +80,22 @@ namespace Web.Controllers.Api
         {
             var databaseList = DbModel.GetAllDatabases(serverName);
             return this.Json(false, "Get", databaseList);
+        }
+
+        public JsonResult GetAllAuthenticationTypes(string serverType)
+        {
+            if (serverType == "mssql")
+            {
+                var authentication = new Dictionary<string,string>();
+                var authenticationsList = new List<Dictionary<string, string>>();
+                authentication["authentication"] = "SQLAuthentication";
+                authenticationsList.Add(authentication);
+                authentication["authentication"] = "WindowsAuthentication";
+                authenticationsList.Add(authentication);
+                return this.OutPut(authenticationsList);
+            }
+            
+            return this.OutPut(string.Empty);
         }
 
         /// <summary>

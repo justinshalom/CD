@@ -1,4 +1,9 @@
-var hdbackupdata = {};
+﻿var hdbackupdata = {};
+
+function savehdbackupdata() {
+    setcache("hdbackupdata", JSONstringify(hdbackupdata));
+}
+
 function pushandsave(variablename, keyname, value) {
     debugger;
     if (!hdbackupdata[variablename]) {
@@ -7,7 +12,7 @@ function pushandsave(variablename, keyname, value) {
     var data={};
     data[keyname]= value;
     hdbackupdata[variablename].push(data);
-    setcache("hdbackupdata", JSONstringify(hdbackupdata));
+    savehdbackupdata();
 }
 var requestandsavebackup = function (url, callback, variablename, postdata, aftercallback) {
     
@@ -19,7 +24,7 @@ var requestandsavebackup = function (url, callback, variablename, postdata, afte
                     hdbackupdata[variablename] = cl;
                 }
                
-                setcache("hdbackupdata", JSONstringify(hdbackupdata));
+                savehdbackupdata();
                 if (aftercallback) {
                     aftercallback(cl);
                 }
