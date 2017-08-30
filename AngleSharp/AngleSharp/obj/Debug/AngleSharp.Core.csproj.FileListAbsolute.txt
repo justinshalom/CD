@@ -1,10 +1,10 @@
-F:\CodeEditor\CD\AngleSharp\AngleSharp\bin\Debug\v4.5\AngleSharp.dll
-F:\CodeEditor\CD\AngleSharp\AngleSharp\bin\Debug\v4.5\AngleSharp.pdb
-F:\CodeEditor\CD\AngleSharp\AngleSharp\obj\Debug\AngleSharp.Core.csprojResolveAssemblyReference.cache
-F:\CodeEditor\CD\AngleSharp\AngleSharp\obj\Debug\AngleSharp.dll
-F:\CodeEditor\CD\AngleSharp\AngleSharp\obj\Debug\AngleSharp.pdb
 D:\myOwn\CodeEditor\AngleSharp\AngleSharp\bin\Debug\v4.5\AngleSharp.dll
 D:\myOwn\CodeEditor\AngleSharp\AngleSharp\bin\Debug\v4.5\AngleSharp.pdb
 D:\myOwn\CodeEditor\AngleSharp\AngleSharp\obj\Debug\AngleSharp.Core.csprojResolveAssemblyReference.cache
 D:\myOwn\CodeEditor\AngleSharp\AngleSharp\obj\Debug\AngleSharp.dll
 D:\myOwn\CodeEditor\AngleSharp\AngleSharp\obj\Debug\AngleSharp.pdb
+F:\CodeEditor\CD\AngleSharp\AngleSharp\bin\Debug\v4.5\AngleSharp.dll
+F:\CodeEditor\CD\AngleSharp\AngleSharp\bin\Debug\v4.5\AngleSharp.pdb
+F:\CodeEditor\CD\AngleSharp\AngleSharp\obj\Debug\AngleSharp.Core.csprojResolveAssemblyReference.cache
+F:\CodeEditor\CD\AngleSharp\AngleSharp\obj\Debug\AngleSharp.dll
+F:\CodeEditor\CD\AngleSharp\AngleSharp\obj\Debug\AngleSharp.pdb

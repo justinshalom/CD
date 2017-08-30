@@ -34,7 +34,16 @@ namespace Web.Models.DataAccess
         {
             try
             {
-                
+                var spname = "Auto_GetTables";
+                var query = "SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].["+ spname + "]')";
+                var spQuery = "CREATE PROCEDURE Auto_GetTables AS BEGIN SELECT* FROM [dbo].[" + databaseConnectionModel.InitialCatalog + "].sys.Tables; END";
+
+                DataSet dbExistSP = Sql.ExecuteDataset(DbConnection.GenerateString(databaseConnectionModel), CommandType.Text, query);
+                if (dbExistSP.Tables[0].Rows.Count == 0)
+                {
+                    DataSet dbCreateSP = Sql.ExecuteDataset(DbConnection.GenerateString(databaseConnectionModel), CommandType.Text, spQuery);
+                }
+
                 DataSet db = Sql.ExecuteDataset(DbConnection.GenerateString(databaseConnectionModel), CommandType.StoredProcedure, "Auto_GetTables");
                 return db;
             }

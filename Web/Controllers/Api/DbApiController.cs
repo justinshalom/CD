@@ -86,11 +86,14 @@ namespace Web.Controllers.Api
         {
             if (serverType == "mssql")
             {
-                var authentication = new Dictionary<string,string>();
                 var authenticationsList = new List<Dictionary<string, string>>();
-                authentication["authentication"] = "SQLAuthentication";
+                var authentication = new Dictionary<string, string> {["authentication"] = "Windows Authentication"};
                 authenticationsList.Add(authentication);
-                authentication["authentication"] = "WindowsAuthentication";
+                authentication = new Dictionary<string, string> {["authentication"] = "Sql Password"};
+                authenticationsList.Add(authentication);
+                authentication = new Dictionary<string, string> {["authentication"] = "Active Directory Integrated"};
+                authenticationsList.Add(authentication);
+                authentication = new Dictionary<string, string> {["authentication"] = "Active Directory Password"};
                 authenticationsList.Add(authentication);
                 return this.OutPut(authenticationsList);
             }

@@ -1,11 +1,13 @@
 ﻿function saveinputandcallback(callback, value, name) {
-    callback(value);
-    debugger;
+    
+    
     if (!window.hdbackupdata["defaultvalues"]) {
         window.hdbackupdata["defaultvalues"] = {};
     }
     window.hdbackupdata["defaultvalues"][name] = value;
+
     savehdbackupdata();
+    callback(value);
 }
 function bindandselectize(name, ispushandsave, iscladdinput, callback) {
 
@@ -46,7 +48,7 @@ function bindandselectize(name, ispushandsave, iscladdinput, callback) {
                     });
             }
         }
-        debugger;
+        
         var defaultvalues = window.hdbackupdata["defaultvalues"];
         if (defaultvalues) {
             var defaultvalue = defaultvalues[name];
@@ -68,76 +70,98 @@ function managesmenulist(hdMenu, t) {
     //        attributevalue +
     //        '"/>';
 
-  
-    
+
+   
     bindandselectize("servernames", true, true, function (input) {
-        var postdata = {};
-        postdata.serverType = "mssql";
-        requestandsavebackupfromeditorapi("DbApi/GetAllAuthenticationTypes",
-            function(data) {
+      
+        bindauthentications();
+        binddatabses(input);
+    });
+
+
+}
+var bindusernames = function () {
+    bindandselectize("usernames", true, true, function (input) {
+        bindpasswords();
+    });
+}
+var bindpasswords = function () {
+    bindandselectize("passwords", true, true, function (input) {
+        bindtables();
+    });
+}
+var binddatabses = function (servername) {
+    var postdata = {};
+    postdata.serverName = servername;
+    requestandsavebackupfromeditorapi("DbApi/GetAllDatabases",
+        function (data) {
+            if (data && data.Data) {
+                return data.Data;
+            }
+            return false;
+        },
+        "dbnames",
+        postdata,
+        function (dbnames) {
+            bindusernames();
+        });
+};
+function bindauthentications() {
+   
+    var postdata = {};
+    postdata.serverType = "mssql";
+    requestandsavebackupfromeditorapi("DbApi/GetAllAuthenticationTypes",
+        function (data) {
+            if (data && data.Data) {
+                return data.Data;
+            }
+            return false;
+        },
+        "authentications",
+        postdata,
+        function (authentications) {
+            bindandselectize("authentications",
+                true,
+                true,
+                function(input) {
+
+                    if (window.hdbackupdata["defaultvalues"]["authentications"] == "Windows Authentication") {
+                        bindtables();
+                    }
+                });
+
+        });
+    
+}
+
+function bindtables() {
+    var postdata = {};
+
+    postdata.IntegratedSecurity = "True";
+
+        postdata.Server = window.hdbackupdata["defaultvalues"]["servernames"];
+        postdata.InitialCatalog = window.hdbackupdata["defaultvalues"]["dbnames"];
+        if (window.hdbackupdata["defaultvalues"]["authentications"] != "Windows Authentication") {
+            postdata.Authentication = window.hdbackupdata["defaultvalues"]["authentications"];
+        }
+
+        requestandsavebackupfromeditorapi("DbApi/GetAllTables",
+            function (data) {
                 if (data && data.Data) {
                     return data.Data;
                 }
                 return false;
             },
-            "authentications",
+            "tables",
             postdata,
-            function (authentications) {
-                
-            });
-                
+            function (tables) {
+                bindandselectize("tables",
+                    true,
+                    true,
+                    function(input) {
 
-                
-                postdata.serverName = input;
-                requestandsavebackupfromeditorapi("DbApi/GetAllDatabases",
-                    function (data) {
-                        if (data && data.Data) {
-                            return data.Data;
-                        }
-                        return false;
-                    },
-                    "dbnames",
-                    postdata,
-                    function (dbnames) {
-                    
-                            bindandselectize("usernames", true, true, function (input) {
-                                bindandselectize("passwords", true, true, function (input) {
-
-                                    bindandselectize("tables", true, true, function (input) {
-                                        postdata.Server = window.hdbackupdata["defaultvalues"]["servernames"];
-                                        postdata.InitialCatalog = window.hdbackupdata["defaultvalues"]["dbnames"];
-                                        
-
-                                        requestandsavebackupfromeditorapi("DbApi/GetAllTables",
-                                            function (data) {
-                                                if (data && data.Data) {
-                                                    return data.Data;
-                                                }
-                                                return false;
-                                            },
-                                            "tables",
-                                            postdata,
-                                            function (tables) {
-
-                                            });
-                                    });
-
-                                });
-                            });
-
-                     
                     });
-            
-
-        //bindandselectize("usernames","username", true, true, function (input) {
-        //    bindandselectize("passwords", "password", true, true, function (input) {
-                  
-        //        });
-        //    });
-            
-            
-        });
-
+            });
     
 }
 

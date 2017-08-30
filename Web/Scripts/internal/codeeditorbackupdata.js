@@ -5,7 +5,7 @@ function savehdbackupdata() {
 }
 
 function pushandsave(variablename, keyname, value) {
-    debugger;
+    
     if (!hdbackupdata[variablename]) {
         hdbackupdata[variablename] = [];
     }
