@@ -23,28 +23,64 @@ namespace Web.Models.DataAccess
     public class DbModel
     {
         /// <summary>
-        /// The get all table names.
+        /// The update stored procedure.
         /// </summary>
+        /// <param name="storedProcedureModel">
+        /// The stored procedure model.
+        /// </param>
         /// <returns>
         /// The <see cref="DataSet"/>.
         /// </returns>
-        /// <exception cref="Exception">Throw exception
+        public static DataSet UpdateStoredProcedure(StoredProcedureModel storedProcedureModel)
+        {
+            try
+            {
+                var query = "SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[" + storedProcedureModel.StoredProcedureName + "]')";
+                var storedProcedureQuery = "CREATE PROCEDURE " + storedProcedureModel.StoredProcedureName + " AS BEGIN " + storedProcedureModel.StoredProcedureQuery + " END";
+                
+                DataSet databaseExistSp = Sql.ExecuteDataset(storedProcedureModel.ConnectionString, CommandType.Text, query);
+                DataSet databaseCreateSp = new DataSet();
+                if (databaseExistSp != null && databaseExistSp.Tables[0].Rows.Count == 0)
+                {
+                    databaseCreateSp = Sql.ExecuteDataset(storedProcedureModel.ConnectionString, CommandType.Text, storedProcedureQuery);
+                }
+
+                
+                return databaseCreateSp;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// The get all table names.
+        /// </summary>
+        /// <param name="databaseConnectionModel">
+        /// The database Connection Model.
+        /// </param>
+        /// <returns>
+        /// The <see cref="DataSet"/>.
+        /// </returns>
+        /// <exception cref="Exception">
+        /// Throw exception
         /// </exception>
         public static DataSet GetAllTableNames(DatabaseConnectionModel databaseConnectionModel)
         {
             try
             {
-                var spname = "Auto_GetTables";
-                var query = "SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].["+ spname + "]')";
-                var spQuery = "CREATE PROCEDURE Auto_GetTables AS BEGIN SELECT* FROM [dbo].[" + databaseConnectionModel.InitialCatalog + "].sys.Tables; END";
+                var storedProcedureName = "Auto_GetTables";
+                var connectionString = DbConnection.GenerateString(databaseConnectionModel);
+                var storedProcedureModel = new StoredProcedureModel
+                                               {
+                                                   ConnectionString = connectionString,
+                                                   StoredProcedureName = storedProcedureName,
+                                                   StoredProcedureQuery = "SELECT* FROM [dbo].[" + databaseConnectionModel.InitialCatalog + "].sys.Tables;"
+                                               };
 
-                DataSet dbExistSP = Sql.ExecuteDataset(DbConnection.GenerateString(databaseConnectionModel), CommandType.Text, query);
-                if (dbExistSP.Tables[0].Rows.Count == 0)
-                {
-                    DataSet dbCreateSP = Sql.ExecuteDataset(DbConnection.GenerateString(databaseConnectionModel), CommandType.Text, spQuery);
-                }
-
-                DataSet db = Sql.ExecuteDataset(DbConnection.GenerateString(databaseConnectionModel), CommandType.StoredProcedure, "Auto_GetTables");
+                UpdateStoredProcedure(storedProcedureModel);
+                var db = Sql.ExecuteDataset(connectionString, CommandType.StoredProcedure, storedProcedureModel.StoredProcedureName);
                 return db;
             }
             catch (Exception ex)

@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ProjectProperties.cs" company="">
+// <copyright file="ProjectProperties.cs" company="CodeEditor">
 //   
 // </copyright>
 // <summary>

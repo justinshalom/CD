@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="SettingsApiController.cs" company="">
+// <copyright file="SettingsApiController.cs" company="CodeEditor">
 //   
 // </copyright>
 // <summary>

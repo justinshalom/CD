@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="SystemRel.cs" company="">
+// <copyright file="SystemRel.cs" company="CodeEditor">
 //   
 // </copyright>
 // <summary>

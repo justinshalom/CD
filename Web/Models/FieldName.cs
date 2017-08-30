@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="FieldName.cs" company="">
+// <copyright file="FieldName.cs" company="CodeEditor">
 //   Code Editor
 // </copyright>
 // <summary>

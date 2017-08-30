@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Project.cs" company="">
+// <copyright file="Project.cs" company="CodeEditor">
 //   
 // </copyright>
 // <summary>
@@ -28,14 +28,12 @@ namespace Web.Code.Config
                 if (SystemRel.GetLocalIPAddress() == "10.10.3.141")
                 {
                     project.Url = "http://localhost:63517";
-                    project.WebDirectory = @"D:\WorkOfJustin\Replica\Main\Replika\Replika.Web\";
-                    project.DbDirectory = @"D:\WorkOfJustin\Replica\Main\Replika\Replika.WebApi\";
+                    project.WebDirectory = @"D:\myOwn\TalentTest\TalentTest\";
+                    project.DbDirectory = @"D:\myOwn\TalentTest\TalentTest\";
                     project.DbName = "Replika_Dev";
                     project.DbServer = "FTS-DSK-178.ftsindia.in";
                     project.DbUserName = "monnieuser";
                     project.DbPassword = "Monnie@123";
-                    
-
                 }
                 else
                 {
