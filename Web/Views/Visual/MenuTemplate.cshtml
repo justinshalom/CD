@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Web.Controllers.Json
+@model Web.Models.DatabaseConnectionModel
+@{
     Layout = null;
 }
 
@@ -31,7 +33,50 @@
         cdLinks += "<link href='" + cdStylepath + category + ".css' rel='stylesheet' type='text/css' />";
     }
 
-}
+    private string BindCheckbox(string name, string key, string classname,string label, string boxchecked="")
+    {
+        var html= "<div class='hdcol-xs-50 hd_menubox' id='hd_" + key + "_box'>";
+        html+= "<div class='hdcol-xs-50'>";
+        html += "<div class='hdform-group hdform-group-sm'>";
+        html += "<div class='togglebutton'>";
+        html += "<label>";
+        html += Html.Hidden(name, new { id = "hd_" + key, value = boxchecked });
+        if (boxchecked=="True")
+        {
+            html += Html.CheckBox(name + "_check", new {id = "hd_" + key + "_check", @class = classname,@checked=true});
+        }
+        else
+        {
+            html += Html.CheckBox(name + "_check", new {id = "hd_" + key + "_check", @class = classname});
+        }
+        html += "<span>"+ label + "</span>";
+        html += "</label>";
+        html += "</div>";
+        html += "</div>";
+        html += "</div>";
+        html += "</div>";
+        return html;
+    }
+    private string BindDropDown(string name, string key, string optionattribute, string optionvalue, string label, string jsonaction, string jsoncontroller)
+    {
+        var html = "<div class='hdcol-xs-50 hd_menubox' id='hd_" + key + "_box'>";
+        html += "<div class='hdcol-xs-50'>";
+        html += "<div class='hdform-group hdform-group-sm'>";
+        html += "<label class='control-label pull-left' >" + label + "</label>";
+        html += "<select";
+        html += "id='hd_" + key + "' name='" + name + "' ";
+        html += "data-json='"+(cdRootpath+Url.Action(jsonaction, jsoncontroller))+"' ";
+        html += "class='hdform-control selectize  input-sm' ";
+        html += "placeholder='" + label + "'";
+        html += ">";
+        html += "<option data-follow='true' data-key='" + optionattribute + "'>'" + optionvalue + "'</option>";
+        html += "</select>";
+        html += "</div>";
+        html += "</div>";
+        html += "</div>";
+        return html;
+    }
+        }
 @{
 
 
@@ -129,38 +174,9 @@
             </div>
             <div class="hdpanel-body open hdcol-xs-50" id="hd_rightmenu_body" style="">
                 <div class="hdcol-xs-50" id="hd_rightmenu_allattributes" style="">
-                    <div class="hdcol-xs-50 hd_menubox" id="hd_servernames_box">
-                        <div class="hdcol-xs-50">
-                            <div class="hdform-group hdform-group-sm">
-                                <label class="control-label pull-left">Server</label>
-                                <select id="hd_servernames" class="hdform-control selectize  input-sm"  placeholder="Servers">
-                                    <option data-static="true"></option>
-                                    <option data-follow="true" data-key="ServerName">localhost</option>
-
-                                </select>
-                            </div>
-
-                        </div>
-                           
-                    </div>
-                       
-                    <div class="hdcol-xs-50 hd_menubox" id="hd_authentications_box">
-                        <div class="hdcol-xs-50">
-                            <div class="hdform-group hdform-group-sm">
-                                <label class="control-label pull-left">Authentication</label>
-                                <select id="hd_authentications" class="hdform-control selectize  input-sm" placeholder="Authentications">
-                                    <option data-static="true"></option>
-                                    <option data-follow="true" data-key="authentication">SQL Password</option>
-                                </select>
-                            </div>
-
-                        </div>
-
-                    </div>
-                      
-                       
-                     
-                        
+                    @Html.Raw(BindDropDown("Server","servernames", "ServerName", "localhost", "Server Name", "GetAllServerNames", "DbApi"))
+                    @Html.Raw(BindDropDown("Authentication", "authentications", "authentication", "SQL Password", "Authentication", "GetAllServerNames", "DbApi"))
+                    
                     <div class="hdcol-xs-50 hd_menubox" id="hd_usernames_box">
                         <div class="hdcol-xs-50">
                             <div class="hdform-group hdform-group-sm">
@@ -189,12 +205,16 @@
                         </div>
 
                     </div>
-                        
+
                     <div class="hdcol-xs-50 hd_menubox" id="hd_dbnames_box">
                         <div class="hdcol-xs-50">
                             <div class="hdform-group hdform-group-sm">
                                 <label class="control-label pull-left">Database</label>
-                                <select id="hd_dbnames" class="hdform-control selectize  input-sm" placeholder="Databases">
+                                <select
+                                    id="hd_dbnames"
+                                    data-json="@(cdRootpath + Url.Action("GetAllDatabases", "DbApi"))"
+                                    class="hdform-control selectize  input-sm"
+                                    placeholder="Databases">
                                     <option data-static="true"></option>
                                     <option data-follow="true" data-key="database_name">master</option>
                                 </select>
@@ -203,7 +223,16 @@
                         </div>
 
                     </div>
-                    <div class="hdcol-xs-50 hd_menubox">
+                    @Html.Raw(BindCheckbox("IntegratedSecurity", "integratedsecurity", "TrueFalse", "Integrated Security"))
+                    @Html.Raw(BindCheckbox("Encrypt", "encrypt", "TrueFalse", "Encrypt"))
+                    @Html.Raw(BindCheckbox("TrustServerCertificate", "trustservercertificate", "TrueFalse", "Trust Server Certificate", "True"))
+                    @Html.Raw(BindCheckbox("EncryptConnection", "encryptconnection", "TrueFalse", "Encrypt Connection"))
+                    @Html.Raw(BindCheckbox("MultipleActiveResultSets", "multipleactiveresultsets", "TrueFalse", "Multiple Active Result Sets"))
+                    @*@Html.Raw(BindCheckbox("PersistSecurityInfo", "persistsecurityinfo", "TrueFalse", "Persist Security Info"))*@
+                    @*@Html.Raw(BindCheckbox("MultiSubNetFailOver", "multisubnetfailover", "TrueFalse", "MultiSubNetFailOver"))*@
+
+
+                    @*<div class="hdcol-xs-50 hd_menubox">
                         <div class="hdcol-xs-50 ">
                             <div class="hdform-group hdform-group-sm">
                                 <label class="control-label pull-left">New Attribute</label>
@@ -216,7 +245,7 @@
                     <div class="hdcol-xs-50 hd_menubox">
                         <a href="javascript:void(0)"> Style </a>
                         <div id="hd_rightmenu_styles" class="hd_rightmenu_clear  hdcol-xs-50 "></div>
-                    </div>
+                    </div>*@
                 </div>
             </div>
         </div>

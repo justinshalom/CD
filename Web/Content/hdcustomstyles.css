@@ -1,4 +1,4 @@
-﻿.hdgrouplabel { cursor: pointer; }
+.hdgrouplabel { cursor: pointer; }
 
 .hdgroup {
     border: 1px solid rgba(0, 0, 0, 0.26);
@@ -56,5 +56,5 @@
 
 .hd_rightmenu .hdform-group { margin-top: 0px; }
 
-.hd_rightmenu .toggle { margin-left: 10px; }body {
+.hd_rightmenu .toggle {/* margin-left: 10px; */}body {
 }

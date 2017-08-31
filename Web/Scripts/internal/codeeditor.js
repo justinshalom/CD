@@ -22,6 +22,7 @@ $(document).ready(function () {
     $(".hd_menubox").hide();
     $(".hd_rightmenu").show();
     $(".hd_rightmenu .hdpanel-body").hide();
+   
     $('body').on('click',
         '.hdpanel-heading',
         function (e) {
@@ -32,7 +33,7 @@ $(document).ready(function () {
     
 
     managesmenulist();
-    
+    $(".hd_menubox").show();
     
     $('body').on('contextmenu click',
         '*:not(html,body,.hd_rightmenu)',

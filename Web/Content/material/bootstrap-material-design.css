@@ -1301,34 +1301,34 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 }
 .togglebutton label .toggle,
 .togglebutton label input[type=checkbox][disabled] + .toggle {
-  content: "";
-  display: inline-block;
-  width: 30px;
-  height: 15px;
-  background-color: rgba(80, 80, 80, 0.7);
-  border-radius: 15px;
-  margin-right: 15px;
-  -webkit-transition: background 0.3s ease;
-       -o-transition: background 0.3s ease;
-          transition: background 0.3s ease;
-  vertical-align: middle;
+    content: "";
+    display: inline-block;
+    width: 30px;
+    height: 12px;
+    background-color: rgba(80, 80, 80, 0.7);
+    /*border-radius: 15px;*/
+    margin-right: 5px;
+    -webkit-transition: background 0.3s ease;
+    -o-transition: background 0.3s ease;
+    transition: background 0.3s ease;
+    vertical-align: middle;
 }
-.togglebutton label .toggle:after {
-  content: "";
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  background-color: #F1F1F1;
-  border-radius: 20px;
-  position: relative;
-  -webkit-box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.4);
-          box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.4);
-  left: -5px;
-  top: -2px;
-  -webkit-transition: left 0.3s ease, background 0.3s ease, -webkit-box-shadow 0.1s ease;
-       -o-transition: left 0.3s ease, background 0.3s ease, box-shadow 0.1s ease;
-          transition: left 0.3s ease, background 0.3s ease, box-shadow 0.1s ease;
-}
+    .togglebutton label .toggle:after {
+        content: "";
+        display: inline-block;
+        width: 16px;
+        height: 17px;
+        background-color: #F1F1F1;
+        border-radius: 20px;
+        position: relative;
+        -webkit-box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.4);
+        left: -5px;
+        top: -4px;
+        -webkit-transition: left 0.3s ease, background 0.3s ease, -webkit-box-shadow 0.1s ease;
+        -o-transition: left 0.3s ease, background 0.3s ease, box-shadow 0.1s ease;
+        transition: left 0.3s ease, background 0.3s ease, box-shadow 0.1s ease;
+    }
 .togglebutton label input[type=checkbox][disabled] + .toggle:after,
 .togglebutton label input[type=checkbox][disabled]:checked + .toggle:after {
   background-color: #BDBDBD;

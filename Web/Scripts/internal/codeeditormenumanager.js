@@ -1,11 +1,8 @@
 ﻿function saveinputandcallback(callback, value, name) {
-    debugger;
-    
     if (!window.hdbackupdata["defaultvalues"]) {
         window.hdbackupdata["defaultvalues"] = {};
     }
     window.hdbackupdata["defaultvalues"][name] = value;
-
     savehdbackupdata();
     callback(value);
 }
@@ -63,10 +60,10 @@ function bindandselectize(name, ispushandsave, iscladdinput, callback) {
     setmenupositions(window.hdMenu);
 }
 function managesmenulist() {
-
-    bindauthentications();
-    bindandselectize("servernames", true, true, function (input) {
-    });
+    $("#hd_integratedsecurity_box").show();
+    //bindauthentications();
+    //bindandselectize("servernames", true, true, function (input) {
+    //});
 
 
 }
@@ -100,10 +97,10 @@ function createpostvalues() {
 
 var binddatabses = function () {
     var postdata = createpostvalues();
-    debugger;
+    
     requestandsavebackupfromeditorapi("DbApi/GetAllDatabases",
         function (data) {
-            debugger;
+            
             if (data && data.Data) {
                 return data.Data;
             }
@@ -116,7 +113,7 @@ var binddatabses = function () {
                 true,
                 true,
                 function (input) {
-                    debugger;
+                    
                     if (window.hdbackupdata["defaultvalues"]["dbnames"] && window.hdbackupdata["defaultvalues"]["dbnames"] != "") {
                         bindtables();
                     }
@@ -228,5 +225,9 @@ function bindtablecolumns() {
 $(document).ready(function () {
     
     
+
+
+
+
 
 });
