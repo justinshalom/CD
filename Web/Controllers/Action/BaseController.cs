@@ -25,6 +25,24 @@
         }
 
         /// <summary>
+        /// The out put.
+        /// </summary>
+        /// <param name="data">
+        /// The data.
+        /// </param>
+        /// <returns>
+        /// The <see cref="JsonResult"/>.
+        /// </returns>
+        protected JsonResult OutPut(List<Dictionary<string, object>> data)
+        {
+            var rt = new DictionaryJsonDto
+            {
+                             Data = data
+                         };
+            return this.Json(rt);
+        }
+
+        /// <summary>
         /// The JSON.
         /// </summary>
         /// <param name="error">
@@ -74,11 +92,10 @@
         /// </returns>
         protected JsonResult Json(bool error, string message, DataSet dataSet)
         {
-            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
             if (dataSet.Tables.Count > 0)
             {
                 var data = dataSet.Tables[0];
-                this.Json(error, message, data);
+                return this.Json(error, message, data);
             }
 
             return this.OutPut(string.Empty);

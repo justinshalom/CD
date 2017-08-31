@@ -76,7 +76,7 @@ namespace Web.Code.Config
             connStr += ConcatenateString("MultipleActiveResultSets", databaseConnectionModel.MultipleActiveResultSets);
             connStr += ConcatenateString("Replication", databaseConnectionModel.Replication);
             connStr += ConcatenateString("Authentication", databaseConnectionModel.Authentication);
-
+            connStr += ConcatenateString("EncryptConnection", databaseConnectionModel.EncryptConnection);
             connStr += ConcatenateString("Integrated Security", databaseConnectionModel.IntegratedSecurity);
             connStr += ConcatenateString("Encrypt", databaseConnectionModel.Encrypt);
             connStr += ConcatenateString("Connect Timeout", databaseConnectionModel.ConnectTimeout);

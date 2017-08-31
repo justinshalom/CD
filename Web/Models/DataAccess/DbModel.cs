@@ -35,9 +35,9 @@ namespace Web.Models.DataAccess
         {
             try
             {
-                var query = "SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[" + storedProcedureModel.StoredProcedureName + "]')";
-                var storedProcedureQuery = "CREATE PROCEDURE " + storedProcedureModel.StoredProcedureName + " AS BEGIN " + storedProcedureModel.StoredProcedureQuery + " END";
-                
+                var query = "SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[" + storedProcedureModel.StoredProcedureName + "]')";
+                var storedProcedureQuery = "CREATE PROCEDURE " + storedProcedureModel.StoredProcedureName + " " + storedProcedureModel.Parameters + " " + " AS BEGIN " + storedProcedureModel.StoredProcedureQuery + " END";
+
                 DataSet databaseExistSp = Sql.ExecuteDataset(storedProcedureModel.ConnectionString, CommandType.Text, query);
                 DataSet databaseCreateSp = new DataSet();
                 if (databaseExistSp != null && databaseExistSp.Tables[0].Rows.Count == 0)
@@ -45,7 +45,6 @@ namespace Web.Models.DataAccess
                     databaseCreateSp = Sql.ExecuteDataset(storedProcedureModel.ConnectionString, CommandType.Text, storedProcedureQuery);
                 }
 
-                
                 return databaseCreateSp;
             }
             catch (Exception ex)
@@ -76,7 +75,7 @@ namespace Web.Models.DataAccess
                                                {
                                                    ConnectionString = connectionString,
                                                    StoredProcedureName = storedProcedureName,
-                                                   StoredProcedureQuery = "SELECT* FROM [dbo].[" + databaseConnectionModel.InitialCatalog + "].sys.Tables;"
+                                                   StoredProcedureQuery = "SELECT* FROM [" + databaseConnectionModel.InitialCatalog + "].sys.Tables;"
                                                };
 
                 UpdateStoredProcedure(storedProcedureModel);
@@ -85,7 +84,6 @@ namespace Web.Models.DataAccess
             }
             catch (Exception ex)
             {
-                // Logger.Error(ex, "Error In GetAllTableNames of AffliateAdminDA");
                 throw ex;
             }
         }
@@ -93,25 +91,35 @@ namespace Web.Models.DataAccess
         /// <summary>
         /// The get table columns.
         /// </summary>
-        /// <param name="tableName">
-        /// The table name.
+        /// <param name="databaseConnectionModel">
+        /// The database Connection Model.
         /// </param>
         /// <returns>
         /// The <see cref="DataSet"/>.
         /// </returns>
-        /// <exception cref="Exception">Throw Exception
+        /// <exception cref="Exception">
+        /// Throw Exception
         /// </exception>
-        public static DataSet GetTableColumns(string tableName)
+        public static DataSet GetTableColumns(DatabaseConnectionModel databaseConnectionModel)
         {
             try
             {
-                DataSet db = Sql.ExecuteDataset(DbConnection.DefaultString, CommandType.StoredProcedure, "Auto_GetTableColumn", new SqlParameter("@tableName", tableName));
-                return db;
+                var storedProcedureName = "Auto_GetTableColumn";
+                var connectionString = DbConnection.GenerateString(databaseConnectionModel);
+                var storedProcedureModel = new StoredProcedureModel
+                                               {
+                                                   ConnectionString = connectionString,
+                                                   StoredProcedureName = storedProcedureName,
+                                                   Parameters = "@tableName varchar(MAX)",
+                                                   StoredProcedureQuery = "SELECT * FROM sys.columns c JOIN sys.objects o ON o.object_id = c.object_id WHERE o.object_id = OBJECT_ID(@tableName) ORDER BY c.Name; "
+                                               };
 
+                UpdateStoredProcedure(storedProcedureModel);
+                DataSet db = Sql.ExecuteDataset(connectionString, CommandType.StoredProcedure, storedProcedureModel.StoredProcedureName, new SqlParameter("@tableName", databaseConnectionModel.Table));
+                return db;
             }
             catch (Exception ex)
             {
-                // Logger.Error(ex, "Error In PageCreation of GetParticularTableName");
                 throw ex;
             }
         }
@@ -122,10 +130,10 @@ namespace Web.Models.DataAccess
         /// <returns>
         /// The <see cref="DataTable"/>.
         /// </returns>
-        internal static DataTable  GetAllServerNames()
+        internal static DataTable GetAllServerNames()
         {
             string myServer = Environment.MachineName;
-            
+
             DataTable servers = SqlDataSourceEnumerator.Instance.GetDataSources();
             return servers;
         }
@@ -133,22 +141,28 @@ namespace Web.Models.DataAccess
         /// <summary>
         /// The get all databases.
         /// </summary>
-        /// <param name="serverName">
-        /// The server name.
+        /// <param name="databaseConnectionModel">
+        /// The database Connection Model.
         /// </param>
         /// <returns>
         /// The <see cref="DataTable"/>.
         /// </returns>
-        internal static DataTable GetAllDatabases(string serverName)
+        internal static DataTable GetAllDatabases(DatabaseConnectionModel databaseConnectionModel)
         {
-            using (var con = new SqlConnection("Data Source=" + serverName + "; Integrated Security=True;"))
+            try
             {
-                con.Open();
-                DataTable databases = con.GetSchema("Databases");
-                return databases;
-            } 
-
-
+                var connectionString = DbConnection.GenerateString(databaseConnectionModel);
+                using (var con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    DataTable databases = con.GetSchema("Databases");
+                    return databases;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

@@ -83,7 +83,7 @@ function IsJsonString(str) {
     return true;
 }
 
-$.fn.binder = function (opt) {
+$.fn.binder = function(opt) {
     for (var bi = 0; bi < this.length; bi++) {
         var t = $(this[bi]);
         var mt = $.fn.binder.methods;
@@ -160,9 +160,9 @@ $.fn.binder.methods = {
         }
         return obj;
     },
-    setorderbyicon: function (allorderobjects,ordert,ordervalue) {
+    setorderbyicon: function(allorderobjects, ordert, ordervalue) {
         allorderobjects.find("[data-orderbydescicon],[data-orderbyascicon]").hide();
-        if (ordert&&ordervalue) {
+        if (ordert && ordervalue) {
             ordert.find("[data-orderby" + ordervalue + "icon]").show();
         }
     },
@@ -176,8 +176,7 @@ $.fn.binder.methods = {
         if (this.initfn(t) === false) {
             if (typeof opt == "object") {
                 stn = $.extend(stn, opt);
-            }else
-            if (typeof opt == "string" && opt == "refresh") {
+            } else if (typeof opt == "string" && opt == "refresh") {
                 stn.refresh = true;
             }
             var datastn = this.getdataattributes(t);
@@ -212,23 +211,26 @@ $.fn.binder.methods = {
                 if (orderbylist.length == 0) {
                     orderbylist = orderbyt.find("[data-orderbyfield]:first");
                 }
-                if (stn.orderbyascendingicon && orderbyt.find("[data-orderbyfield]").find("[data-orderbyascicon]").length == 0) {
-                //    orderbyt.find("[data-orderbyfield]")[stn.orderbyiconinsertmethod](stn.orderbyascendingicon);
+                if (stn.orderbyascendingicon && orderbyt.find("[data-orderbyfield]").find("[data-orderbyascicon]")
+                    .length == 0) {
+                    //    orderbyt.find("[data-orderbyfield]")[stn.orderbyiconinsertmethod](stn.orderbyascendingicon);
                 }
-                if (stn.orderbydescendingicon && orderbyt.find("[data-orderbyfield]").find("[data-orderbydescicon]").length == 0) {
-                 //   orderbyt.find("[data-orderbyfield]")[stn.orderbyiconinsertmethod](stn.orderbydescendingicon);
+                if (stn.orderbydescendingicon && orderbyt.find("[data-orderbyfield]").find("[data-orderbydescicon]")
+                    .length == 0) {
+                    //   orderbyt.find("[data-orderbyfield]")[stn.orderbyiconinsertmethod](stn.orderbydescendingicon);
                 }
-              
                 var firstone = orderbylist.first();
                 var orderbyvalue = firstone.attr("data-orderby");
                 orderbyvalue = orderbyvalue ? orderbyvalue.toLowerCase() : "desc";
-               // this.setorderbyicon(orderbyt);
-
+                // this.setorderbyicon(orderbyt);
                 $("body").append('<input type="hidden" id="' + orderfieldinputid + '" name="' +
                     orderfieldservername +
                     '" value="' + firstone.attr("data-orderbyfield") + '" />');
                 $("body").append('<input type="hidden" id="' + orderbyinputid + '" name="' + ordername +
                     '" value="' + orderbyvalue + '" />');
+                if (!t.attr(this.data.data_filterby)) {
+                    t.attr(this.data.data_filterby, "");
+                }
                 t.attr(this.data.data_filterby,
                     t.attr(this.data.data_filterby) + (t.attr(this.data.data_filterby) ? "," : "") + "#" +
                     orderfieldinputid +
@@ -251,7 +253,7 @@ $.fn.binder.methods = {
                         }
                         var orderbyvalue = $(this).attr("data-orderby");
                         orderbyinput.val(orderbyvalue);
-                       // mt.setorderbyicon(orderbyt, $(this), orderbyvalue);
+                        // mt.setorderbyicon(orderbyt, $(this), orderbyvalue);
                         mt.resetpaginationandbind(t);
                     });
             }
@@ -470,12 +472,26 @@ $.fn.binder.methods = {
             }
             var valid = true;
             $("[data-requiredonfilter" + tid + "]").each(function(ri, rv) {
-                if (!$(this).val()) {
-                    return valid = false;
+                switch ($(this).attr("type")) {
+                case 'radio':
+                case 'checkbox':
+                    {
+                        if ($(this).prop("checked") == false) {
+                            return valid = false;
+                        }
+                        break;
+                    }
+                default:
+                    {
+                        if (!$(this).val()) {
+                            return valid = false;
+                        }
+                        break;
+                    }
                 }
             });
             if (valid) {
-                if (typeof stn.json == "string"&& stn.json !="") {
+                if (typeof stn.json == "string" && stn.json != "") {
                     var post = this.makepostdata(inputs);
                     var method = "post";
                     if (t.attr("data-requestmethod")) {
@@ -488,7 +504,8 @@ $.fn.binder.methods = {
                         post,
                         function() {
                             if (caching) {
-                                if (!stn.refresh && bindmanager.cache[uniquepost] && bindmanager.cache[uniquepost] !== "") {
+                                if (!stn.refresh && bindmanager.cache[uniquepost] &&
+                                    bindmanager.cache[uniquepost] !== "") {
                                     var data = bindmanager.cache[uniquepost];
                                     t.trigger("afterrequest", data);
                                     mt.success(t, stn, data, tid);
@@ -510,9 +527,7 @@ $.fn.binder.methods = {
                         mt.success(t, stn, stn.json, tid);
                     } else if (typeof opt == "object") {
                         mt.success(t, stn, opt, tid);
-                    } 
-
-                   
+                    }
                 }
             } else {
                 mt.success(t, stn, [], tid);
@@ -700,29 +715,30 @@ $.fn.binder.methods = {
             }
         }
     },
-    textautofn: function(value, t) {
+    textautofn: function(attributes, value, t) {
         if (t.length > 0) {
-            var datas = this.attr(t);
-            for (var di in datas) {
-                if (datas.hasOwnProperty(di)) {
-                    var dv = datas[di];
-                    if (di.startsWith("data-string-") || di == ("data-string")||di == ("data-number") ||di.startsWith("data-number-")) {
+            for (var di in attributes) {
+                if (attributes.hasOwnProperty(di)) {
+                    var dv = attributes[di];
+                    if ((typeof value == "string" || typeof value == "number") && (di.startsWith("data-string-") ||
+                        di == ("data-string") || di == ("data-number") || di.startsWith("data-number-"))) {
                         var pieces = di.split("-");
                         pieces[pieces.length] = dv;
                         var prototype = pieces[1];
                         var methodname = pieces[2];
                         var param1 = pieces[3];
                         var param2 = pieces[4];
-                      
                         if (!value[methodname]) {
                             if (prototype == "string") {
+                                if (typeof value == "number") {
+                                    value = value.toString();
+                                }
                                 this.getprototypefunction(String.prototype, methodname);
                             }
                             if (prototype == "number") {
                                 this.getprototypefunction(Number.prototype, methodname);
                             }
                         }
-                     
                         var argumentvalues = pieces.splice(3, pieces.length);
                         value = value[methodname].apply(value, argumentvalues);
                     }
@@ -780,28 +796,68 @@ $.fn.binder.methods = {
             return obj;
         }
     },
-    finddatarows: function (objrows,resultdata) {
+    finddatarows: function(objrows, resultdata) {
         var rows = null;
-        $.each(objrows,
-            function (obji, objv) {
-                if (resultdata[objv]) {
-                    rows = resultdata[objv];
-                }
-            });
-
-        if (rows === null &&  typeof resultdata === "object" && resultdata.length > 0) {
+        if (resultdata != null) {
+            $.each(objrows,
+                function(obji, objv) {
+                    if (resultdata[objv]) {
+                        rows = resultdata[objv];
+                    }
+                });
+        }
+        if (rows === null && typeof resultdata === "object" && resultdata != null && resultdata.length > 0) {
             rows = resultdata;
         }
-
         return rows;
     },
+    getconditionalexpression: function(keyname, key, value) {
+        var exp = false;
+        if (keyname.toLowerCase().split(key.toLowerCase())
+            .length == 1) {
+            if (typeof value != "boolean" && typeof value != "number") {
+                value = "'" + value.toString() + "'";
+            }
+            if (keyname.toString().match(/[<>!=]/ig)) {
+                exp = value + keyname.toString();
+            } else {
+                exp = value + "==" +
+                    keyname.toString();
+            }
+        } else {
+            var reg = new RegExp("{" + key + "}.length", "ig");
+            var reg2 = new RegExp("{" + key + "}", "ig");
+            var reg3 = new RegExp("{" + key + "}.toString\\(\\)",
+                "ig");
+            exp = keyname.replace(reg, value.length);
+            exp = exp.replace(reg3, "'" + value.toString() + "'");
+            exp = exp.replace(reg2, value);
+        }
+        return exp;
+    },
+    getcustomattributevalue: function(tobj, mainkey, subkey, key) {
+        return tobj.attr(mainkey + "-" + key.toLowerCase() + "-" + subkey)
+            ? tobj.attr(mainkey + "-" + key.toLowerCase() + "-" + subkey)
+            : tobj.attr(mainkey + "-" + subkey + "-" + key.toLowerCase());
+    },
     success: function(t, stn, data, tid) {
+        //Notify element that got result from server
+        t.attr("data-bindersuccess", true);
         var triggerdataall = {
             rows: data
         };
         if (!t.attr("data-nobind") && t.attr("data-nobind") !== true) {
+            if (stn.foreach) {
+                stn.dataobject = stn.foreach;
+            }
             var objrows = stn.dataobject.split(",");
-            var rows = this.finddatarows(objrows,data);
+            var foreachi = false;
+            if (stn.dataobject.split(" in ").length == 2) {
+                var objrowspieces = stn.dataobject.split(" in ");
+                objrows = [objrowspieces[1]];
+                foreachi = objrowspieces[0];
+            }
+            var rows = this.finddatarows(objrows, data);
             var allowedinputs = this.data.inputs.split(",");
             var obj = this.gettemplatedetails(t, tid);
             var html = obj.html;
@@ -850,8 +906,9 @@ $.fn.binder.methods = {
                     var properties = "";
                     for (var rowindex = 0; rowindex < rows.length; rowindex++) {
                         var rowobject = rows[rowindex];
+                        var tempvalue;
                         if (typeof rowobject != "object") {
-                            var tempvalue = rowobject;
+                            tempvalue = rowobject;
                             rowobject = {};
                             rowobject.jlvalue = tempvalue;
                         }
@@ -865,7 +922,8 @@ $.fn.binder.methods = {
                             key: rowindex,
                             value: rowobject
                         };
-                        var template = $("<" + parenttag + ">" + html + "</" + parenttag + ">");
+                        var subjsonrows = [];
+                        var template = this.wrapparent(parenttag, html);
                         excludedelements = t.find("[data-json],[data-subjson]").find(obj.nochange);
                         var staticfollowtemplate = t.find("[" + kv.data_follow + "][" + kv.data_static + "]")
                             .not(excludedelements);
@@ -873,16 +931,23 @@ $.fn.binder.methods = {
                         if (staticfollowtemplate.length == 1) {
                             template = staticfollowtemplate;
                         } else if (followhtml.eq(0).length > 0) {
-                            template =
-                                $("<" + parenttag + ">" + followhtml.eq(0)[0].outerHTML + "</" + parenttag + ">");
+                            template = this.wrapparent(parenttag, followhtml.eq(0)[0].outerHTML);
                             // followhtml.eq(rowindex).remove();
                         }
                         excludedelements = template.find("[data-json],[data-subjson]").find(obj.nochange);
                         template.find("[" + kv.data_follow + "]").not(excludedelements).removeAttr(kv.data_follow);
                         t.trigger("beforeappendrow", triggerdatarow);
-                        var subjsonrows = [];
-                        $.each(rowobject,
-                            function(key, value) {
+                        subjsonrows = [];
+                        for (var key in rowobject) {
+                            if (rowobject.hasOwnProperty(key)) {
+                                var value = rowobject[key];
+                                if (foreachi) {
+                                    var templatehtml = template.html();
+                                    var replace = "{" + foreachi + "." + key + "}";
+                                    var re = new RegExp(replace, "gmi");
+                                    templatehtml = templatehtml.replace(re, value);
+                                    template = this.wrapparent(parenttag, templatehtml);
+                                }
                                 if (template.find("[data-subjson='" + key + "']").length > 0) {
                                     subjsonrows.push({ key: key, value: value });
                                 }
@@ -894,14 +959,19 @@ $.fn.binder.methods = {
                                     key.toLowerCase() + "],[data-" + key.toLowerCase() +
                                     "-attr],[data-attr-" + key.toLowerCase() + "],[data-" + key.toLowerCase() +
                                     "-if],[data-if-" +
+                                    key.toLowerCase() + "],[data-attr-" + key.toLowerCase() +
+                                    "-if],[data-attr-if-" +
                                     key.toLowerCase() + "]");
                                 var obj = htmlelements.add(attrelements);
+                                var disabledelements = template.find("[data-" +
+                                    key.toLowerCase() + "-disable],[data-disable-" +
+                                    key.toLowerCase() + "]");
+                                obj = obj.not(disabledelements);
                                 triggerdata = {
                                     key: key,
                                     value: value
                                 };
                                 obj.trigger("beforeappend", triggerdata);
-                                value = mt.textautofn(value, obj);
                                 var commentobj = mt.getcommentobj(template.children());
                                 if (commentobj.length > 0) {
                                     $.each(commentobj,
@@ -921,89 +991,57 @@ $.fn.binder.methods = {
                                             }
                                         });
                                 }
-                                obj.each(function() {
-                                    var tobj = $(this);
-                                    $.each(mt.attr(tobj),
+                                tempvalue = value;
+                                for (var obji = 0; obji < obj.length; obji++) {
+                           
+                                    var tobj = $(obj[obji]);
+                                    value = tempvalue;
+                                    var attributes = this.attr(tobj);
+                                    value = this.textautofn(attributes, value, tobj);
+                                    value = this.applydatefunctionalitybyattributes(attributes, key, value);
+                                    $.each(attributes,
                                         function(ob, obv) {
-                                            ob = ob.replace("data-", "");
-                                            if (mt[ob]) {
-                                                value = mt[ob](key, value, obv);
-                                            }
-                                            if (mt.date[ob]) {
-                                                value = mt.date[ob](key, value, obv);
-                                            }
-                                            var keyname;
-                                            if (ob === (key.toLowerCase() + "-inline") ||
-                                                ob === ("inline-" + key.toLowerCase())) {
-                                                keyname =
-                                                    tobj.attr("data-" + key.toLowerCase() + "-inline")
-                                                    ? tobj.attr("data-" + key.toLowerCase() + "-inline")
-                                                    : tobj.attr("data-inline-" + key.toLowerCase());
-                                                var replace = "{" + key + "}";
-                                                var re = new RegExp(replace, "g");
-                                                if (keyname == "html") {
-                                                    tobj.html(tobj.html().replace(re, value));
-                                                } else if (keyname == "text") {
-                                                    tobj.text(tobj.text().replace(re, value));
-                                                } else {
-                                                    var attribute = tobj.attr(keyname);
-                                                    if (attribute) {
-                                                        tobj.attr(keyname, attribute.replace(re, value));
+                                            if (ob.startsWith("data-")) {
+                                                ob = ob.replace("data-", "");
+                                                var keyname;
+                                                if (ob === (key.toLowerCase() + "-inline") ||
+                                                    ob === ("inline-" + key.toLowerCase())) {
+                                                    keyname = mt.getcustomattributevalue(tobj, "data", "inline", key);
+                                                    var replace = "{" + key + "}";
+                                                    var re = new RegExp(replace, "g");
+                                                    if (keyname == "html") {
+                                                        tobj.html(tobj.html().replace(re, value));
+                                                    } else if (keyname == "text") {
+                                                        tobj.text(tobj.text().replace(re, value));
                                                     } else {
-                                                        console.log("'" + keyname +
-                                                            "' not matching any attributes for apply value for inline key 'data-" +
-                                                            key.toLowerCase() +
-                                                            "-inline'");
+                                                        var attribute = tobj.attr(keyname);
+                                                        if (attribute) {
+                                                            tobj.attr(keyname, attribute.replace(re, value));
+                                                        } else {
+                                                            console.log("'" + keyname +
+                                                                "' not matching any attributes for apply value for inline key 'data-" +
+                                                                key.toLowerCase() +
+                                                                "-inline'");
+                                                        }
                                                     }
                                                 }
-                                            }
-                                            if (ob === (key.toLowerCase() + "-attr") ||
-                                                ob === ("attr-" + key.toLowerCase())) {
-                                                keyname =
-                                                    tobj.attr("data-" + key.toLowerCase() + "-attr")
-                                                    ? tobj.attr("data-" + key.toLowerCase() + "-attr")
-                                                    : tobj.attr("data-attr-" + key.toLowerCase());
-                                                tobj.attr(keyname, value);
-                                            }
-                                            if (ob === (key.toLowerCase() + "-if") ||
-                                                ob === ("if-" + key.toLowerCase())) {
-                                                var keyvalue =
-                                                    tobj.attr("data-" + key.toLowerCase() + "-if")
-                                                        ? tobj.attr("data-" + key.toLowerCase() + "-if")
-                                                        : tobj.attr("data-if-" + key.toLowerCase());
-                                                //// if (typeof value === 'boolean') {
-                                                if (value != null) {
-                                                    try {
-                                                        var exp;
-                                                        if (keyvalue.toLowerCase().split(key.toLowerCase())
-                                                            .length == 1) {
-                                                            if (keyvalue.toString().match(/[<>!=]/ig)) {
-                                                                exp = "'" + value + "'" + keyvalue.toString();
-                                                            } else {
-                                                                exp = "'" + value.toString() + "'" + "==" +
-                                                                    keyvalue.toString();
-                                                            }
-                                                        } else {
-                                                            var reg = new RegExp("{" + key + "}.length", "ig");
-                                                            var reg2 = new RegExp("{" + key + "}", "ig");
-                                                            var reg3 = new RegExp("{" + key + "}.toString\\(\\)",
-                                                                "ig");
-                                                            exp = keyvalue.replace(reg, value.length);
-                                                            exp = exp.replace(reg3, "'" + value.toString() + "'");
-                                                            exp = exp.replace(reg2, value);
-                                                        }
-                                                        if (exp) {
-                                                            if (eval(exp)) {
-                                                                tobj.show().attr("data-isactive", true);
-                                                            } else {
-                                                                tobj.hide().attr("data-isactive", false);
-                                                                if (tobj.attr("data-removeinactive")) {
-                                                                    tobj.remove();
-                                                                }
-                                                            }
-                                                        }
-                                                    } catch (e) {
-                                                    }
+                                                if (ob === (key.toLowerCase() + "-attr") ||
+                                                    ob === ("attr-" + key.toLowerCase())) {
+                                                    keyname = mt.getcustomattributevalue(tobj, "data", "attr", key);
+                                                    tobj.attr(keyname, value);
+                                                }
+                                                if (ob === (key.toLowerCase() + "-if") ||
+                                                    ob === ("if-" + key.toLowerCase())) {
+                                                    mt.applycontentifcondition(ob, tobj, "data", "if", key, value);
+                                                }
+                                                if (ob === "attr-" + (key.toLowerCase() + "-if") ||
+                                                    ob === ("attr-" + "if-" + key.toLowerCase())) {
+                                                    mt.applyattributeifcondition(ob,
+                                                        tobj,
+                                                        "data-attr",
+                                                        "if",
+                                                        key,
+                                                        value);
                                                 }
                                             }
                                         });
@@ -1039,8 +1077,9 @@ $.fn.binder.methods = {
                                         value: value
                                     };
                                     tobj.trigger("afterappend", triggerdata); //TODO Its not working
-                                });
-                            });
+                                }
+                            }
+                        };
                         if (staticfollowtemplate.length == 1) {
                         } else if (followhtml.eq(0).length > 0) {
                             followhtml.eq(0).after(template.html());
@@ -1065,7 +1104,7 @@ $.fn.binder.methods = {
                             if (subjsonelements.length > 0) {
                                 for (var subi = 0; subi < subjsonelements.length; subi++) {
                                     var th = $(subjsonelements[subi]);
-                                    jv.value = this.textautofn(jv.value, th);
+                                    jv.value = this.textautofn(this.attr(th), jv.value, th);
                                     th.binder({ json: { Rows: jv.value } });
                                 }
                             }
@@ -1110,10 +1149,18 @@ $.fn.binder.methods = {
             }
         }
         t.trigger("afterappendcomplete", triggerdataall);
-        var childjsonrows = t.find("[data-json]:not([data-isactive=false])");
-        if (t.find("[data-json]:not([data-isactive=false])").not(childjsonrows.find("[data-json]")).length > 0) {
-            t.find("[data-json]").binder();
+        //Find all grand childrens
+        var grandchildrenrows = this.grandchildren(t, "[data-json]");
+        //Checking not inactive json elements and also not child elements of allowed elements
+        var allowedjsontoinit = t.find("[data-json]:not([data-parent],[data-isactive=false])").not(grandchildrenrows);
+        if (allowedjsontoinit.length > 0) {
+            allowedjsontoinit.binder();
         }
+        //Only supported id
+        $("[data-parent='#" + tid + "'][data-json]").binder();
+    },
+    grandchildren: function(t, selector) {
+        return t.find(selector).find(selector);
     },
     bringvalues: function(t) {
         t.find("[data-jlvalue]").each(function() {
@@ -1122,7 +1169,8 @@ $.fn.binder.methods = {
         });
     },
     showhideboxes: function(t) {
-        t.find("[" + this.data.data_noresult + "]").show();
+        var grandchildrens = t.find("[" + this.data.data_json + "] [" + this.data.data_noresult + "]");
+        t.find("[" + this.data.data_noresult + "]").not(grandchildrens).show();
         if (t.attr("data-method-show")) {
             $(t.attr("data-method-show")).hide();
         }
@@ -1155,24 +1203,26 @@ $.fn.binder.methods = {
         var pagestartswith = parseInt(t.attr("data-pagestartswith"));
         var pagefollow = paginationt.find("[" + kv.data_follow + "]"); //TODO
         pagefollow.hide();
-        var pagehtml = pagefollow[0].outerHTML;
-        var pagetag = paginationt.prop("tagName").toLowerCase();
-        var totalrows = parseInt(properties[t.attr("data-pagetotalrows")]);
-        var pagenumber = pagestartswith;
-        paginationt.find("[data-autocreated]").remove();
-        /////paginationmaxcolumns * pagesize
-        for (var i = 0; i < totalrows; i = i + pagesize) {
-            var pagerow = this.wrapwithparent(pagetag, pagehtml);
-            pagerow.children().hide();
-            if (pagerow.find("[data-pagenumber]")) {
-                pagerow.find("[data-pagenumber]").attr("data-pagenumber", pagenumber)
-                    .html(pagenumber);
+        if (pagefollow[0]) {
+            var pagehtml = pagefollow[0].outerHTML;
+            var pagetag = paginationt.prop("tagName").toLowerCase();
+            var totalrows = parseInt(properties[t.attr("data-pagetotalrows")]);
+            var pagenumber = pagestartswith;
+            paginationt.find("[data-autocreated]").remove();
+            /////paginationmaxcolumns * pagesize
+            for (var i = 0; i < totalrows; i = i + pagesize) {
+                var pagerow = this.wrapwithparent(pagetag, pagehtml);
+                pagerow.children().hide();
+                if (pagerow.find("[data-pagenumber]")) {
+                    pagerow.find("[data-pagenumber]").attr("data-pagenumber", pagenumber)
+                        .html(pagenumber);
+                }
+                pagerow.find("[" + kv.data_follow + "]").show().removeAttr(kv.data_follow)
+                    .attr("data-autocreated", true);
+                pagefollow.after(pagerow.html());
+                pagefollow = pagefollow.next();
+                pagenumber++;
             }
-            pagerow.find("[" + kv.data_follow + "]").show().removeAttr(kv.data_follow)
-                .attr("data-autocreated", true);
-            pagefollow.after(pagerow.html());
-            pagefollow = pagefollow.next();
-            pagenumber++;
         }
     },
     getidobj: function(id) {
@@ -1298,6 +1348,83 @@ $.fn.binder.methods = {
                     10);
             }
         }
+    },
+    applyobjectascondition: function(exp, tobj) {
+        if (exp) {
+            if (eval(exp)) {
+                tobj.show().attr("data-isactive", true);
+            } else {
+                tobj.hide().attr("data-isactive", false);
+                if (tobj.attr("data-removeinactive")) {
+                    tobj.remove();
+                }
+            }
+        }
+    },
+    applyattributesascondition: function(exp, tobj, statement) {
+        if (exp) {
+            if (eval(exp)) {
+                tobj.each(function() {
+                    eval(statement);
+                });
+            }
+        }
+    },
+    applycontentifcondition: function(ob, tobj, mainkey, subkey, key, value) {
+        var keyvalue = this.getcustomattributevalue(tobj, mainkey, subkey, key);
+        //// if (typeof value === 'boolean') {
+        if (value != null) {
+            try {
+                var exp = this.getconditionalexpression(keyvalue, key, value);
+                this.applyobjectascondition(exp, tobj);
+            } catch (e) {
+            }
+        }
+    },
+    applyattributeifcondition: function(ob, tobj, mainkey, subkey, key, value) {
+        var keyvalue = this.getcustomattributevalue(tobj, mainkey, subkey, key);
+        //// if (typeof value === 'boolean') {
+        if (value != null) {
+            try {
+                var conditionandstatement = keyvalue.split("->");
+                var condition = conditionandstatement[0];
+                var statement = conditionandstatement[1];
+                var exp = this.getconditionalexpression(condition, key, value);
+                if (statement) {
+                    this.applyattributesascondition(exp, tobj, statement);
+                }
+            } catch (e) {
+            }
+        }
+    },
+    formatvalueusedatefunctionalities: function(ob, obv, key, value) {
+        try {
+            if (this.date[ob]) {
+               
+                return this.date[ob](key, value, obv);
+            }
+        } catch (e) {
+            return value;
+        }
+        return value;
+    },
+    wrapparent: function(parenttag, htmlstring) {
+        return $("<" + parenttag + ">" + htmlstring + "</" + parenttag + ">");
+    },
+    removedataprefix: function(value) {
+        return value.replace("data-", "");
+    },
+    applydatefunctionalitybyattributes: function(attributes, key, value) {
+        for (var ob in attributes) {
+            if (attributes.hasOwnProperty(ob)) {
+                var obv = attributes[ob];
+                if (ob.startsWith("data-")) {
+                    ob = this.removedataprefix(ob);
+                    value = this.formatvalueusedatefunctionalities(ob, obv, key, value);
+                }
+            }
+        }
+        return value;
     }
 };
 $.fn.binder.methods.data = {
@@ -1318,6 +1445,7 @@ $.fn.binder.methods.data = {
     data_showingpagefrom: "data-showingpagefrom",
     data_showingpageto: "data-showingpageto"
 };
+//Reference go to https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings
 $.fn.binder.methods.date = {
     now: function() {
         return new Date().getTime();
@@ -1432,12 +1560,16 @@ $.fn.binder.methods.defaults = {
     json: "",
     dataobject: "Rows,Data",
     paginationmaxcolumns: 20,
-    orderbyascendingicon: '<span class="fa fa-sort-asc table-sort" data-orderbyascicon="true" aria-hidden="true"></span>',
-    orderbydescendingicon: '<span class="fa fa-sort-desc table-sort" data-orderbydescicon="true" aria-hidden="true"></span>',
-    orderbyiconinsertmethod:"append"
+    orderbyascendingicon:
+        '<span class="fa fa-sort-asc table-sort" data-orderbyascicon="true" aria-hidden="true"></span>',
+    orderbydescendingicon:
+        '<span class="fa fa-sort-desc table-sort" data-orderbydescicon="true" aria-hidden="true"></span>',
+    orderbyiconinsertmethod: "append"
 };
+//hide all elements which not yet initialized
+$("body").append("<style>.binderhideonload[data-json]:not([data-binderinit]){ display:none; }</style>");
 $(document).ready(function() {
-    $("[data-json]:visible,[data-json]:hidden").binder();
+    $("[data-json]:visible,[data-json]:hidden").not("[data-parent]").binder();
     $("body").on("click",
         "[data-show]",
         function() {

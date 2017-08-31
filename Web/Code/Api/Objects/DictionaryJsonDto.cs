@@ -1,18 +1,20 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ApiJsonDto.cs" company="Code Editor">
+// <copyright file="DictionaryJsonDto.cs" company="Code Editor">
 //   Code Editor
 // </copyright>
 // <summary>
-//   The api objects.
+//   The dictionary objects.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace Web.Code.Api.Objects
 {
+    using System.Collections.Generic;
+
     /// <summary>
-    /// The API objects.
+    /// The dictionary objects.
     /// </summary>
-    public class ApiJsonDto
+    public class DictionaryJsonDto
     {
         /// <summary>
         /// Gets or sets a value indicating whether is true.
@@ -27,6 +29,6 @@ namespace Web.Code.Api.Objects
         /// <summary>
         /// Gets or sets the data.
         /// </summary>
-        public object Data { get; set; }
+        public List<Dictionary<string, object>> Data { get; set; }
     }
 }

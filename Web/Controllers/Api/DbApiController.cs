@@ -8,6 +8,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+
 using Web.Models;
 
 namespace Web.Controllers.Api
@@ -31,6 +32,9 @@ namespace Web.Controllers.Api
         /// <summary>
         /// The get all tables.
         /// </summary>
+        /// <param name="databaseConnectionModel">
+        /// The database Connection Model.
+        /// </param>
         /// <returns>
         /// The <see cref="JsonResult"/>.
         /// </returns>
@@ -43,16 +47,16 @@ namespace Web.Controllers.Api
         /// <summary>
         /// Get all fields for corresponding table
         /// </summary>
-        /// <param name="tableName">
-        /// The table Name.
+        /// <param name="databaseConnectionModel">
+        /// The database Connection Model.
         /// </param>
         /// <returns>
         /// The <see cref="JsonResult"/>.
         /// </returns>
-        public JsonResult GetTableWithColumn(string tableName)
+        public JsonResult GetTableWithColumn(DatabaseConnectionModel databaseConnectionModel)
         {
-            var tablecolumns = DbModel.GetTableColumns(tableName);
-            return this.Json(false, "Get", tablecolumns);
+            var tableColumns = DbModel.GetTableColumns(databaseConnectionModel);
+            return this.Json(false, "Get", tableColumns);
         }
 
         /// <summary>
@@ -70,35 +74,105 @@ namespace Web.Controllers.Api
         /// <summary>
         /// The get all databases.
         /// </summary>
-        /// <param name="serverName">
-        /// The server name.
+        /// <param name="databaseConnectionModel">
+        /// The database Connection Model.
         /// </param>
         /// <returns>
         /// The <see cref="JsonResult"/>.
         /// </returns>
-        public JsonResult GetAllDatabases(string serverName)
+        public JsonResult GetAllDatabases(DatabaseConnectionModel databaseConnectionModel)
         {
-            var databaseList = DbModel.GetAllDatabases(serverName);
+            var databaseList = DbModel.GetAllDatabases(databaseConnectionModel);
             return this.Json(false, "Get", databaseList);
         }
 
+        /// <summary>
+        /// The get all authentication types.
+        /// </summary>
+        /// <param name="serverType">
+        /// The server type.
+        /// </param>
+        /// <returns>
+        /// The <see cref="JsonResult"/>.
+        /// </returns>
         public JsonResult GetAllAuthenticationTypes(string serverType)
         {
             if (serverType == "mssql")
             {
                 var authenticationsList = new List<Dictionary<string, string>>();
-                var authentication = new Dictionary<string, string> {["authentication"] = "Windows Authentication"};
+                var authentication = new Dictionary<string, string>
+                                         {
+                                             ["authentication"] = "Windows Authentication"
+                                         };
                 authenticationsList.Add(authentication);
-                authentication = new Dictionary<string, string> {["authentication"] = "Sql Password"};
+                authentication = new Dictionary<string, string>
+                                     {
+                                         ["authentication"] = "Sql Password"
+                                     };
                 authenticationsList.Add(authentication);
-                authentication = new Dictionary<string, string> {["authentication"] = "Active Directory Integrated"};
+                authentication = new Dictionary<string, string>
+                                     {
+                                         ["authentication"] = "Active Directory Integrated"
+                                     };
                 authenticationsList.Add(authentication);
-                authentication = new Dictionary<string, string> {["authentication"] = "Active Directory Password"};
+                authentication = new Dictionary<string, string>
+                                     {
+                                         ["authentication"] = "Active Directory Password"
+                                     };
                 authenticationsList.Add(authentication);
                 return this.OutPut(authenticationsList);
             }
-            
+
             return this.OutPut(string.Empty);
+        }
+
+        /// <summary>
+        /// The get all data list types.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="JsonResult"/>.
+        /// </returns>
+        public JsonResult GetAllDataListTypes()
+        {
+            var datatypesList = new List<Dictionary<string, string>>();
+            var datatype = new Dictionary<string, string>
+                               {
+                                   ["datatype"] = "RowsWithPagination"
+                               };
+            datatypesList.Add(datatype);
+            datatype = new Dictionary<string, string>
+                           {
+                               ["datatype"] = "FieldValue"
+                           };
+            datatypesList.Add(datatype);
+
+            datatype = new Dictionary<string, string>
+                           {
+                               ["datatype"] = "RowsWithScrollLoading"
+                           };
+            datatypesList.Add(datatype);
+            datatype = new Dictionary<string, string>
+                           {
+                               ["datatype"] = "Sum"
+                           };
+            datatypesList.Add(datatype);
+            datatype = new Dictionary<string, string>
+                           {
+                               ["datatype"] = "Count"
+                           };
+            datatypesList.Add(datatype);
+
+            datatype = new Dictionary<string, string>
+                           {
+                               ["datatype"] = "Avearage"
+                           };
+            datatypesList.Add(datatype);
+            datatype = new Dictionary<string, string>
+                           {
+                               ["datatype"] = "GroupBy"
+                           };
+            datatypesList.Add(datatype);
+            return this.OutPut(datatypesList);
         }
 
         /// <summary>

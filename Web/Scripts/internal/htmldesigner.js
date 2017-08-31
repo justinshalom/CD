@@ -1,5 +1,5 @@
 ﻿////PrepareFileContent(postdata);
-
+var hdMenu;
 $(document).ready(function () {
    
     //$('body').
@@ -17,7 +17,7 @@ $(document).ready(function () {
     //$('body').append(hd_rightmenu);
     
         getallcssproperties();
-        var hdMenu = $('#hd_rightmenu');
+        hdMenu = $('#hd_rightmenu');
         hdMenu.hide();
         $('body').on('contextmenu',
             '*',

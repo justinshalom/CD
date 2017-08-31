@@ -46,5 +46,10 @@ namespace Web.Models
         /// Gets or sets the connection string.
         /// </summary>
         public string ConnectionString { get; set; }
+
+        /// <summary>
+        /// Gets or sets the parameters.
+        /// </summary>
+        public string Parameters { get; set; }
     }
 }

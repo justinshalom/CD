@@ -135,5 +135,10 @@ namespace Web.Models
         /// Gets or sets the authentication.
         /// </summary>
         public string Authentication { get; set; }
+
+        /// <summary>
+        /// Gets or sets the encrypt connection.
+        /// </summary>
+        public string EncryptConnection { get; set; }
     }
 }

@@ -121,94 +121,157 @@
         </div>
     </div>*@
 
-    <div id="hd_rightmenu">
-        <div class="hdcol-xs-50">
-            <div class="hdpanel hdpanel-info hdcol-xs-50 hdpanelheading">
-                <div class="hdpanel-heading hdcol-xs-50" id="hd_rightmenu_header">
-                    <h3 class="hdpanel-title">hdpanel info</h3>
-                </div>
-                <div class="hdpanel-body open hdcol-xs-50" id="hd_rightmenu_body" style="">
-                    <div class="hdcol-xs-50" id="hd_rightmenu_allattributes" style="">
-                        <div class="hdcol-xs-50 hd_menubox" id="hd_servernames_box">
-                            <div class="hdcol-xs-50">
-                                <div class="hdform-group hdform-group-sm">
-                                    <select id="hd_servernames" class="hdform-control selectize  input-sm" placeholder="Servers"><option data-key="ServerName"></option></select>
-                                </div>
+<div id="hd_rightmenu" class="hd_rightmenu" >
+    <div class="hdcol-xs-50">
+        <div class="hdpanel hdpanel-info hdcol-xs-50 hdpanelheading">
+            <div class="hdpanel-heading hdcol-xs-50" id="hd_rightmenu_header">
+                <h3 class="hdpanel-title">Database <span ></span></h3>
+            </div>
+            <div class="hdpanel-body open hdcol-xs-50" id="hd_rightmenu_body" style="">
+                <div class="hdcol-xs-50" id="hd_rightmenu_allattributes" style="">
+                    <div class="hdcol-xs-50 hd_menubox" id="hd_servernames_box">
+                        <div class="hdcol-xs-50">
+                            <div class="hdform-group hdform-group-sm">
+                                <label class="control-label pull-left">Server</label>
+                                <select id="hd_servernames" class="hdform-control selectize  input-sm"  placeholder="Servers">
+                                    <option data-static="true"></option>
+                                    <option data-follow="true" data-key="ServerName">localhost</option>
 
+                                </select>
                             </div>
+
+                        </div>
                            
-                        </div>
+                    </div>
                        
-                        <div class="hdcol-xs-50 hd_menubox" id="hd_authentications_box">
-                            <div class="hdcol-xs-50">
-                                <div class="hdform-group hdform-group-sm">
-                                    <select id="hd_authentications" class="hdform-control selectize  input-sm" placeholder="Authentications"><option data-key="authentication"></option></select>
-                                </div>
-
+                    <div class="hdcol-xs-50 hd_menubox" id="hd_authentications_box">
+                        <div class="hdcol-xs-50">
+                            <div class="hdform-group hdform-group-sm">
+                                <label class="control-label pull-left">Authentication</label>
+                                <select id="hd_authentications" class="hdform-control selectize  input-sm" placeholder="Authentications">
+                                    <option data-static="true"></option>
+                                    <option data-follow="true" data-key="authentication">SQL Password</option>
+                                </select>
                             </div>
 
                         </div>
+
+                    </div>
                       
                        
-                        <div class="hdcol-xs-50 hd_menubox" id="hd_dbnames_box">
-                            <div class="hdcol-xs-50">
-                                <div class="hdform-group hdform-group-sm">
-                                    <select id="hd_dbnames" class="hdform-control selectize  input-sm" placeholder="Databases">
-                                        <option data-follow="true" data-key="database_name"></option>
-                                    </select>
-                                </div>
-
-                            </div>
-
-                        </div>
+                     
                         
-                        <div class="hdcol-xs-50 hd_menubox" id="hd_usernames_box">
-                            <div class="hdcol-xs-50">
-                                <div class="hdform-group hdform-group-sm">
-                                    <select id="hd_usernames" class="hdform-control selectize  input-sm" placeholder="User names"><option data-key="user_name"></option></select>
-                                </div>
-
+                    <div class="hdcol-xs-50 hd_menubox" id="hd_usernames_box">
+                        <div class="hdcol-xs-50">
+                            <div class="hdform-group hdform-group-sm">
+                                <label class="control-label pull-left">User Name</label>
+                                <select id="hd_usernames" class="hdform-control selectize  input-sm" placeholder="User names">
+                                    <option data-static="true"></option>
+                                    <option data-static="true">sa</option>
+                                    <option data-follow="true" data-key="username">admin</option>
+                                </select>
                             </div>
 
                         </div>
-                        <div class="hdcol-xs-50 hd_menubox" id="hd_passwords_box">
-                            <div class="hdcol-xs-50">
-                                <div class="hdform-group hdform-group-sm">
-                                    <select id="hd_passwords" class="hdform-control selectize  input-sm"  placeholder="Passwords"><option data-key="password"></option></select>
-                                </div>
 
+                    </div>
+                    <div class="hdcol-xs-50 hd_menubox" id="hd_passwords_box">
+                        <div class="hdcol-xs-50">
+                            <div class="hdform-group hdform-group-sm">
+                                <label class="control-label pull-left">password</label>
+                                <select id="hd_passwords" class="hdform-control selectize  input-sm" placeholder="Passwords">
+                                    <option data-static="true"></option>
+                                    <option data-follow="true" data-key="password">password</option>
+
+                                </select>
                             </div>
 
                         </div>
-                        <div class="hdcol-xs-50 hd_menubox" id="hd_tables_box">
-                            <div class="hdcol-xs-50">
-                                <div class="hdform-group hdform-group-sm">
-                                    <select id="hd_tables" class="hdform-control selectize  input-sm"  placeholder="Tables"><option data-key="table"></option></select>
-                                </div>
 
+                    </div>
+                        
+                    <div class="hdcol-xs-50 hd_menubox" id="hd_dbnames_box">
+                        <div class="hdcol-xs-50">
+                            <div class="hdform-group hdform-group-sm">
+                                <label class="control-label pull-left">Database</label>
+                                <select id="hd_dbnames" class="hdform-control selectize  input-sm" placeholder="Databases">
+                                    <option data-static="true"></option>
+                                    <option data-follow="true" data-key="database_name">master</option>
+                                </select>
                             </div>
 
                         </div>
-                        <div class="hdcol-xs-50 hd_menubox">
-                                <div class="hdcol-xs-50 ">
-                                    <div class="hdform-group hdform-group-sm">
-                                        <label class="control-label pull-left">New Attribute</label>
-                                        <input type="text" class="hdform-control input-sm " placeholder="Key" id="hd_rightmenu_attr_name" />
-                                        <input type="text" class="hdform-control input-sm " placeholder="Value" id="hd_rightmenu_attr_value" />
-                                    </div>
-                                </div>
 
-                            </div>
-                            <div class="hdcol-xs-50 hd_menubox">
-                                <a href="javascript:void(0)"> Style </a>
-                                <div id="hd_rightmenu_styles" class="hd_rightmenu_clear  hdcol-xs-50 "></div>
+                    </div>
+                    <div class="hdcol-xs-50 hd_menubox">
+                        <div class="hdcol-xs-50 ">
+                            <div class="hdform-group hdform-group-sm">
+                                <label class="control-label pull-left">New Attribute</label>
+                                <input type="text" class="hdform-control input-sm " placeholder="Key" id="hd_rightmenu_attr_name" />
+                                <input type="text" class="hdform-control input-sm " placeholder="Value" id="hd_rightmenu_attr_value" />
                             </div>
                         </div>
+
+                    </div>
+                    <div class="hdcol-xs-50 hd_menubox">
+                        <a href="javascript:void(0)"> Style </a>
+                        <div id="hd_rightmenu_styles" class="hd_rightmenu_clear  hdcol-xs-50 "></div>
+                    </div>
                 </div>
             </div>
         </div>
-        <datalist id="hd_stylelist"></datalist>
     </div>
+    <datalist id="hd_stylelist"></datalist>
+</div>
+<div id="hd_rightmenu_tablemanage" class="hd_rightmenu" >
+    <div class="hdcol-xs-50">
+        <div class="hdpanel hdpanel-info hdcol-xs-50 hdpanelheading">
+            <div class="hdpanel-heading hdcol-xs-50" id="hd_rightmenu_tablemanage_header">
+                <h3 class="hdpanel-title">Table <span ></span></h3>
+            </div>
+            <div class="hdpanel-body open hdcol-xs-50" id="hd_rightmenu_tablemanage_body" style="">
+                <div class="hdcol-xs-50" id="hd_rightmenu_tablemanage_allattributes" style="">
+                    <div class="hdcol-xs-50 hd_menubox" id="hd_tables_box">
+                        <div class="hdcol-xs-50">
+                            <div class="hdform-group hdform-group-sm">
+                                <label class="control-label pull-left">Table</label>
+                                <select id="hd_tables" class="hdform-control selectize  input-sm" placeholder="Tables">
+                                    <option data-static="true"></option>
+                                    <option data-follow="true" data-key="name">Users</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hdcol-xs-50 hd_menubox" id="hd_datalisttypes_box">
+                        <div class="hdcol-xs-50">
+                            <div class="hdform-group hdform-group-sm">
+                                <label class="control-label pull-left">Data List Type</label>
+                                <select id="hd_datalisttypes" class="hdform-control selectize  input-sm" placeholder="DataListType">
+                                    <option data-static="true"></option>
+                                    <option data-follow="true" data-key="datatype">Rows</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hdcol-xs-50 hd_menubox" id="hd_tablecolumns_box">
+                        <div class="hdcol-xs-50">
+                            <div class="hdform-group hdform-group-sm">
+                                <label class="control-label pull-left">Table Columns</label>
+                                <select id="hd_tablecolumns" class="hdform-control selectize  input-sm" placeholder="Table Coumns">
+                                    <option data-static="true"></option>
+                                    <option data-follow="true" data-key="name">Users</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                  
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
    
 
 

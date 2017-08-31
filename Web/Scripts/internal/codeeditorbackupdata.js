@@ -14,26 +14,43 @@ function pushandsave(variablename, keyname, value) {
     hdbackupdata[variablename].push(data);
     savehdbackupdata();
 }
-var requestandsavebackup = function (url, callback, variablename, postdata, aftercallback) {
+function pusharrayandsave(variablename, arraylist, clearandreplace) {
+    
+    if (!hdbackupdata[variablename] || clearandreplace) {
+        hdbackupdata[variablename] = [];
+    }
+    $.each(arraylist,
+        function(i, v) {
+            hdbackupdata[variablename].push(v);
+        });
+    
+    savehdbackupdata();
+}
+var requestandsavebackup = function (url, callback, variablename, postdata, aftercallback, clearandreplace) {
     
         $.post(url,
             postdata,
             function (data) {
                 var cl = callback(data);
                 if (cl != false) {
-                    hdbackupdata[variablename] = cl;
+                    pusharrayandsave(variablename, cl, clearandreplace);
                 }
-               
-                savehdbackupdata();
                 if (aftercallback) {
                     aftercallback(cl);
                 }
+
+
             });
     
 };
 
-function requestandsavebackupfromeditorapi(url, callback, variablename, postdata, aftercallback) {
-    requestandsavebackup(window.cd_rooturl + url, callback, variablename, postdata,aftercallback);
+function requestandsavebackupfromeditorapi(url, callback, variablename, postdata, aftercallback,clearandreplace) {
+    if (!$("#hd_" + name).attr("data-editorinitialized") || clearandreplace) {
+        requestandsavebackup(window.cd_rooturl + url, callback, variablename, postdata, aftercallback, clearandreplace);
+        if (!clearandreplace) {
+            $("#hd_" + name).attr("data-editorinitialized", true);
+        }
+    }
 }
     
 var StoreAllProperties = function () {

@@ -1,5 +1,5 @@
 ﻿function saveinputandcallback(callback, value, name) {
-    
+    debugger;
     
     if (!window.hdbackupdata["defaultvalues"]) {
         window.hdbackupdata["defaultvalues"] = {};
@@ -10,17 +10,13 @@
     callback(value);
 }
 function bindandselectize(name, ispushandsave, iscladdinput, callback) {
-
+   
     $("#hd_" + name + "_box").show();
     if (window.hdbackupdata) {
-        var selectinput = $("#hd_" + name);
-
-        var keyname = selectinput.find("option[data-key]:first").attr("data-key");
-
         if (window.hdbackupdata[name]) {
             $("#hd_" + name).binder(window.hdbackupdata[name]);
-            
         }
+        var keyname = $(bindmanager.htmltemplates["hd_" + name]).attr("data-key");
         var claddinput=false;
         if (iscladdinput) {
             claddinput = function(input) {
@@ -41,7 +37,9 @@ function bindandselectize(name, ispushandsave, iscladdinput, callback) {
                 $("#hd_" + name).attr("changeeventinitialized", true);
                 $("body").on("change",
                     "#hd_" + name,
-                    function () {
+                    function (e, d) {
+                        console.log(e);
+                        console.log(d);
                         if ($(this).val() != "") {
                             saveinputandcallback(callback, $(this).val(), name);
                         }
@@ -50,32 +48,24 @@ function bindandselectize(name, ispushandsave, iscladdinput, callback) {
         }
         
         var defaultvalues = window.hdbackupdata["defaultvalues"];
-        if (defaultvalues) {
-            var defaultvalue = defaultvalues[name];
-            if (defaultvalue && defaultvalue.value) {
-                $("#hd_" + name).val(defaultvalue.value);
-            }
-        }
+       
         selectize($("#hd_" + name), claddinput,
             true);
-        $("#hd_" + name).trigger("change");
+        if (defaultvalues) {
+            var defaultvalue = defaultvalues[name];
+            if (defaultvalue) {
+        //        $("#hd_" + name).val(defaultvalue);
+                $("#hd_" + name).selectize()[0].selectize.setValue(defaultvalue);
+            }
+        }
+        
     }
+    setmenupositions(window.hdMenu);
 }
-function managesmenulist(hdMenu, t) {
+function managesmenulist() {
 
-    //var formelement =
-    //    '<input type="text"   data-attributename="' +
-    //        attributename +
-    //        '" class="hdform-control input-sm" value = "' +
-    //        attributevalue +
-    //        '"/>';
-
-
-   
+    bindauthentications();
     bindandselectize("servernames", true, true, function (input) {
-      
-        bindauthentications();
-        binddatabses(input);
     });
 
 
@@ -87,14 +77,33 @@ var bindusernames = function () {
 }
 var bindpasswords = function () {
     bindandselectize("passwords", true, true, function (input) {
-        bindtables();
+        binddatabses(window.hdbackupdata["defaultvalues"]["servernames"]);
+        
     });
 }
-var binddatabses = function (servername) {
+
+function createpostvalues() {
     var postdata = {};
-    postdata.serverName = servername;
+    postdata.Encrypt = "False";
+    postdata.TrustServerCertificate = "True";
+    postdata.Server = window.hdbackupdata["defaultvalues"]["servernames"];
+    postdata.InitialCatalog = window.hdbackupdata["defaultvalues"]["dbnames"];
+    if (window.hdbackupdata["defaultvalues"]["authentications"] != "Windows Authentication") {
+        postdata.Authentication = window.hdbackupdata["defaultvalues"]["authentications"];
+        postdata.UID = window.hdbackupdata["defaultvalues"]["usernames"];
+        postdata.Password = window.hdbackupdata["defaultvalues"]["passwords"];
+    } else {
+        postdata.IntegratedSecurity = "True";
+    }
+    return postdata;
+}
+
+var binddatabses = function () {
+    var postdata = createpostvalues();
+    debugger;
     requestandsavebackupfromeditorapi("DbApi/GetAllDatabases",
         function (data) {
+            debugger;
             if (data && data.Data) {
                 return data.Data;
             }
@@ -102,10 +111,42 @@ var binddatabses = function (servername) {
         },
         "dbnames",
         postdata,
-        function (dbnames) {
-            bindusernames();
+        function () {
+            bindandselectize("dbnames",
+                true,
+                true,
+                function (input) {
+                    debugger;
+                    if (window.hdbackupdata["defaultvalues"]["dbnames"] && window.hdbackupdata["defaultvalues"]["dbnames"] != "") {
+                        bindtables();
+                    }
+                });
+            
         });
-};
+};function bindrenderdatatypes() {
+   
+    var postdata = {};
+    requestandsavebackupfromeditorapi("DbApi/GetAllDataListTypes",
+        function (data) {
+            if (data && data.Data) {
+                return data.Data;
+            }
+            return false;
+        },
+        "datalisttypes",
+        postdata,
+        function (datalisttypes) {
+            bindandselectize("datalisttypes",
+                true,
+                true,
+                function(input) {
+
+                   
+                });
+
+        });
+    
+}
 function bindauthentications() {
    
     var postdata = {};
@@ -126,7 +167,10 @@ function bindauthentications() {
                 function(input) {
 
                     if (window.hdbackupdata["defaultvalues"]["authentications"] == "Windows Authentication") {
-                        bindtables();
+                        binddatabses(window.hdbackupdata["defaultvalues"]["servernames"]);
+                    } else {
+                        bindusernames();
+                        
                     }
                 });
 
@@ -135,16 +179,7 @@ function bindauthentications() {
 }
 
 function bindtables() {
-    var postdata = {};
-
-    postdata.IntegratedSecurity = "True";
-
-        postdata.Server = window.hdbackupdata["defaultvalues"]["servernames"];
-        postdata.InitialCatalog = window.hdbackupdata["defaultvalues"]["dbnames"];
-        if (window.hdbackupdata["defaultvalues"]["authentications"] != "Windows Authentication") {
-            postdata.Authentication = window.hdbackupdata["defaultvalues"]["authentications"];
-        }
-
+    var postdata = createpostvalues();
         requestandsavebackupfromeditorapi("DbApi/GetAllTables",
             function (data) {
                 if (data && data.Data) {
@@ -158,11 +193,36 @@ function bindtables() {
                 bindandselectize("tables",
                     true,
                     true,
-                    function(input) {
-
+                    function (input) {
+                        if (window.hdbackupdata["defaultvalues"]["tables"] != "") {
+                            bindtablecolumns();
+                        }
                     });
-            });
+            },true);
     
+}
+
+function bindtablecolumns() {
+    var postdata = createpostvalues();
+    postdata.Table = window.hdbackupdata["defaultvalues"]["tables"];
+    requestandsavebackupfromeditorapi("DbApi/GetTableWithColumn",
+        function (data) {
+            if (data && data.Data) {
+                return data.Data;
+            }
+            return false;
+        },
+        "tablecolumns",
+        postdata,
+        function (tables) {
+            bindandselectize("tablecolumns",
+                true,
+                true,
+                function (input) {
+
+                });
+        }, true);
+    bindrenderdatatypes();
 }
 
 $(document).ready(function () {

@@ -1,12 +1,12 @@
 ﻿
 
-#hd_rightmenu * {
+.hd_rightmenu * {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box
 }
 
-#hd_rightmenu *:before,#hd_menu *:after {
+.hd_rightmenu *:before,#hd_menu *:after {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box
@@ -6507,7 +6507,7 @@ a.hdlist-group-item-danger.hdactive,a.hdlist-group-item-danger.hdactive:hover,a.
     margin-top: 0;
     margin-bottom: 0;
     font-size: 16px;
-    color: inherit
+    color: #FFFFFF;
 }
 
 .hdpanel-title>a {
@@ -7814,16 +7814,24 @@ button.hdclose {
 .hdpanel-title a {
     font-size: 12px !important;
 }
-#hd_rightmenu  {
-    position: absolute;
-    top: 40px;
-    left: 20px;
+.hd_rightmenu  {
+    position: fixed;
     width: 180px;
+    bottom: -20px;
     z-index: 10000;
     display:none;
     font-size: 12px !important;
 }
+#hd_rightmenu  {
+    left:0px;
+               }
+#hd_rightmenu_tablemanage  {
+    left:180px;
+               }
+
 .hdpanelheading {
     background-color: rgba(255, 255, 255, 0.83);
     padding: 0px;
+    cursor: pointer;
 }
+

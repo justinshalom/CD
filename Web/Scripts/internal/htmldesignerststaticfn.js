@@ -35,49 +35,52 @@ $(document).on("mousemove", function (event) {
     hd_menuY = event.pageY;
 });
 var setmenupositions = function (menu, t, e) {
-    var extrawidth = 100;
-    var position = t.offset();
-    var trypositionrightLeft =
-        position.left + t.width() + extrawidth;
-    var trypositionrightOverlow =
-        position.left
-            + t.width()
-            + menu.width()
-            + extrawidth;
-    var trypositionleftLeft =
-        position.left
-            - menu.width()
-            - extrawidth;
-    if (parseInt(e.pageX - position.left) > 100
-        && $(window).width()
-        > (e.pageX + menu.width())) {
-        trypositionleftLeft =
-            e.pageX;
-    }
-    //menu.css({
-    //    top: position.top,
-    //    left: ($(window).width()
-    //            > trypositionrightOverlow)
-    //        ? trypositionrightLeft
-    //        : (trypositionleftLeft < 0)
-    //        ? position.left
-    //        : trypositionleftLeft
-    //});
+    //var extrawidth = 100;
+    //var position = t.offset();
+    //var trypositionrightLeft =
+    //    position.left + t.width() + extrawidth;
+    //var trypositionrightOverlow =
+    //    position.left
+    //        + t.width()
+    //        + menu.width()
+    //        + extrawidth;
+    //var trypositionleftLeft =
+    //    position.left
+    //        - menu.width()
+    //        - extrawidth;
+    //if (parseInt(e.pageX - position.left) > 100
+    //    && $(window).width()
+    //    > (e.pageX + menu.width())) {
+    //    trypositionleftLeft =
+    //        e.pageX;
+    //}
+    ////menu.css({
+    ////    top: position.top,
+    ////    left: ($(window).width()
+    ////            > trypositionrightOverlow)
+    ////        ? trypositionrightLeft
+    ////        : (trypositionleftLeft < 0)
+    ////        ? position.left
+    ////        : trypositionleftLeft
+    ////});
     var half = (menu.width() / 2);
     var righthalf = $(window).width() - menu.width();
     var leftposition = hd_menuX - (menu.width() / 2);
     
     var topposition = hd_menuY + 50;
+    //var topposition = hd_menuY - menu.height();
     if (leftposition < 0) {
         leftposition = 0;
     }
     if (leftposition > righthalf) {
         leftposition = righthalf;
     }
-    menu.css({
-        top: topposition,
-        left: leftposition
-});
+//    menu.css({
+//        //top: topposition,
+//        bottom: 0,
+//        left:0
+//        //left: leftposition
+//});
 };
 var setmenuheader = function (t, classeslist) {
   
@@ -91,7 +94,7 @@ var setmenuheader = function (t, classeslist) {
     additionals += (classes != '')
         ? '.' + classes
         : '';
-    $('#hd_rightmenu_header h3').text(tagname + additionals);
+    window.hdMenu.find('.hdpanel-heading .hdpanel-title span').text(tagname + additionals);
     switch (tagname) {
     case 'div':
     {
@@ -103,14 +106,19 @@ var setmenuheader = function (t, classeslist) {
     }
     }
 };
-var selectize = function (obj,fn,destroy) {
+
+var selectize = function (obj, fn, destroy) {
+    
+
     if (destroy) {
         obj.selectize()[0].selectize.destroy();
     }
     var options = {
         delimiter: ',',
         //persist: false,
+        //allowEmptyOption:true,
         highlight: false,
+        
         searchField: ['value', 'text']
     }
     if (fn) {
@@ -119,6 +127,40 @@ var selectize = function (obj,fn,destroy) {
     
 
     var selector = (obj) ? obj : $('select.selectize:not(.selectized):visible');
-
+    selector.attr("data-selectize-dropdown-anchor-position", "top-left");
     selector.selectize(options);
+};
+Selectize.prototype.positionDropdown = function () {
+    var $control = this.$control;
+    var offset = this.settings.dropdownParent === 'body' ? $control.offset() : $control.position();
+    console.log(this);
+    offset.top += $control.outerHeight(true);
+    var css = {
+        width: 'auto',
+        minWidth: $control.outerWidth(),
+        top: 'inherit',
+        right: 'inherit',
+        bottom: 'inherit',
+        left: 'inherit'
+    };
+
+    switch (this.$input.data('selectize-dropdown-anchor-position')) {
+    case 'bottom-right':
+        css.top = offset.top;
+        css.right = 0;
+        break;
+    case 'top-left':
+        css.bottom = $control.outerHeight();
+        css.left = offset.left;
+        break;
+    case 'top-right':
+        css.bottom = $control.outerHeight();
+        css.right = 0;
+        break;
+    default: // bottom-left
+        css.top = offset.top;
+        css.left = offset.left;
+    }
+
+    this.$dropdown.css(css);
 };
