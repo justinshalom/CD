@@ -107,60 +107,66 @@ var setmenuheader = function (t, classeslist) {
     }
 };
 
-var selectize = function (obj, fn, destroy) {
+//var selectize = function (obj, fn, destroy) {
+//   // console.log(obj.attr("id"));
+//  //  var html = obj.html();
+//  //  console.log(html);
+//    if (destroy) {
+//        obj.selectize()[0].selectize.destroy();
+//    }
     
+////obj.html(html);
 
-    if (destroy) {
-        obj.selectize()[0].selectize.destroy();
-    }
-    var options = {
-        delimiter: ',',
-        //persist: false,
-        //allowEmptyOption:true,
-        highlight: false,
+//    var options = {
+//        delimiter: ',',
+//        persist: false,
+//        allowEmptyOption:true,
+//        highlight: false,
         
-        searchField: ['value', 'text']
-    }
-    if (fn) {
-        options.create = fn;
-    }
+//        searchField: ['value', 'text']
+//    }
+//    if (fn) {
+//        options.create = fn;
+//    }
     
 
-    var selector = (obj) ? obj : $('select.selectize:not(.selectized):visible');
-    selector.attr("data-selectize-dropdown-anchor-position", "top-left");
-    selector.selectize(options);
-};
-Selectize.prototype.positionDropdown = function () {
-    var $control = this.$control;
-    var offset = this.settings.dropdownParent === 'body' ? $control.offset() : $control.position();
-    console.log(this);
-    offset.top += $control.outerHeight(true);
-    var css = {
-        width: 'auto',
-        minWidth: $control.outerWidth(),
-        top: 'inherit',
-        right: 'inherit',
-        bottom: 'inherit',
-        left: 'inherit'
-    };
+//    var selector = (obj) ? obj : $('select.selectize:not(.selectized):visible');
+//    selector.attr("data-selectize-dropdown-anchor-position", "top-left");
+//    selector.selectize(options);
+//  //  console.log(obj.html());
+//  //  console.log(obj.attr("id")+"End");
+    
+//};
+//Selectize.prototype.positionDropdown = function () {
+//    var $control = this.$control;
+//    var offset = this.settings.dropdownParent === 'body' ? $control.offset() : $control.position();
+//    offset.top += $control.outerHeight(true);
+//    var css = {
+//        width: 'auto',
+//        minWidth: $control.outerWidth(),
+//        top: 'inherit',
+//        right: 'inherit',
+//        bottom: 'inherit',
+//        left: 'inherit'
+//    };
 
-    switch (this.$input.data('selectize-dropdown-anchor-position')) {
-    case 'bottom-right':
-        css.top = offset.top;
-        css.right = 0;
-        break;
-    case 'top-left':
-        css.bottom = $control.outerHeight();
-        css.left = offset.left;
-        break;
-    case 'top-right':
-        css.bottom = $control.outerHeight();
-        css.right = 0;
-        break;
-    default: // bottom-left
-        css.top = offset.top;
-        css.left = offset.left;
-    }
+//    switch (this.$input.data('selectize-dropdown-anchor-position')) {
+//    case 'bottom-right':
+//        css.top = offset.top;
+//        css.right = 0;
+//        break;
+//    case 'top-left':
+//        css.bottom = $control.outerHeight();
+//        css.left = offset.left;
+//        break;
+//    case 'top-right':
+//        css.bottom = $control.outerHeight();
+//        css.right = 0;
+//        break;
+//    default: // bottom-left
+//        css.top = offset.top;
+//        css.left = offset.left;
+//    }
 
-    this.$dropdown.css(css);
-};
+//    this.$dropdown.css(css);
+//};

@@ -1,82 +1,81 @@
-﻿function saveinputandcallback(callback, value, name) {
+﻿function saveinputandcallback(name,value, callback) {
     if (!window.hdbackupdata["defaultvalues"]) {
         window.hdbackupdata["defaultvalues"] = {};
     }
     window.hdbackupdata["defaultvalues"][name] = value;
     savehdbackupdata();
-    callback(value);
+    if (callback) {
+        callback(value);
+    }
 }
+function getdefaultvalue(name) {
+    if (!window.hdbackupdata["defaultvalues"]) {
+        window.hdbackupdata["defaultvalues"] = {};
+        return false;
+    }
+    return window.hdbackupdata["defaultvalues"][name];
+}
+
 function bindandselectize(name, ispushandsave, iscladdinput, callback) {
-   
+
     $("#hd_" + name + "_box").show();
     if (window.hdbackupdata) {
         if (window.hdbackupdata[name]) {
-            $("#hd_" + name).binder(window.hdbackupdata[name]);
+          //  $("#hd_" + name).binder(window.hdbackupdata[name]);
         }
-        var keyname = $(bindmanager.htmltemplates["hd_" + name]).attr("data-key");
-        var claddinput=false;
+    }
+    var keyname = $(bindmanager.htmltemplates["hd_" + name]).attr("data-key");
+        var claddinput = false;
         if (iscladdinput) {
             claddinput = function(input) {
                 if (ispushandsave) {
-                    pushandsave(name,keyname, input);
+                    pushandsave(name, keyname, input);
                 }
-                if (callback) {
-                    saveinputandcallback(callback, input, name);
-                }
+                //if (callback) {
+                //    saveinputandcallback(callback, input, name);
+                //}
                 return {
                     value: input,
                     text: input
                 }
             };
         }
-        if (callback) {
-            if (!$("#hd_" + name).attr("changeeventinitialized")) {
-                $("#hd_" + name).attr("changeeventinitialized", true);
-                $("body").on("change",
-                    "#hd_" + name,
-                    function (e, d) {
-                        console.log(e);
-                        console.log(d);
-                        if ($(this).val() != "") {
-                            saveinputandcallback(callback, $(this).val(), name);
-                        }
-                    });
-            }
-        }
-        
+
         var defaultvalues = window.hdbackupdata["defaultvalues"];
-       
-        selectize($("#hd_" + name), claddinput,
+        selectize($("#hd_" + name),
+            claddinput,
             true);
         if (defaultvalues) {
             var defaultvalue = defaultvalues[name];
             if (defaultvalue) {
-        //        $("#hd_" + name).val(defaultvalue);
-                $("#hd_" + name).selectize()[0].selectize.setValue(defaultvalue);
+                //        $("#hd_" + name).val(defaultvalue);
+              //  $("#hd_" + name).selectize()[0].selectize.setValue(defaultvalue);
             }
         }
-        
-    }
-    setmenupositions(window.hdMenu);
+    
+    //setmenupositions(window.hdMenu);
 }
+
 function managesmenulist() {
-    $("#hd_integratedsecurity_box").show();
+   
     //bindauthentications();
-    //bindandselectize("servernames", true, true, function (input) {
-    //});
-
-
+   
+    //bindrenderdatatypes();
 }
-var bindusernames = function () {
-    bindandselectize("usernames", true, true, function (input) {
-        bindpasswords();
-    });
+
+var bindusernames = function() {
+    bindandselectize("usernames",
+        true,
+        true,
+        function(input) {
+        });
 }
-var bindpasswords = function () {
-    bindandselectize("passwords", true, true, function (input) {
-        binddatabses(window.hdbackupdata["defaultvalues"]["servernames"]);
-        
-    });
+var bindpasswords = function() {
+    bindandselectize("passwords",
+        true,
+        true,
+        function(input) {
+        });
 }
 
 function createpostvalues() {
@@ -95,12 +94,10 @@ function createpostvalues() {
     return postdata;
 }
 
-var binddatabses = function () {
+var binddatabses = function() {
     var postdata = createpostvalues();
-    
     requestandsavebackupfromeditorapi("DbApi/GetAllDatabases",
-        function (data) {
-            
+        function(data) {
             if (data && data.Data) {
                 return data.Data;
             }
@@ -108,23 +105,19 @@ var binddatabses = function () {
         },
         "dbnames",
         postdata,
-        function () {
+        function() {
             bindandselectize("dbnames",
                 true,
                 true,
-                function (input) {
-                    
-                    if (window.hdbackupdata["defaultvalues"]["dbnames"] && window.hdbackupdata["defaultvalues"]["dbnames"] != "") {
-                        bindtables();
-                    }
+                function(input) {
                 });
-            
         });
-};function bindrenderdatatypes() {
-   
+};
+
+function bindrenderdatatypes() {
     var postdata = {};
     requestandsavebackupfromeditorapi("DbApi/GetAllDataListTypes",
-        function (data) {
+        function(data) {
             if (data && data.Data) {
                 return data.Data;
             }
@@ -132,24 +125,20 @@ var binddatabses = function () {
         },
         "datalisttypes",
         postdata,
-        function (datalisttypes) {
+        function(datalisttypes) {
             bindandselectize("datalisttypes",
                 true,
                 true,
                 function(input) {
-
-                   
                 });
-
         });
-    
 }
+
 function bindauthentications() {
-   
     var postdata = {};
     postdata.serverType = "mssql";
     requestandsavebackupfromeditorapi("DbApi/GetAllAuthenticationTypes",
-        function (data) {
+        function(data) {
             if (data && data.Data) {
                 return data.Data;
             }
@@ -157,28 +146,21 @@ function bindauthentications() {
         },
         "authentications",
         postdata,
-        function (authentications) {
+        function(authentications) {
             bindandselectize("authentications",
                 true,
                 true,
                 function(input) {
-
-                    if (window.hdbackupdata["defaultvalues"]["authentications"] == "Windows Authentication") {
-                        binddatabses(window.hdbackupdata["defaultvalues"]["servernames"]);
-                    } else {
-                        bindusernames();
-                        
-                    }
+                   
                 });
-
         });
-    
 }
 
 function bindtables() {
-    var postdata = createpostvalues();
+    if (window.hdbackupdata["defaultvalues"]["dbnames"] && window.hdbackupdata["defaultvalues"]["dbnames"] != "") {
+        var postdata = createpostvalues();
         requestandsavebackupfromeditorapi("DbApi/GetAllTables",
-            function (data) {
+            function(data) {
                 if (data && data.Data) {
                     return data.Data;
                 }
@@ -186,45 +168,99 @@ function bindtables() {
             },
             "tables",
             postdata,
-            function (tables) {
+            function(tables) {
                 bindandselectize("tables",
                     true,
                     true,
-                    function (input) {
-                        if (window.hdbackupdata["defaultvalues"]["tables"] != "") {
-                            bindtablecolumns();
-                        }
+                    function(input) {
                     });
-            },true);
-    
+            },
+            true);
+    }
 }
 
 function bindtablecolumns() {
-    var postdata = createpostvalues();
-    postdata.Table = window.hdbackupdata["defaultvalues"]["tables"];
-    requestandsavebackupfromeditorapi("DbApi/GetTableWithColumn",
-        function (data) {
-            if (data && data.Data) {
-                return data.Data;
-            }
-            return false;
-        },
-        "tablecolumns",
-        postdata,
-        function (tables) {
-            bindandselectize("tablecolumns",
-                true,
-                true,
-                function (input) {
-
-                });
-        }, true);
-    bindrenderdatatypes();
+    if (window.hdbackupdata["defaultvalues"]["tables"] != "") {
+        var postdata = createpostvalues();
+        postdata.Table = window.hdbackupdata["defaultvalues"]["tables"];
+        requestandsavebackupfromeditorapi("DbApi/GetTableWithColumn",
+            function(data) {
+                if (data && data.Data) {
+                    return data.Data;
+                }
+                return false;
+            },
+            "tablecolumns",
+            postdata,
+            function(tables) {
+                bindandselectize("tablecolumns",
+                    true,
+                    true,
+                    function(input) {
+                    });
+            },
+            true);
+      
+    }
 }
 
-$(document).ready(function () {
-    
-    
+var bodyeventwithvalueforselect = function(id, notvalue, callback) {
+    $(document).on("change",
+        id,
+        function(e) {
+            if ($(this).val() != notvalue) {
+                callback($(this).val());
+            }
+        });
+}
+
+$(document).ready(function() {
+    bodyeventwithvalueforselect("#hd_authentications",
+        "",
+        function (value) {
+            if (value == "Windows Authentication") {
+                $("#hd_dbnames,#hd_tables,#hd_tablecolumns").each(function () {
+                    if ($(this).attr("data-filterby-required")) {
+                        $(this).attr("data-filterby-required",
+                            $(this).attr("data-filterby-required").replace(",#hd_usernames,#hd_passwords", ""));
+                    }
+                });
+            } else {
+                $("#hd_dbnames,#hd_tables,#hd_tablecolumns").each(function() {
+                    if ($(this).attr("data-filterby-required")&&$(this).attr("data-filterby-required").split("hd_usernames").length == 1) {
+                        $(this).attr("data-filterby-required",
+                            $(this).attr("data-filterby-required") + ",#hd_usernames,#hd_passwords");
+                    }
+                });
+            }
+
+        });
+    bodyeventwithvalueforselect("#hd_servernames",
+        "",
+        function(value) {
+        });
+    bodyeventwithvalueforselect("#hd_dbnames",
+        "",
+        function(value) {
+           ///// bindtables();
+        });
+    bodyeventwithvalueforselect("#hd_tablecolumns",
+        "",
+        function(value) {
+           /// bindtablecolumns();
+        });
+    bodyeventwithvalueforselect("#hd_usernames",
+        "",
+        function(value) {
+        });
+    bodyeventwithvalueforselect("#hd_datalisttypes",
+        "",
+        function(value) {
+        });
+    bodyeventwithvalueforselect("#hd_passwords",
+        "",
+        function(value) {
+        });
 
 
 

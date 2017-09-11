@@ -140,5 +140,10 @@ namespace Web.Models
         /// Gets or sets the encrypt connection.
         /// </summary>
         public string EncryptConnection { get; set; }
+
+        /// <summary>
+        /// Gets or sets the database language.
+        /// </summary>
+        public string DatabaseLanguage { get; set; }
     }
 }

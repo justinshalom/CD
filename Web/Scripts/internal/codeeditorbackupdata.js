@@ -4,15 +4,30 @@ function savehdbackupdata() {
     setcache("hdbackupdata", JSONstringify(hdbackupdata));
 }
 
+function ifexistinobjectarray(objectarray,keyname,value) {
+    var exist = false;
+    $.each(objectarray,
+        function (i, v) {
+
+            if (v[keyname] == value) {
+                exist = true;
+            }
+        });
+    return exist;
+}
+
 function pushandsave(variablename, keyname, value) {
     
     if (!hdbackupdata[variablename]) {
         hdbackupdata[variablename] = [];
     }
     var data={};
-    data[keyname]= value;
-    hdbackupdata[variablename].push(data);
-    savehdbackupdata();
+    data[keyname] = value;
+    var exist = ifexistinobjectarray(hdbackupdata[variablename], keyname, value);
+    if (!exist) {
+        hdbackupdata[variablename].push(data);
+        savehdbackupdata();
+    }
 }
 function pusharrayandsave(variablename, arraylist, clearandreplace) {
     
@@ -75,14 +90,18 @@ var StoreAllProperties = function () {
         "connectionstring",
         postdata);
 
-    requestandsavebackupfromeditorapi("DbApi/GetAllServerNames",
-        function (data) {
-            if (data.Data && data.Data.length > 0) {
-                return data.Data;
-            }
-            return false;
-        },
-        "servernames",
-        postdata);
+    //requestandsavebackupfromeditorapi("DbApi/GetAllServerNames",
+    //    function (data) {
+    //        if (data.Data && data.Data.length > 0) {
+    //            return data.Data;
+    //        }
+    //        return false;
+    //    },
+    //    "servernames",
+    //    postdata, bindandselectize("servernames",
+    //        true,
+    //        true,
+    //        function(input) {
+    //        }));
 
 };

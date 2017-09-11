@@ -40,7 +40,7 @@
         html += "<div class='hdform-group hdform-group-sm'>";
         html += "<div class='togglebutton'>";
         html += "<label>";
-        html += Html.Hidden(name, new { id = "hd_" + key, value = boxchecked });
+        html += Html.Hidden(name, boxchecked, new { id = "hd_" + key, value = boxchecked });
         if (boxchecked=="True")
         {
             html += Html.CheckBox(name + "_check", new {id = "hd_" + key + "_check", @class = classname,@checked=true});
@@ -57,20 +57,38 @@
         html += "</div>";
         return html;
     }
-    private string BindDropDown(string name, string key, string optionattribute, string optionvalue, string label, string jsonaction, string jsoncontroller)
+    private string BindDropDown(string name, string key, string optionattribute, string optionvalue, string label, string jsonaction, string jsoncontroller,string serverDependRequiredKeys="", string serverDependKeys = "",string method="")
     {
         var html = "<div class='hdcol-xs-50 hd_menubox' id='hd_" + key + "_box'>";
         html += "<div class='hdcol-xs-50'>";
         html += "<div class='hdform-group hdform-group-sm'>";
         html += "<label class='control-label pull-left' >" + label + "</label>";
-        html += "<select";
-        html += "id='hd_" + key + "' name='" + name + "' ";
+        html += "<datalist data-caching='true' ";
+
+        html += "id='hd_" + key + "_list' ";
         html += "data-json='"+(cdRootpath+Url.Action(jsonaction, jsoncontroller))+"' ";
-        html += "class='hdform-control selectize  input-sm' ";
-        html += "placeholder='" + label + "'";
+        if (serverDependKeys!="")
+        {
+            html += "data-filterby='" + serverDependKeys+"' ";
+        }
+        if (serverDependRequiredKeys != "")
+        {
+            html += "data-filterby-required='" + serverDependRequiredKeys + "' ";
+        }
+        if (method != "")
+        {
+            html += "data-requestmethod='" + method + "' ";
+        }
         html += ">";
-        html += "<option data-follow='true' data-key='" + optionattribute + "'>'" + optionvalue + "'</option>";
-        html += "</select>";
+        html += "<option data-follow='true' data-key='" + optionattribute + "'>" + optionvalue + "</option>";
+        html += "</datalist>";
+        html += "<input type='text' ";
+        html += "list='hd_" + key + "_list' ";
+        html += "id='hd_" + key + "' name='" + name + "' ";
+        html += "class='hdform-control   input-sm' ";
+        html += "placeholder='" + label + "'";
+        html += "/>";
+
         html += "</div>";
         html += "</div>";
         html += "</div>";
@@ -94,34 +112,30 @@
     require("material-datepicker", "js/bootstrap-material-datetimepicker");
     //require("chosen", "chosen.jquery.min");
     require("colorpicker", "js/bootstrap-colorpicker.min");
-    require("selectize", "standalone/selectize.min");
+    //require("selectize", "standalone/selectize.min");
     //require("internal", "htmldesignerhtml");
     require("internal", "htmldesignerststaticfn");
     require("internal", "htmldesignerstdynfn");
+    
+    /*Designing Part*/
+    require("internal", "htmldesignerfunctions");
+    require("internal", "htmldesignerstajaxfn");
+    require("internal", "bindlist");
+    //require("internal", "htmldesignerhtml");
+    require("internal", "htmldesignerobj");
+    require("internal", "htmldesignerevents");
+    require("internal", "htmldesigner");
+    /*Designing Part End*/
+    /*DB Part*/
 
+    require("internal", "codeeditorbackupdata");
+    require("internal", "codeeditormenumanager");
+    require("internal", "codeeditor");
 
+    /*DB Part End*/
 
+    require("jlbinder");
 
-    if (ViewBag.editormode == "design")
-    {
-        require("internal", "htmldesignerfunctions");
-        require("internal", "htmldesignerstajaxfn");
-        require("internal", "bindlist");
-        //require("internal", "htmldesignerhtml");
-        require("internal", "htmldesignerobj");
-
-        require("internal", "htmldesignerevents");
-
-        require("internal", "htmldesigner");
-    }
-
-    if (ViewBag.editormode == "db")
-    {
-        require("jlbinder");
-        require("internal", "codeeditorbackupdata");
-        require("internal", "codeeditormenumanager");
-        require("internal", "codeeditor");
-    }
     //if (!ViewBag.isbootstrap)
     //{
     //    require("bootstrap.min");
@@ -165,69 +179,58 @@
             </div>
         </div>
     </div>*@
-
-<div id="hd_rightmenu" class="hd_rightmenu" >
+<div id="hd_rightmenu_dommanage" class="hd_rightmenu">
     <div class="hdcol-xs-50">
         <div class="hdpanel hdpanel-info hdcol-xs-50 hdpanelheading">
-            <div class="hdpanel-heading hdcol-xs-50" id="hd_rightmenu_header">
+            <div class="hdpanel-heading hdcol-xs-50" id="hd_rightmenu_dommanage_header">
+                <h3 class="hdpanel-title">Dom Manage <span></span></h3>
+            </div>
+            <div class="hdpanel-body open hdcol-xs-50" id="hd_rightmenu_dommanage_body" style="">
+                <div class="hdcol-xs-50" id="hd_rightmenu_dommanage_allattributes" style="">
+                    @*string name, string key, string optionattribute, string optionvalue, string label, string jsonaction, string jsoncontroller*@
+                    @Html.Raw(BindDropDown("Styles", "Styles", "jlindex", "", "Styles", "json/html-tags-generated.json", "Content","","","get"))
+                
+                    <div class="hdcol-xs-50 hd_menubox">
+                            <div class="hdcol-xs-50 ">
+                                <div class="hdform-group hdform-group-sm">
+                                    <label class="control-label pull-left">New Attribute</label>
+                                    <input type="text" class="hdform-control input-sm " placeholder="Key" id="hd_rightmenu_attr_name" />
+                                    <input type="text" class="hdform-control input-sm " placeholder="Value" id="hd_rightmenu_attr_value" />
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="hdcol-xs-50 hd_menubox">
+                            <a href="javascript:void(0)"> Style </a>
+                            <div id="hd_rightmenu_styles" class="hd_rightmenu_clear  hdcol-xs-50 "></div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <datalist id="hd_stylelist"></datalist>
+</div>
+<div id="hd_rightmenu_database" class="hd_rightmenu" >
+    <div class="hdcol-xs-50">
+        <div class="hdpanel hdpanel-info hdcol-xs-50 hdpanelheading">
+            <div class="hdpanel-heading hdcol-xs-50" id="hd_rightmenu_database_header">
                 <h3 class="hdpanel-title">Database <span ></span></h3>
             </div>
-            <div class="hdpanel-body open hdcol-xs-50" id="hd_rightmenu_body" style="">
-                <div class="hdcol-xs-50" id="hd_rightmenu_allattributes" style="">
-                    @Html.Raw(BindDropDown("Server","servernames", "ServerName", "localhost", "Server Name", "GetAllServerNames", "DbApi"))
-                    @Html.Raw(BindDropDown("Authentication", "authentications", "authentication", "SQL Password", "Authentication", "GetAllServerNames", "DbApi"))
-                    
-                    <div class="hdcol-xs-50 hd_menubox" id="hd_usernames_box">
-                        <div class="hdcol-xs-50">
-                            <div class="hdform-group hdform-group-sm">
-                                <label class="control-label pull-left">User Name</label>
-                                <select id="hd_usernames" class="hdform-control selectize  input-sm" placeholder="User names">
-                                    <option data-static="true"></option>
-                                    <option data-static="true">sa</option>
-                                    <option data-follow="true" data-key="username">admin</option>
-                                </select>
-                            </div>
+            <div class="hdpanel-body open hdcol-xs-50" id="hd_rightmenu_database_body" style="">
+                <div class="hdcol-xs-50" id="hd_rightmenu_database_allattributes" style="">
+                    @*string name, string key, string optionattribute, string optionvalue, string label, string jsonaction, string jsoncontroller*@
+                    @Html.Raw(BindDropDown("DatabaseLanguage", "dblanguages", "language", "MSSql", "DB Language", "GetAllSQlLanguages", "DbApi"))
+                    @Html.Raw(BindDropDown("Server", "servernames", "ServerName", "localhost", "Server Name", "GetAllServerNames", "DbApi", "#hd_dblanguages"))
+                    @Html.Raw(BindDropDown("Authentication", "authentications", "authentication", "SQL Password", "Authentication", "GetAllAuthenticationTypes", "DbApi", "#hd_dblanguages"))
+                    @Html.Raw(BindDropDown("UID", "usernames", "username", "superadmin", "User Name", "GetAllDemoUsers", "DbApi"))
+                    @Html.Raw(BindDropDown("Password", "passwords", "password", "mango123", "Password", "GetAllDemoPasswords", "DbApi"))
+                    @Html.Raw(BindDropDown("InitialCatalog", "dbnames", "database_name", "master", "Databases", "GetAllDatabases", "DbApi", "#hd_authentications,#hd_servernames,#hd_usernames,#hd_passwords", "#hd_multipleactiveresultsets,#hd_trustservercertificate"))
 
-                        </div>
-
-                    </div>
-                    <div class="hdcol-xs-50 hd_menubox" id="hd_passwords_box">
-                        <div class="hdcol-xs-50">
-                            <div class="hdform-group hdform-group-sm">
-                                <label class="control-label pull-left">password</label>
-                                <select id="hd_passwords" class="hdform-control selectize  input-sm" placeholder="Passwords">
-                                    <option data-static="true"></option>
-                                    <option data-follow="true" data-key="password">password</option>
-
-                                </select>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="hdcol-xs-50 hd_menubox" id="hd_dbnames_box">
-                        <div class="hdcol-xs-50">
-                            <div class="hdform-group hdform-group-sm">
-                                <label class="control-label pull-left">Database</label>
-                                <select
-                                    id="hd_dbnames"
-                                    data-json="@(cdRootpath + Url.Action("GetAllDatabases", "DbApi"))"
-                                    class="hdform-control selectize  input-sm"
-                                    placeholder="Databases">
-                                    <option data-static="true"></option>
-                                    <option data-follow="true" data-key="database_name">master</option>
-                                </select>
-                            </div>
-
-                        </div>
-
-                    </div>
                     @Html.Raw(BindCheckbox("IntegratedSecurity", "integratedsecurity", "TrueFalse", "Integrated Security"))
                     @Html.Raw(BindCheckbox("Encrypt", "encrypt", "TrueFalse", "Encrypt"))
                     @Html.Raw(BindCheckbox("TrustServerCertificate", "trustservercertificate", "TrueFalse", "Trust Server Certificate", "True"))
                     @Html.Raw(BindCheckbox("EncryptConnection", "encryptconnection", "TrueFalse", "Encrypt Connection"))
-                    @Html.Raw(BindCheckbox("MultipleActiveResultSets", "multipleactiveresultsets", "TrueFalse", "Multiple Active Result Sets"))
+                    @Html.Raw(BindCheckbox("MultipleActiveResultSets", "multipleactiveresultsets", "TrueFalse", "Multiple Active Result Sets","True"))
                     @*@Html.Raw(BindCheckbox("PersistSecurityInfo", "persistsecurityinfo", "TrueFalse", "Persist Security Info"))*@
                     @*@Html.Raw(BindCheckbox("MultiSubNetFailOver", "multisubnetfailover", "TrueFalse", "MultiSubNetFailOver"))*@
 
@@ -250,7 +253,6 @@
             </div>
         </div>
     </div>
-    <datalist id="hd_stylelist"></datalist>
 </div>
 <div id="hd_rightmenu_tablemanage" class="hd_rightmenu" >
     <div class="hdcol-xs-50">
@@ -260,47 +262,20 @@
             </div>
             <div class="hdpanel-body open hdcol-xs-50" id="hd_rightmenu_tablemanage_body" style="">
                 <div class="hdcol-xs-50" id="hd_rightmenu_tablemanage_allattributes" style="">
-                    <div class="hdcol-xs-50 hd_menubox" id="hd_tables_box">
-                        <div class="hdcol-xs-50">
-                            <div class="hdform-group hdform-group-sm">
-                                <label class="control-label pull-left">Table</label>
-                                <select id="hd_tables" class="hdform-control selectize  input-sm" placeholder="Tables">
-                                    <option data-static="true"></option>
-                                    <option data-follow="true" data-key="name">Users</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="hdcol-xs-50 hd_menubox" id="hd_datalisttypes_box">
-                        <div class="hdcol-xs-50">
-                            <div class="hdform-group hdform-group-sm">
-                                <label class="control-label pull-left">Data List Type</label>
-                                <select id="hd_datalisttypes" class="hdform-control selectize  input-sm" placeholder="DataListType">
-                                    <option data-static="true"></option>
-                                    <option data-follow="true" data-key="datatype">Rows</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="hdcol-xs-50 hd_menubox" id="hd_tablecolumns_box">
-                        <div class="hdcol-xs-50">
-                            <div class="hdform-group hdform-group-sm">
-                                <label class="control-label pull-left">Table Columns</label>
-                                <select id="hd_tablecolumns" class="hdform-control selectize  input-sm" placeholder="Table Coumns">
-                                    <option data-static="true"></option>
-                                    <option data-follow="true" data-key="name">Users</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                  
-                   
+                    @Html.Raw(BindDropDown("DataListType", "datalisttype", "datatype", "", "Data Binding Method", "GetAllDataListTypes", "DbApi"))
+                    @Html.Raw(BindDropDown("Table", "tables", "name", "Users", "Tables", "GetAllTables", "DbApi", "#hd_dbnames,#hd_authentications,#hd_servernames,#hd_usernames,#hd_passwords", "#hd_multipleactiveresultsets,#hd_trustservercertificate"))
+                    @Html.Raw(BindDropDown("TableColumn", "tablecolumns", "name", "UserId", "Table Columns", "GetTableWithColumn", "DbApi", "#hd_tables,#hd_dbnames,#hd_authentications,#hd_servernames,#hd_usernames,#hd_passwords", "#hd_multipleactiveresultsets,#hd_trustservercertificate"))
+
+                    @*@Html.Raw(BindDropDown("Table", "jointables1", "name", "Users", "Join Table 1", "GetAllTables", "DbApi", "#hd_tablecolumns,#hd_tables,#hd_dbnames,#hd_authentications,#hd_servernames,#hd_usernames,#hd_passwords", "#hd_multipleactiveresultsets,#hd_trustservercertificate"))
+                    @Html.Raw(BindDropDown("JoinTableColumn1", "jointablecolumns1", "name", "UserId", "Join Table 1 Columns", "GetTableWithColumn", "DbApi", "#hd_jointables1,#hd_tablecolumns,#hd_tables,#hd_dbnames,#hd_authentications,#hd_servernames,#hd_usernames,#hd_passwords", "#hd_multipleactiveresultsets,#hd_trustservercertificate"))*@
+
+
                 </div>
             </div>
         </div>
     </div>
 
 </div>
-   
+
 
 

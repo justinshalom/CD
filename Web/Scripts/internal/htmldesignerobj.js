@@ -9,6 +9,7 @@ var syntaxes = {};
 var types = {};
 var units = {};
 var postdata = {};
+var allhtmlelements = {};
 postdata.area = hd_area;
 postdata.controllername = hd_controller;
 postdata.view = hd_function;

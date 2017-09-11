@@ -89,15 +89,15 @@ namespace Web.Controllers.Api
         /// <summary>
         /// The get all authentication types.
         /// </summary>
-        /// <param name="serverType">
-        /// The server type.
+        /// <param name="databaseConnectionModel">
+        /// The database Connection Model.
         /// </param>
         /// <returns>
         /// The <see cref="JsonResult"/>.
         /// </returns>
-        public JsonResult GetAllAuthenticationTypes(string serverType)
+        public JsonResult GetAllAuthenticationTypes(DatabaseConnectionModel databaseConnectionModel)
         {
-            if (serverType == "mssql")
+            if (databaseConnectionModel.DatabaseLanguage == "MSSql")
             {
                 var authenticationsList = new List<Dictionary<string, string>>();
                 var authentication = new Dictionary<string, string>
@@ -124,6 +124,39 @@ namespace Web.Controllers.Api
             }
 
             return this.OutPut(string.Empty);
+        }
+
+        /// <summary>
+        /// The get all SQL languages.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="JsonResult"/>.
+        /// </returns>
+        public JsonResult GetAllSQlLanguages()
+        {
+           
+                var languagesList = new List<Dictionary<string, string>>();
+                var language = new Dictionary<string, string>
+                                         {
+                                             ["language"] = "MSSql"
+                };
+                languagesList.Add(language);
+                language = new Dictionary<string, string>
+                                     {
+                                         ["language"] = "MySql"
+                                     };
+                languagesList.Add(language);
+                language = new Dictionary<string, string>
+                                     {
+                                         ["language"] = "Oracle"
+                                     };
+                languagesList.Add(language);
+                language = new Dictionary<string, string>
+                                     {
+                                         ["language"] = "MongoDB"
+                                     };
+                languagesList.Add(language);
+                return this.OutPut(languagesList);
         }
 
         /// <summary>
@@ -175,6 +208,49 @@ namespace Web.Controllers.Api
             return this.OutPut(datatypesList);
         }
 
+        /// <summary>
+        /// The get all demo users.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="JsonResult"/>.
+        /// </returns>
+        public JsonResult GetAllDemoUsers()
+        {
+            var datatypesList = new List<Dictionary<string, string>>();
+            var datatype = new Dictionary<string, string>
+                               {
+                                   ["username"] = "sa"
+                               };
+            datatypesList.Add(datatype);
+            datatype = new Dictionary<string, string>
+                           {
+                               ["username"] = "admin"
+                           };
+            datatypesList.Add(datatype);
+            return this.OutPut(datatypesList);
+        }
+
+        /// <summary>
+        /// The get all demo users.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="JsonResult"/>.
+        /// </returns>
+        public JsonResult GetAllDemoPasswords()
+        {
+            var datatypesList = new List<Dictionary<string, string>>();
+            var datatype = new Dictionary<string, string>
+                               {
+                                   ["password"] = "password"
+                               };
+            datatypesList.Add(datatype);
+            datatype = new Dictionary<string, string>
+                           {
+                               ["password"] = "password123"
+            };
+            datatypesList.Add(datatype);
+            return this.OutPut(datatypesList);
+        }
         /// <summary>
         /// The get all databases.
         /// </summary>

@@ -7822,11 +7822,14 @@ button.hdclose {
     display:none;
     font-size: 12px !important;
 }
-#hd_rightmenu  {
+#hd_rightmenu_dommanage  {
     left:0px;
                }
-#hd_rightmenu_tablemanage  {
+#hd_rightmenu_database {
     left:180px;
+                         }
+#hd_rightmenu_tablemanage  {
+    left:360px;
                }
 
 .hdpanelheading {

@@ -900,7 +900,7 @@ $.fn.binder.methods = {
                 t.trigger("beforeappendcomplete", triggerdataall);
                 var kv = this.data;
                 var mt = this;
-    
+                debugger;
                 if (rows.length > 0||typeof rows=="object") {
                     var properties = "";
                     var rowindex;
