@@ -102,10 +102,10 @@ $(document).ready(function () {
     $("#hd_integratedsecurity_box").show();
     $(".hd_menubox").show();
     var allclasses = getall('class');
-    $('body').on('afterappedcomplete',
+    $('body').on('afterappendcomplete',
         '#hd_Styles_list',
         function (e,data) {
-            debugger;
+           
             window.allhtmlelements = data;
            
         });

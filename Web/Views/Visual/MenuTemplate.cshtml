@@ -57,7 +57,24 @@
         html += "</div>";
         return html;
     }
-    private string BindDropDown(string name, string key, string optionattribute, string optionvalue, string label, string jsonaction, string jsoncontroller,string serverDependRequiredKeys="", string serverDependKeys = "",string method="")
+    private string BindTextbox(string name, string key, string classname,string label, string value="",string placeholder="")
+    {
+        var html= "<div class='hdcol-xs-50 hd_menubox' id='hd_" + key + "_box'>";
+        html+= "<div class='hdcol-xs-50'>";
+        html += "<div class='hdform-group hdform-group-sm'>";
+        if (label != "")
+        {
+            html += "<label class='control-label pull-left'>";
+            html +=  label ;
+            html += "</label>";
+        }
+        html += Html.TextBox(name, new { id = "hd_" + key, value, @class = "hdform-control "+classname, placeholder });
+        html += "</div>";
+        html += "</div>";
+        html += "</div>";
+        return html;
+    }
+    private string BindDropDown(string name, string key, string optionattribute, string optionvalue, string label, string jsonaction, string jsoncontroller,string serverDependRequiredKeys="", string serverDependKeys = "",string method="",string dataobjects="")
     {
         var html = "<div class='hdcol-xs-50 hd_menubox' id='hd_" + key + "_box'>";
         html += "<div class='hdcol-xs-50'>";
@@ -66,7 +83,10 @@
         html += "<datalist data-caching='true' ";
 
         html += "id='hd_" + key + "_list' ";
-        html += "data-json='"+(cdRootpath+Url.Action(jsonaction, jsoncontroller))+"' ";
+        if (jsoncontroller != ""&& jsonaction != "")
+        {
+            html += "data-json='" + (cdRootpath + Url.Action(jsonaction, jsoncontroller)) + "' ";
+        }
         if (serverDependKeys!="")
         {
             html += "data-filterby='" + serverDependKeys+"' ";
@@ -79,6 +99,11 @@
         {
             html += "data-requestmethod='" + method + "' ";
         }
+        if (dataobjects != "")
+        {
+            html += "data-dataobject='" + dataobjects + "' ";
+        }
+
         html += ">";
         html += "<option data-follow='true' data-key='" + optionattribute + "'>" + optionvalue + "</option>";
         html += "</datalist>";
@@ -116,7 +141,7 @@
     //require("internal", "htmldesignerhtml");
     require("internal", "htmldesignerststaticfn");
     require("internal", "htmldesignerstdynfn");
-    
+
     /*Designing Part*/
     require("internal", "htmldesignerfunctions");
     require("internal", "htmldesignerstajaxfn");
@@ -151,7 +176,7 @@
     include("hd_styles");
     include("hdcustomstyles");
 
-}
+    }
 
 
 
@@ -187,23 +212,21 @@
             </div>
             <div class="hdpanel-body open hdcol-xs-50" id="hd_rightmenu_dommanage_body" style="">
                 <div class="hdcol-xs-50" id="hd_rightmenu_dommanage_allattributes" style="">
-                    @*string name, string key, string optionattribute, string optionvalue, string label, string jsonaction, string jsoncontroller*@
-                    @Html.Raw(BindDropDown("Styles", "Styles", "jlindex", "", "Styles", "json/html-tags-generated.json", "Content","","","get"))
-                
-                    <div class="hdcol-xs-50 hd_menubox">
-                            <div class="hdcol-xs-50 ">
-                                <div class="hdform-group hdform-group-sm">
-                                    <label class="control-label pull-left">New Attribute</label>
-                                    <input type="text" class="hdform-control input-sm " placeholder="Key" id="hd_rightmenu_attr_name" />
-                                    <input type="text" class="hdform-control input-sm " placeholder="Value" id="hd_rightmenu_attr_value" />
-                                </div>
-                            </div>
+                    @Html.Raw(BindDropDown("NewElement", "newelement", "jlindex", "div", "Add New Element", "json/html-tags-generated.json", "Content", "", "", "get", "tags"))
+                    
+                    
 
-                        </div>
-                        <div class="hdcol-xs-50 hd_menubox">
-                            <a href="javascript:void(0)"> Style </a>
-                            <div id="hd_rightmenu_styles" class="hd_rightmenu_clear  hdcol-xs-50 "></div>
-                        </div>
+                    @*string name, string key, string optionattribute, string optionvalue, string label, string jsonaction, string jsoncontroller*@
+                    @Html.Raw(BindDropDown("Classes", "classes", "jlvalue", "", "Classes", "", "", "", "", "", ""))
+
+                    @Html.Raw(BindDropDown("Attributes", "attributes", "jlindex", "", "New Attribute", "json/html-tags-generated.json", "Content", "", "", "get", "attributes"))
+                    @Html.Raw(BindTextbox("NewAttributeValue", "newattributevalue", "","", "","value"))
+                    
+
+                    <div class="hdcol-xs-50 hd_menubox">
+                        <a href="javascript:void(0)"> Style </a>
+                        <div id="hd_rightmenu_styles" class="hd_rightmenu_clear  hdcol-xs-50 "></div>
+                    </div>
                 </div>
             </div>
         </div>

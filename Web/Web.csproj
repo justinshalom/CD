@@ -1144,7 +1144,6 @@
     <Content Include="Scripts\ng\angular.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\s.js" />
     <Content Include="Scripts\selectize\selectize.js" />
     <Content Include="Scripts\selectize\selectize.min.js" />
     <Content Include="Scripts\selectize\standalone\selectize.js" />
