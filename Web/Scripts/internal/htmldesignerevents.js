@@ -1,4 +1,4 @@
-﻿////PrepareFileContent(postdata);
+////PrepareFileContent(postdata);
 $(document).
     ready(function () {
 
@@ -109,9 +109,11 @@ $(document).
         $('body').on('change',
            '.subdynamicinput',
            function (e) {
+              debugger;
                if ($(".colorpicker:visible").length == 0) {
                    setTimeout(function() {
-                           $("#subdynamicinput").colorpicker('hide');
+                            debugger;
+                          //// $("#subdynamicinput").colorpicker('hide');
                            if ($("#subdynamicinput").val()) {
                                $(".dynamicinput").val($(".dynamicinput").val().substring(0, dynamicposition) + " " + $("#subdynamicinput").val() + " " + $(".dynamicinput").val().substring(dynamicposition) + " ");
                            } else {
@@ -338,7 +340,7 @@ $(document).
                       var objbox = $('#hd_styledesigner');
 
                       var baseobj = setstylebox(objbox, "dynamicinput","");
-                      debugger;
+                      
                       var input = setinputbox(baseobj, "text", "", "dynamicinput");
                       input.val($("#hd_stylevalueinput").val());
                       $("#hd_stylevalueinput").val("");
