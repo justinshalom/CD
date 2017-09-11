@@ -162,6 +162,7 @@ $(document).
         $('body').on('keyup click',
             '.dynamicinput',
             function (e, inherit) {
+               
                 if (inherit) {
                     //e = inherit;
                 }
@@ -183,7 +184,7 @@ $(document).
                         var value = $(this).val();
                         var hdStyleinputval = $('#hd_styleinput').val();
                         if (e.keyCode == 13 && value && clickedenter) {
-                            
+                            debugger;
                             setstylelabels($('#hd_styleinput').val(), value);
                             $('#hd_styledesigner').hide();
                         }
@@ -337,8 +338,10 @@ $(document).
                       var objbox = $('#hd_styledesigner');
 
                       var baseobj = setstylebox(objbox, "dynamicinput","");
-
-                      var input=setinputbox(baseobj, "text", "", "dynamicinput");
+                      debugger;
+                      var input = setinputbox(baseobj, "text", "", "dynamicinput");
+                      input.val($("#hd_stylevalueinput").val());
+                      $("#hd_stylevalueinput").val("");
                       input.focus();
 
                       ////$.each(stylepieces, function (si, sv) {
