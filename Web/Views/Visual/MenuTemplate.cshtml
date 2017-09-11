@@ -68,7 +68,7 @@
             html +=  label ;
             html += "</label>";
         }
-        html += Html.TextBox(name, new { id = "hd_" + key, value, @class = "hdform-control "+classname, placeholder });
+        html += Html.TextBox(name,value, new { id = "hd_" + key, value, @class = "hdform-control "+classname, placeholder });
         html += "</div>";
         html += "</div>";
         html += "</div>";
@@ -213,20 +213,24 @@
             <div class="hdpanel-body open hdcol-xs-50" id="hd_rightmenu_dommanage_body" style="">
                 <div class="hdcol-xs-50" id="hd_rightmenu_dommanage_allattributes" style="">
                     @Html.Raw(BindDropDown("NewElement", "newelement", "jlindex", "div", "Add New Element", "json/html-tags-generated.json", "Content", "", "", "get", "tags"))
-                    
-                    
-
                     @*string name, string key, string optionattribute, string optionvalue, string label, string jsonaction, string jsoncontroller*@
                     @Html.Raw(BindDropDown("Classes", "classes", "jlvalue", "", "Classes", "", "", "", "", "", ""))
 
+                    
+                    @Html.Raw(BindDropDown("Styles", "styles", "jlvalue", "", "Style", "", "", "", "", "", ""))
+                    
+                    @Html.Raw(BindDropDown("Demo", "demo", "jlvalue", "", "Demo", "", "", "", "", "", ""))
+
                     @Html.Raw(BindDropDown("Attributes", "attributes", "jlindex", "", "New Attribute", "json/html-tags-generated.json", "Content", "", "", "get", "attributes"))
-                    @Html.Raw(BindTextbox("NewAttributeValue", "newattributevalue", "","", "","value"))
+                    @Html.Raw(BindTextbox("NewAttributeValue", "newattributevalue", "", "", "", "value"))
+
+
+
+
+
+                    
                     
 
-                    <div class="hdcol-xs-50 hd_menubox">
-                        <a href="javascript:void(0)"> Style </a>
-                        <div id="hd_rightmenu_styles" class="hd_rightmenu_clear  hdcol-xs-50 "></div>
-                    </div>
                 </div>
             </div>
         </div>
