@@ -214,22 +214,43 @@ var bodyeventwithvalueforselect = function(id, notvalue, callback) {
         });
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
+    $("body").on("change",
+        ".TrueFalse",
+        function () {
+            if ($(this).prop("checked")) {
+                $("#" + $(this).attr("id").replace("_check", "")).val("True").trigger("change");
+            } else {
+                $("#" + $(this).attr("id").replace("_check", "")).val("False").trigger("change");
+            }
+
+        });
+
+
     bodyeventwithvalueforselect("#hd_authentications",
         "",
         function (value) {
+           
             if (value == "Windows Authentication") {
-                $("#hd_dbnames,#hd_tables,#hd_tablecolumns").each(function () {
+                window.hdbackupdata["defaultvalues"]["usernames"] = "";
+                window.hdbackupdata["defaultvalues"]["passwords"] = "";
+                $("#hd_passwords,#hd_usernames,#hd_authentications").val("");
+               
+
+                $("#hd_integratedsecurity_check").prop("checked", true).trigger("change");
+                $("#hd_trustservercertificate_check,#hd_multipleactiveresultsets_check").prop("checked", false).trigger("change");
+                $("#hd_dbnames_list,#hd_tables_list,#hd_tablecolumns_list").each(function () {
                     if ($(this).attr("data-filterby-required")) {
                         $(this).attr("data-filterby-required",
-                            $(this).attr("data-filterby-required").replace(",#hd_usernames,#hd_passwords", ""));
+                            $(this).attr("data-filterby-required").replace(",#hd_authentications,#hd_usernames,#hd_passwords", ""));
                     }
                 });
+                $("#hd_servernames").trigger("change");
             } else {
-                $("#hd_dbnames,#hd_tables,#hd_tablecolumns").each(function() {
+                $("#hd_dbnames_list,#hd_tables_list,#hd_tablecolumns_list").each(function () {
                     if ($(this).attr("data-filterby-required")&&$(this).attr("data-filterby-required").split("hd_usernames").length == 1) {
                         $(this).attr("data-filterby-required",
-                            $(this).attr("data-filterby-required") + ",#hd_usernames,#hd_passwords");
+                            $(this).attr("data-filterby-required") + ",#hd_authentications,#hd_usernames,#hd_passwords");
                     }
                 });
             }

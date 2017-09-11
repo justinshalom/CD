@@ -211,28 +211,45 @@
                 <h3 class="hdpanel-title">Dom Manage <span></span></h3>
             </div>
             <div class="hdpanel-body open hdcol-xs-50" id="hd_rightmenu_dommanage_body" style="">
-                <div class="hdcol-xs-50" id="hd_rightmenu_dommanage_allattributes" style="">
-                    @Html.Raw(BindDropDown("NewElement", "newelement", "jlindex", "div", "Add New Element", "json/html-tags-generated.json", "Content", "", "", "get", "tags"))
-                    @*string name, string key, string optionattribute, string optionvalue, string label, string jsonaction, string jsoncontroller*@
-                    @Html.Raw(BindDropDown("Classes", "classes", "jlvalue", "", "Classes", "", "", "", "", "", ""))
-
-                    
-                    @Html.Raw(BindDropDown("Styles", "styles", "jlvalue", "", "Style", "", "", "", "", "", ""))
-                    
-                    @Html.Raw(BindDropDown("Demo", "demo", "jlvalue", "", "Demo", "", "", "", "", "", ""))
-
-                    @Html.Raw(BindDropDown("Attributes", "attributes", "jlindex", "", "New Attribute", "json/html-tags-generated.json", "Content", "", "", "get", "attributes"))
-                    @Html.Raw(BindTextbox("NewAttributeValue", "newattributevalue", "", "", "", "value"))
-
-
-
-
-
-                    
-                    
-
+                <div class="hdcol-xs-50" id="hd_rightmenu_dommanage_directions" style="">
+                    <div class="hdcol-xs-50 ">     
+                        <div class="hdform-group hdform-group-sm" id="hd_rightmenu_auto_directions">          
+                           
+                            <a id="hd_dom_left"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+                            <a id="hd_dom_right"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+                            <a id="hd_dom_up"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+                            <a id="hd_dom_down"><i class="fa fa-chevron-down" aria-hidden="true"></i></a>
+                        </div>   
+                    </div>
                 </div>
-            </div>
+                    <div class="hdcol-xs-50" id="hd_rightmenu_dommanage_allattributes" style="">
+                        @Html.Raw(BindDropDown("NewElement", "newelement", "jlindex", "div", "Add New Element", "json/html-tags-generated.json", "Content", "", "", "get", "tags"))
+                        @*string name, string key, string optionattribute, string optionvalue, string label, string jsonaction, string jsoncontroller*@
+                        @Html.Raw(BindDropDown("Classes", "classes", "jlvalue", "", "Classes", "", "", "", "", "", ""))
+
+
+                        @Html.Raw(BindDropDown("StyleNameInput", "styleinput", "jlindex", "", "Style", "json/properties.json", "Content", "", "", "get"))
+                        @Html.Raw(BindTextbox("StyleValueInput", "stylevalueinput", "", "", "", "value"))
+
+                        <div class="hdcol-xs-50" id="hd_styledesigner" style="position: absolute;z-index: 999999;top: 57px;left: 147px;background-color: rgba(255, 255, 255, 0.98);padding: 0px 18px;">    
+                        </div>
+                        
+                        
+
+                        @Html.Raw(BindDropDown("Demo", "demo", "jlvalue", "", "Demo", "", "", "", "", "", ""))
+
+                        @Html.Raw(BindDropDown("Attributes", "attributes", "jlindex", "", "New Attribute", "json/html-tags-generated.json", "Content", "", "", "get", "attributes"))
+                        @Html.Raw(BindTextbox("NewAttributeValue", "newattributevalue", "", "", "", "value"))
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
         </div>
     </div>
     <datalist id="hd_stylelist"></datalist>
@@ -251,7 +268,7 @@
                     @Html.Raw(BindDropDown("Authentication", "authentications", "authentication", "SQL Password", "Authentication", "GetAllAuthenticationTypes", "DbApi", "#hd_dblanguages"))
                     @Html.Raw(BindDropDown("UID", "usernames", "username", "superadmin", "User Name", "GetAllDemoUsers", "DbApi"))
                     @Html.Raw(BindDropDown("Password", "passwords", "password", "mango123", "Password", "GetAllDemoPasswords", "DbApi"))
-                    @Html.Raw(BindDropDown("InitialCatalog", "dbnames", "database_name", "master", "Databases", "GetAllDatabases", "DbApi", "#hd_authentications,#hd_servernames,#hd_usernames,#hd_passwords", "#hd_multipleactiveresultsets,#hd_trustservercertificate"))
+                    @Html.Raw(BindDropDown("InitialCatalog", "dbnames", "database_name", "master", "Databases", "GetAllDatabases", "DbApi", "#hd_servernames,#hd_authentications,#hd_usernames,#hd_passwords", "#hd_multipleactiveresultsets,#hd_trustservercertificate,#hd_integratedsecurity"))
 
                     @Html.Raw(BindCheckbox("IntegratedSecurity", "integratedsecurity", "TrueFalse", "Integrated Security"))
                     @Html.Raw(BindCheckbox("Encrypt", "encrypt", "TrueFalse", "Encrypt"))
@@ -290,8 +307,8 @@
             <div class="hdpanel-body open hdcol-xs-50" id="hd_rightmenu_tablemanage_body" style="">
                 <div class="hdcol-xs-50" id="hd_rightmenu_tablemanage_allattributes" style="">
                     @Html.Raw(BindDropDown("DataListType", "datalisttype", "datatype", "", "Data Binding Method", "GetAllDataListTypes", "DbApi"))
-                    @Html.Raw(BindDropDown("Table", "tables", "name", "Users", "Tables", "GetAllTables", "DbApi", "#hd_dbnames,#hd_authentications,#hd_servernames,#hd_usernames,#hd_passwords", "#hd_multipleactiveresultsets,#hd_trustservercertificate"))
-                    @Html.Raw(BindDropDown("TableColumn", "tablecolumns", "name", "UserId", "Table Columns", "GetTableWithColumn", "DbApi", "#hd_tables,#hd_dbnames,#hd_authentications,#hd_servernames,#hd_usernames,#hd_passwords", "#hd_multipleactiveresultsets,#hd_trustservercertificate"))
+                    @Html.Raw(BindDropDown("Table", "tables", "name", "Users", "Tables", "GetAllTables", "DbApi", "#hd_dbnames,#hd_servernames,#hd_authentications,#hd_usernames,#hd_passwords", "#hd_multipleactiveresultsets,#hd_trustservercertificate,#hd_integratedsecurity"))
+                    @Html.Raw(BindDropDown("TableColumn", "tablecolumns", "name", "UserId", "Table Columns", "GetTableWithColumn", "DbApi", "#hd_tables,#hd_dbnames,#hd_servernames,#hd_authentications,#hd_usernames,#hd_passwords", "#hd_multipleactiveresultsets,#hd_trustservercertificate,#hd_integratedsecurity"))
 
                     @*@Html.Raw(BindDropDown("Table", "jointables1", "name", "Users", "Join Table 1", "GetAllTables", "DbApi", "#hd_tablecolumns,#hd_tables,#hd_dbnames,#hd_authentications,#hd_servernames,#hd_usernames,#hd_passwords", "#hd_multipleactiveresultsets,#hd_trustservercertificate"))
                     @Html.Raw(BindDropDown("JoinTableColumn1", "jointablecolumns1", "name", "UserId", "Join Table 1 Columns", "GetTableWithColumn", "DbApi", "#hd_jointables1,#hd_tablecolumns,#hd_tables,#hd_dbnames,#hd_authentications,#hd_servernames,#hd_usernames,#hd_passwords", "#hd_multipleactiveresultsets,#hd_trustservercertificate"))*@

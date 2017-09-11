@@ -806,7 +806,7 @@ $.fn.binder.methods = {
                     }
                 });
         }
-        if (rows === null && typeof resultdata === "object" && resultdata != null && resultdata.length > 0) {
+        if (rows === null && typeof resultdata === "object" && resultdata != null && ((resultdata instanceof Array && resultdata.length > 0) || (!(resultdata instanceof Array)))) {
             rows = resultdata;
         }
         return rows;

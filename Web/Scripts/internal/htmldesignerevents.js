@@ -1,6 +1,41 @@
 ﻿////PrepareFileContent(postdata);
 $(document).
     ready(function () {
+
+
+        $('body').on('click',
+            '#hd_dom_left',
+            function (e) {
+                e.preventDefault();
+                if (window.hdCurrentobj.prev().length > 0) {
+                    window.hdCurrentobj.prev().trigger("contextmenu");
+                }
+            });
+        $('body').on('click',
+            '#hd_dom_right',
+            function (e) {
+                e.preventDefault();
+                if (window.hdCurrentobj.next().length > 0) {
+                    window.hdCurrentobj.next().trigger("contextmenu");
+                }
+            });
+        $('body').on('click',
+            '#hd_dom_up',
+            function (e) {
+                e.preventDefault();
+                if (window.hdCurrentobj.parent().length > 0) {
+                    window.hdCurrentobj.parent().trigger("contextmenu");
+                }
+            });
+        $('body').on('click',
+            '#hd_dom_down',
+            function (e) {
+                e.preventDefault();
+                if (window.hdCurrentobj.children().length > 0) {
+                    window.hdCurrentobj.children().first().trigger("contextmenu");
+                }
+            });
+
         $('body').
             on('keyup change blur',
                 '#hd_rightmenu select[data-attributename],#hd_rightmenu input[data-attributename]',
@@ -232,12 +267,12 @@ $(document).
                                                 });
 
                                         });
-                                    selectize();
+                                    //selectize();
 
                                     //input.val(v);
                                     //input.focus();
 
-                                    var selectizeinput = $("#subdynamicinput" + "-selectized");
+                                    var selectizeinput = $("#subdynamicinput");
                                     selectizeinput.val(currChar);
                                     selectizeinput.focus();
 
@@ -271,6 +306,7 @@ $(document).
           on('keyup change blur',
               '#hd_stylevalueinput,#hd_styleinput',
               function (e) {
+                 
                   dynamicposition = 0;
                   var hdStyleinputval = $('#hd_styleinput').val();
                   //if (e.keyCode == 13) {
@@ -369,4 +405,23 @@ $(document).
                     hdCurrentobj.removeClass(hdCurrentobj.attr('tempclass'));
                     hdCurrentobj.removeAttr("tempclass");
                 });
+
+        $('body').on('afterappendcomplete',
+            '#hd_Styles_list',
+            function (e, data) {
+
+                window.allhtmlelements = data.rows;
+
+            });
+        $('body').on('afterappendcomplete',
+            '#hd_styleinput_list',
+            function (e, data) {
+
+                window.properties = data.rows;
+                $.each(window.properties,
+                            function(i, v) {
+                                window.properties[i]
+                                    .syntax = $('<textarea />').html(window.properties[i].syntax).text();
+                            });
+            });
     });

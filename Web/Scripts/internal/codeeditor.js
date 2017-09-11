@@ -1,6 +1,7 @@
 ﻿
 var hdCurrentobj = $("body");
 function hdhandleclick(th) {
+    hdCurrentobj = th;
     var t = th;
     var classeslist =
         (t.attr('class'))
@@ -102,17 +103,11 @@ $(document).ready(function () {
     $("#hd_integratedsecurity_box").show();
     $(".hd_menubox").show();
     var allclasses = getall('class');
-    $('body').on('afterappendcomplete',
-        '#hd_Styles_list',
-        function (e,data) {
-           
-            window.allhtmlelements = data;
-           
-        });
+   
 
 
     $('body').on('contextmenu',
-        '*:not(html,body,.hd_rightmenu)',
+        '*:not(html,body,.hd_rightmenu,.hd_rightmenu *)',
         function (e) {
             e.preventDefault();
             e.stopPropagation();

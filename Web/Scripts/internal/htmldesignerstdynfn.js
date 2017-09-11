@@ -148,15 +148,23 @@ var setinputbox = function(objbox, type, id, name) {
 
 }
 var setselectbox = function(objbox, id, name) {
-    var obj = $("#" + id);
-    if ($("#" + id).length == 0) {
-        objbox.append('<select id="' +
+    var obj = $("#" + id + "list");
+    if ($("#" + id + "list").length == 0) {
+        objbox.append('<datalist id="' +
+            id +
+            'list" name="' +
+            name +
+            '"  class=" ' + name +
+            '"   ><option value="" selected></option></datalist>');
+        objbox.append('<input list="' +
+            id +
+            'list" id="' +
             id +
             '" name="' +
             name +
             '"  class="hdform-control  hdinput-sm selectize ' + name +
-            '"   ><option value="" selected></option></select>');
-        return $("#" + id);
+            '"   />');
+        return $("#" + id + "list");
     } else {
         return obj;
     }
