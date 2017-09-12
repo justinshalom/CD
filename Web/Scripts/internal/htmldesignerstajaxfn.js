@@ -13,22 +13,22 @@
 
 
 function getallcssproperties() {
-    $.getJSON(window.cd_contenturl + "json/at-rules.json",
-       function (data) {
-           window.at_rules = data;
-       });
-    $.getJSON(window.cd_contenturl + "json/css-color-names.json",
-      function (data) {
-          window.css_color_names = data;
-      });
-    $.getJSON(window.cd_contenturl + "json/css-font-weight-names.json",
-      function (data) {
-          window.css_font_weight_names = data;
-      });
-    $.getJSON(window.cd_contenturl + "json/selectors.json",
-      function (data) {
-          window.selectors = data;
-      });
+    //$.getJSON(window.cd_contenturl + "json/at-rules.json",
+    //   function (data) {
+    //       window.at_rules = data;
+    //   });
+    //$.getJSON(window.cd_contenturl + "json/css-color-names.json",
+    //  function (data) {
+    //      window.css_color_names = data;
+    //  });
+    //$.getJSON(window.cd_contenturl + "json/css-font-weight-names.json",
+    //  function (data) {
+    //      window.css_font_weight_names = data;
+    //  });
+    //$.getJSON(window.cd_contenturl + "json/selectors.json",
+    //  function (data) {
+    //      window.selectors = data;
+    //  });
     $.getJSON(window.cd_contenturl + "json/syntaxes.json",
       function (data) {
           window.syntaxes = data;
@@ -37,14 +37,14 @@ function getallcssproperties() {
                   window.syntaxes[i] = $('<textarea />').html(window.syntaxes[i]).text();
               });
       });
-    $.getJSON(window.cd_contenturl + "json/types.json",
-      function (data) {
-          window.types = data;
-      });
-    $.getJSON(window.cd_contenturl + "json/units.json",
-      function (data) {
-          window.units = data;
-      });
+    //$.getJSON(window.cd_contenturl + "json/types.json",
+    //  function (data) {
+    //      window.types = data;
+    //  });
+    //$.getJSON(window.cd_contenturl + "json/units.json",
+    //  function (data) {
+    //      window.units = data;
+    //  });
     
     //$.getJSON(window.cd_contenturl + "json/properties.json",
     //    function (data) {

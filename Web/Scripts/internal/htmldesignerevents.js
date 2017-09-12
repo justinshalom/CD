@@ -1,4 +1,4 @@
-﻿////PrepareFileContent(postdata);
+////PrepareFileContent(postdata);
 $(document).
     ready(function () {
 
@@ -106,14 +106,18 @@ $(document).
             }
         })(jQuery);
         var dynamicposition = 0;
+        //After enter eny value for style it will remove it from screen
         $('body').on('change',
            '.subdynamicinput',
            function (e) {
                if ($(".colorpicker:visible").length == 0) {
                    setTimeout(function() {
-                           $("#subdynamicinput").colorpicker('hide');
+                           //$("#subdynamicinput").colorpicker('hide');
+                          
                            if ($("#subdynamicinput").val()) {
-                               $(".dynamicinput").val($(".dynamicinput").val().substring(0, dynamicposition) + " " + $("#subdynamicinput").val() + " " + $(".dynamicinput").val().substring(dynamicposition) + " ");
+                               $(".dynamicinput").val($(".dynamicinput").val().substring(0, dynamicposition) + " " +
+                                   $("#subdynamicinput").val() + " " +
+                                   $(".dynamicinput").val().substring(dynamicposition) + " ");
                            } else {
                                $(".dynamicinput").val($(".dynamicinput").val());
                            }
@@ -123,19 +127,32 @@ $(document).
                                dynamicposition = $(this)
                                    .getCursorPosition(dynamicposition + parseInt($("#subdynamicinput").val().length),
                                        dynamicposition + $("#subdynamicinput").val().length);
-                           } 
+                           }
                            $("#subdynamicinput").closest(".hdform-group").remove();
-                         
                            $("#hd_styledesigner").css("width", (($(".dynamicinput").val().length) * 5) + "%");
                        },
                        100);
-                  
                    var cssstyle = {};
                    cssstyle[$("#hd_styleinput").val()] = $(this).val();
                    window.hdCurrentobj.removeAttr("style");
                    hdCurrentobj.css(cssstyle);
+               } else {
+                   //$("#subdynamicinput").colorpicker('destroy');
                }
            });
+        //After enter color removing from screen
+        $('body').on('mouseover',
+            '.subdynamicinput',
+            function (e) {
+                if ($(".colorpicker:visible").length == 1) {
+                    if ($("#subdynamicinput").val() != "" && $("#subdynamicinput").val() != "#") {
+                        $("#subdynamicinput").colorpicker('destroy');
+                        $("#subdynamicinput").trigger("change");
+                    }
+                } else {
+                    //
+                }
+            });
         $('body').on('keydown',
             '.dynamicinput',
             function(e) {
@@ -184,7 +201,7 @@ $(document).
                         var value = $(this).val();
                         var hdStyleinputval = $('#hd_styleinput').val();
                         if (e.keyCode == 13 && value && clickedenter) {
-                            debugger;
+                          
                             setstylelabels($('#hd_styleinput').val(), value);
                             $('#hd_styledesigner').hide();
                         }
@@ -217,6 +234,7 @@ $(document).
                             var stringlength = 0;
                             var currChar = "";
                             var currindex = "";
+                            if(pieces){
                             $.each(pieces,
                                 function(pi, pv) {
                                     stringlength += pv.length;
@@ -225,6 +243,7 @@ $(document).
                                         currindex = pi;
                                     }
                                 });
+                            }
                             //value.substring(0, index);
 
 
@@ -242,6 +261,7 @@ $(document).
                                 var baseobj;
 
                                 if (currChar.startsWith("rgb") || currChar.startsWith("#")) {
+                                    debugger;
                                     pieces[currindex] = "";
                                     $(this).val(pieces.join(" ").replace(/ px/g, "px"));
 
@@ -250,6 +270,7 @@ $(document).
                                     inputbox.val(currChar);
                                     inputbox.focus();
                                 } else if (isNaN(currChar)) {
+                                    
                                     pieces[currindex] = "";
                                     $(this).val(pieces.join(" ").replace(/ px/g, "px"));
 
@@ -338,7 +359,7 @@ $(document).
                       var objbox = $('#hd_styledesigner');
 
                       var baseobj = setstylebox(objbox, "dynamicinput","");
-                      debugger;
+                   
                       var input = setinputbox(baseobj, "text", "", "dynamicinput");
                       input.val($("#hd_stylevalueinput").val());
                       $("#hd_stylevalueinput").val("");
