@@ -130,14 +130,14 @@ var setmenubasedonattributes = function(hdmenu, t, classeslist, allclasses) {
                     //text += '        </div>';
                     //$('#hd_rightmenu_allattributes').append(text);
                     /////$("#hd_styleinput").val("border").trigger("change");
-                    //$.each(attributevalue.split(";"),
-                    //   function (attri, attrv) {
-                    //       var attrpieces = attrv.split(":");
-                    //       if (attrpieces[0] && attrpieces[1]) {
-                    //           setstylelabels(attrpieces[0], attrpieces[1]);
-                    //       }
+                    $.each(attributevalue.split(";"),
+                       function (attri, attrv) {
+                           var attrpieces = attrv.split(":");
+                           if (attrpieces[0] && attrpieces[1]) {
+                               setstylelabels(attrpieces[0], attrpieces[1]);
+                           }
 
-                    //   });
+                       });
                     break;
                 }
                 case 'class':

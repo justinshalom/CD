@@ -226,13 +226,15 @@
                         @Html.Raw(BindDropDown("NewElement", "newelement", "jlindex", "div", "Add New Element", "json/html-tags-generated.json", "Content", "", "", "get", "tags"))
                         @*string name, string key, string optionattribute, string optionvalue, string label, string jsonaction, string jsoncontroller*@
                         @Html.Raw(BindDropDown("Classes", "classes", "jlvalue", "", "Classes", "", "", "", "", "", ""))
-
+                        <div class="hdcol-xs-50 hd_menubox" id="existingstylelist">
+                            
+                        </div>
+                        <div class="hdcol-xs-50 hd_menubox" id="hd_styledesigner" style="position: absolute;z-index: 999999;top: 57px;left: 147px;background-color: rgba(255, 255, 255, 0.98);padding: 0px 18px;">
+                        </div>
+                        
 
                         @Html.Raw(BindDropDown("StyleNameInput", "styleinput", "jlindex", "", "Style", "json/properties.json", "Content", "", "", "get"))
                         @Html.Raw(BindTextbox("StyleValueInput", "stylevalueinput", "", "", "", "value"))
-
-                        <div class="hdcol-xs-50" id="hd_styledesigner" style="position: absolute;z-index: 999999;top: 57px;left: 147px;background-color: rgba(255, 255, 255, 0.98);padding: 0px 18px;">    
-                        </div>
                         
                         
 

@@ -44,7 +44,7 @@ $(document).on('afterappendcomplete',
                     $("#hd_" + selectname).append("<option>" + defaultvalue + "</option>");
                     $("#hd_" + selectname).val(defaultvalue);
                 }
-                console.log(selectname + "valueis" + $("#hd_" + selectname).val());
+               // console.log(selectname + "valueis" + $("#hd_" + selectname).val());
                 //$("#hd_" + name).selectize()[0].selectize.setValue(defaultvalue);
             }
         }
@@ -103,7 +103,7 @@ $(document).ready(function () {
     $("#hd_integratedsecurity_box").show();
     $(".hd_menubox").show();
     var allclasses = getall('class');
-   
+    getallcssproperties();
 
 
     $('body').on('contextmenu',
