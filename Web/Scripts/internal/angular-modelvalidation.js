@@ -1,6 +1,6 @@
 ﻿var ngmvinit = function () {
     $('form').attr('novalidate', true);
-    $('input,select,textarea').not("[ng-mvinitialized],[type=hidden]").each(function () {
+    $('input,select,textarea').not("[ng-mvinitialized],[type=hidden],.disableformgroup").each(function () {
         var form = $(this).closest("form");
         var formname = form.attr('name');
         $(this).not("[type=checkbox],[type=radio]").addClass("form-control");

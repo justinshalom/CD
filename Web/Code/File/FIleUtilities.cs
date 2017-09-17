@@ -74,9 +74,13 @@
         /// <returns>
         /// File Content
         /// </returns>
-        internal static string GetFileContent(string a, string c, string v, string folderPath, Dot dot)
+        internal static string GetFileContent(string a, string c, string v, string folderPath, Dot dot,string rootPath="")
         {
-            string root = RootPath + folderPath;
+            if (rootPath==string.Empty)
+            {
+                rootPath = RootPath;
+            }
+            string root = rootPath + folderPath;
             var filepath = string.Format(@"{0}{1}\{2}.{3}", root, c, v, dot.ToString());
             if (!string.IsNullOrEmpty(a))
             {
@@ -98,9 +102,14 @@
         /// <returns>
         /// true
         /// </returns>
-        internal static object SetFileContent(string a, string c, string v, string content, string folderPath, Dot dot)
+        internal static object SetFileContent(string a, string c, string v, string content, string folderPath, Dot dot,string rootPath="")
         {
-            string root = RootPath + folderPath;
+            if (rootPath == string.Empty)
+            {
+                rootPath = RootPath;
+            }
+
+            string root = rootPath + folderPath;
             var path = string.Format(@"{0}{1}\{2}.{3}", root, c, v, dot.ToString());
             if (!string.IsNullOrEmpty(a))
             {

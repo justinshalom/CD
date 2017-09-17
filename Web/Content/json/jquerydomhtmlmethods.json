@@ -1,0 +1,9 @@
+{
+    "methods": {
+        "append": true,
+        "preppend": true,
+        "html": true,
+        "after": true,
+        "before": true
+    }
+}

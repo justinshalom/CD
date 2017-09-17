@@ -1,4 +1,4 @@
-﻿
+
 
 .hd_rightmenu * {
     -webkit-box-sizing: border-box;
@@ -3711,7 +3711,7 @@ label {
     display: inline-block;
     max-width: 100%;
     margin-bottom: 5px;
-    font-weight: bold
+    font-weight: bold;
 }
 
 input[type="search"] {
@@ -3823,7 +3823,9 @@ input[type="search"] {
 .hdform-group {
     margin-bottom: 15px
 }
-
+.hdlist-group-item .hdform-group {
+    margin-bottom: 0px
+}
 .hdradio,.hdcheckbox {
     position: relative;
     display: block;
@@ -3887,11 +3889,11 @@ input[type="radio"][disabled],input[type="checkbox"][disabled],input[type="radio
 }
 
 .hdinput-sm,.hdform-group-sm .hdform-control {
-    height: 30px;
+    height: 20px;
     padding: 5px 10px;
     font-size: 12px;
     line-height: 1.5;
-    border-radius: 2px
+    border-radius: 0px;
 }
 
 select.hdinput-sm,select.hdform-group-sm .hdform-control {
@@ -6313,10 +6315,12 @@ a.hdthumbnail:hover,a.hdthumbnail:focus,a.hdthumbnail.hdactive {
 .hdlist-group-item {
     position: relative;
     display: block;
-    padding: 10px 15px;
+    padding: 0px 8px;
     margin-bottom: -1px;
     background-color: #fff;
-    border: 1px solid #ddd
+    border: 1px solid #ddd;
+    float: left;
+    width: 100%;
 }
 
 .hdlist-group-item:first-child {
@@ -7828,9 +7832,10 @@ button.hdclose {
 #hd_rightmenu_database {
     left:180px;
                          }
-#hd_rightmenu_tablemanage  {
-    left:360px;
-               }
+#hd_rightmenu_tablemanage {
+    left: 360px;
+    width: 440px;
+}
 
 .hdpanelheading {
     background-color: rgba(255, 255, 255, 0.83);
@@ -7838,3 +7843,7 @@ button.hdclose {
     cursor: pointer;
 }
 
+
+.hdlist-group-item label.control-label {
+    margin: 10px 0 0 0;
+}

@@ -36,49 +36,49 @@ $(document).
                 }
             });
 
+       
         $('body').
             on('keyup change blur',
-                '#hd_rightmenu select[data-attributename],#hd_rightmenu input[data-attributename]',
+                '#hd_stylevalueinput,#hd_classes,#hd_newattributevalue,#hd_newattributetext,.hdattributevalue',
                 function (e) {
-                    var attributename = $(this).attr('data-attributename');
-                    switch (attributename) {
-                        case 'class':
-                            hdCurrentobj.removeAttr("tempclass");
-                            var classname = $(this).val().join(' ');
-                            hdCurrentobj.attr(attributename,
-                                classname);
-                            setAttribute(hdCurrentobj,
-                                "class",
-                                classname);
-                            break;
-                        default:
-                            {
-                                var value = $(this).val();
-                                hdCurrentobj.attr(attributename, value);
+                    if ((e.keyCode == 13 && e.keyCode == 13) || !e.keyCode) {
+                        var value = $(this).val();
+                        var key;
+
+                        if ($(this).attr("id") == "hd_newattributetext") {
+                            key = "html";
+                        } else
+                        if ($(this).attr("id") == "hd_newattributevalue") {
+                            key = $('#hd_attributes').val();
+                        } else {
+                            key = $(this).attr("placeholder");
+                        }
+                       
+
+                        if (value != "") {
+                           
+                            
+                            if (key == "html") {
+                                hdCurrentobj.html(value);
                                 setAttribute(hdCurrentobj,
-                                    attributename,
+                                    key,
                                     value);
+                            } else {
+                            hdCurrentobj.attr(key,
+                                value);
+                                setAttribute(hdCurrentobj,
+                                    key,
+                                    hdCurrentobj.attr(key));
                             }
-                    }
-                });
-        $('body').
-            on('focus',
-                '#hd_rightmenu input[data-attributename]',
-                function (e) {
-                });
-        $('body').
-            on('keyup',
-                '#hd_rightmenu_allattributes #hd_rightmenu_attr_name,#hd_rightmenu_allattributes #hd_rightmenu_attr_value',
-                function (e) {
-                    if (e.keyCode == 13) {
-                        var value = $('#hd_rightmenu_attr_value').val();
-                        var key = $('#hd_rightmenu_attr_name').val();
-                        hdCurrentobj.attr($('#hd_rightmenu_attr_name').val(),
-                            $('#hd_rightmenu_attr_value').val());
-                        $('#hd_rightmenu_attr_name').val("");
-                        $('#hd_rightmenu_attr_value').val("");
+                        } else {
+                            hdCurrentobj.removeAttr(key);
+                            setAttribute(hdCurrentobj,
+                                key,
+                                "");
+                        }
+                        $('#hd_newattributevalue').val("");
+                        $('#hd_attributes').val("");
                         hdCurrentobj.trigger("contextmenu");
-                        $('#hd_rightmenu_auto_' + key + " input").trigger("keyup");
                     }
                 });
 
@@ -205,6 +205,9 @@ $(document).
                           
                             setstylelabels($('#hd_styleinput').val(), value);
                             $('#hd_styledesigner').hide();
+                            $("#hd_stylevalueinput").val(value).trigger("change");
+                            $("#hd_stylevalueinput").val("");
+                            $("#hd_styleinput").val("").trigger("change");
                         }
                         if (e.keyCode == 13) {
                             clickedenter = true;
@@ -262,7 +265,7 @@ $(document).
                                 var baseobj;
 
                                 if (currChar.startsWith("rgb") || currChar.startsWith("#")) {
-                                    debugger;
+                                    
                                     pieces[currindex] = "";
                                     $(this).val(pieces.join(" ").replace(/ px/g, "px"));
 
@@ -321,7 +324,9 @@ $(document).
 
            });
                 cssstyle[$("#hd_styleinput").val()] = $(this).val();
+                if(cssstyle){
                     hdCurrentobj.css(cssstyle);
+                }
                 
 
             });
@@ -329,7 +334,7 @@ $(document).
           on('keyup change blur',
               '#hd_stylevalueinput,#hd_styleinput',
               function (e) {
-                 
+                  hdbackupdata.defaultvalues.styles = "";
                   dynamicposition = 0;
                   var hdStyleinputval = $('#hd_styleinput').val();
                   //if (e.keyCode == 13) {
@@ -360,7 +365,7 @@ $(document).
                       var objbox = $('#hd_styledesigner');
 
                       var baseobj = setstylebox(objbox, "dynamicinput","");
-                      debugger;
+                    
                       var input = setinputbox(baseobj, "text", "", "dynamicinput");
                       input.val($("#hd_stylevalueinput").val());
                       $("#hd_stylevalueinput").val("");
@@ -448,5 +453,69 @@ $(document).
                                 window.properties[i]
                                     .syntax = $('<textarea />').html(window.properties[i].syntax).text();
                             });
+            });
+
+        $('body').on('keyup',
+            '#hd_newelement,#hd_newelementto',
+            function(e, data) {
+                if (e.keyCode == 13 && $("#hd_newelementto").val() != "" && $("#hd_newelement").val() != "") {
+                    switch ($("#hd_newelement").val()) {
+                    case "meta":
+                        case "link":
+                        case "input":
+                    {
+                        hdCurrentobj[$("#hd_newelementto").val()]("<" + $("#hd_newelement").val() + " />");
+                        break;
+                    }
+                    default:
+                    {
+                        hdCurrentobj[$("#hd_newelementto").val()]("<" +
+                            $("#hd_newelement").val() +
+                            " >" +
+                            "</ " +
+                            $("#hd_newelement").val() +
+                            ">");
+                        break;
+                    }
+                    }
+                    setAttribute(hdCurrentobj.closest("[data-genid]"),
+                        "html",
+                        hdCurrentobj.closest("[data-genid]").html());
+                   
+                    window.hdCurrentobj.trigger("contextmenu");
+                }
+
+            });
+        $('body').on('change blur keyup',
+            '#hd_classes,.hdfieldfunctionalities',
+            function (e, data) {
+                var th = $(this);
+               
+                var valuepieces = th.val().split(" ");
+                var value = "";
+if (valuepieces.length > 1) {
+    if (valuepieces[valuepieces.length - 1] == "") {
+
+    } else {
+        valuepieces[valuepieces.length - 1] = "";
+        value = valuepieces.join(" ");
+    }
+}
+
+                $("#" + $(this).attr("list")+" option").each(function() {
+                    if (!$(this).attr("backupvalue")) {
+                        $(this).attr("backupvalue", $(this).text());
+                    }
+                    if (value != "") {
+                        $(this).text(value + " " + $(this).attr("backupvalue"));
+                    } else {
+                        if ($(this).attr("backupvalue") != $(this).text()) {
+                            $(this).text($(this).attr("backupvalue"));
+                        }
+                    }
+
+
+                });
+
             });
     });

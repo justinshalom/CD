@@ -1,4 +1,4 @@
-﻿
+
 var hdCurrentobj = $("body");
 function hdhandleclick(th) {
     hdCurrentobj = th;
@@ -23,39 +23,40 @@ $(document).on('change',
     'input[list]',
     function (e, data) {
         if ($(this).val() != "") {
-        
+        if($(this).attr("id")){
             var selectname = $(this).attr("id").replace("hd_", "");
             var keyname = $(bindmanager.htmltemplates["hd_" + selectname + "_list"]).attr("data-key");
             pushandsave(selectname, keyname, $(this).val());
             saveinputandcallback(selectname, $(this).val());
         }
+        }
     });
 $(document).on('afterappendcomplete',
     'datalist[data-json]',
-    function (e,data) {
-        var selectname = $("[list="+$(this).attr("id")+"]").attr("id").replace("hd_", "");
+    function (e, data) {
+        if (!$(this).attr("data-disabledefaultvalues")) {
+            var selectname = $("[list=" + $(this).attr("id") + "]").attr("id").replace("hd_", "");
 
-        var defaultvalues = window.hdbackupdata["defaultvalues"];
-        if (defaultvalues) {
-            var defaultvalue = defaultvalues[selectname];
-            if (defaultvalue) {
-                $("#hd_" + selectname).val(defaultvalue);
-                if ($("#hd_" + selectname).val() == null) {
-                    $("#hd_" + selectname).append("<option>" + defaultvalue + "</option>");
+            var defaultvalues = window.hdbackupdata["defaultvalues"];
+            if (defaultvalues) {
+                var defaultvalue = defaultvalues[selectname];
+                if (defaultvalue) {
                     $("#hd_" + selectname).val(defaultvalue);
+                    if ($("#hd_" + selectname).val() == null) {
+                        $("#hd_" + selectname).append("<option>" + defaultvalue + "</option>");
+                        $("#hd_" + selectname).val(defaultvalue);
+                    }
+                    // console.log(selectname + "valueis" + $("#hd_" + selectname).val());
+                    //$("#hd_" + name).selectize()[0].selectize.setValue(defaultvalue);
                 }
-               // console.log(selectname + "valueis" + $("#hd_" + selectname).val());
-                //$("#hd_" + name).selectize()[0].selectize.setValue(defaultvalue);
+            }
+            if ($("#hd_" + selectname).val() != "") {
+                $("#hd_" + selectname).trigger("change");
             }
         }
-        if ($("#hd_" + selectname).val() != "") {
-            $("#hd_" + selectname).trigger("change");
-        }
-  
-        
-            
-                
-                //selectize($("#hd_" + selectname),
+
+
+        //selectize($("#hd_" + selectname),
                 //    function(input) {
                 //        pushandsave(selectname, keyname, input);
                 //        return {
@@ -70,7 +71,7 @@ $(document).on('afterappendcomplete',
 //$('select[data-bindersuccess="true"]').trigger("beforerequest");
 //$('select[data-bindersuccess="true"]:not(.selectized)').trigger("afterappendcomplete");
 $(document).ready(function () {
-   
+    
     var backupdata = getcache("hdbackupdata");
     if (backupdata != false) {
         window.hdbackupdata = JSONparse(backupdata);
@@ -103,12 +104,15 @@ $(document).ready(function () {
     $("#hd_integratedsecurity_box").show();
     $(".hd_menubox").show();
     var allclasses = getall('class');
-    getallcssproperties();
+
+    
+    setallcssproperties();
 
 
     $('body').on('contextmenu',
-        '*:not(html,body,.hd_rightmenu,.hd_rightmenu *)',
+        '[data-genid]:not(html,body,.hd_rightmenu,.hd_rightmenu *)',
         function (e) {
+            $("#hd_styledesigner").hide();
             e.preventDefault();
             e.stopPropagation();
             var t = $(this);
@@ -117,6 +121,8 @@ $(document).ready(function () {
                     ? t.attr('class').split(' ')
                     : false;
             hdhandleclick(t);
+
+            
             setmenubasedonattributes(hdMenu, t, classeslist, allclasses);
         });
     $.material.init();

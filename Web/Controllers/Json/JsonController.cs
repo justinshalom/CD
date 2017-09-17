@@ -7,6 +7,8 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using AngleSharp.Extensions;
+
 namespace Web.Controllers.Json
 {
     using System;
@@ -397,14 +399,16 @@ namespace Web.Controllers.Json
         /// <param name="view">The view.</param>
         /// <param name="area">The area.</param>
         /// <returns></returns>
+        [ValidateInput(false)]
         public JsonResult Attribute(string genid, string key = "", string value = "", string controllername = "", string view = "layout", string area = "")
         {
+            var dir = Project.WebDirectory;
             var content = string.Empty;
             var filepath = string.Empty;
-            if (area == string.Empty && controllername == "shared")
+            if (area == string.Empty && controllername.ToLower() == "shared")
             {
-                filepath = FIleUtilities.RootPath + FIleUtilities.ViewPath + FIleUtilities.SharedPath +
-                           "_" + view + FIleUtilities.Dot.cshtml;
+                filepath = dir + FIleUtilities.ViewPath + FIleUtilities.SharedPath +
+                           "_" + view+ '.' + FIleUtilities.Dot.cshtml;
                 content = FIleUtilities.GetFileContent(filepath);
             }
             else
@@ -414,13 +418,31 @@ namespace Web.Controllers.Json
                     controllername,
                     view,
                     FIleUtilities.ViewPath,
-                    FIleUtilities.Dot.cshtml);
+                    FIleUtilities.Dot.cshtml,dir);
             }
             try
             {
                 var parser = new HtmlParser();
                 var document = parser.Parse(content);
-                document.QuerySelector("[data-genid=" + genid + "]").SetAttribute(key, value);
+
+
+                if (key == "html")
+                {
+                    document.QuerySelectorAll("[data-genid=" + genid + "]").Html(value);
+                }
+                else
+                {
+                    if (value == "")
+                    {
+                        document.QuerySelector("[data-genid=" + genid + "]").RemoveAttribute(key);
+                    }
+                    else
+                    {
+                        document.QuerySelector("[data-genid=" + genid + "]").SetAttribute(key, value);
+                    }
+                    
+                }
+
                 var html = string.Empty;
                 html = area == "shared" ? document.DocumentElement.OuterHtml : document.DocumentElement.QuerySelector("body").InnerHtml;
                 if (filepath.Length == 0)
@@ -431,7 +453,8 @@ namespace Web.Controllers.Json
                         view,
                         html,
                         FIleUtilities.ViewPath,
-                        FIleUtilities.Dot.cshtml);
+                        FIleUtilities.Dot.cshtml,
+                        dir);
                 }
                 else
                 {
@@ -464,11 +487,12 @@ namespace Web.Controllers.Json
                 ////htmlnew = document.DocumentElement.OuterHtml;
                 ////htmlnew = Regex.Replace(htmlnew, @"^\s+$[\r\n]*", "", RegexOptions.Multiline);
                 ////FIleUtilities.SetFileContent(htmlnew, @"D:\\WorkOfJustin\\Replica\\Main\\Replika\\Replika.Neiman\\Default.html");
+                var url = Project.Url;
+                var dir = Project.WebDirectory;
+
                 if (controllername == string.Empty && view == string.Empty)
                 {
-                    var url = Project.Url;
-                    var dir = Project.WebDirectory;
-
+                   
                     var paths = Directory.GetFiles(dir + FIleUtilities.ViewPath + FIleUtilities.SharedPath);
                     var lhtml = string.Empty;
                     foreach (var path in paths)
@@ -487,7 +511,7 @@ namespace Web.Controllers.Json
                     return this.OutPut(false);
                 }
 
-                var content = FIleUtilities.GetFileContent(area, controllername, view, FIleUtilities.ViewPath, FIleUtilities.Dot.cshtml);
+                var content = FIleUtilities.GetFileContent(area, controllername, view, FIleUtilities.ViewPath, FIleUtilities.Dot.cshtml, dir);
                 var html = this.ApplyGeneratedId(content, controllername, view, "body");
                 var layout = content.Split(
                     new string[2]
@@ -499,12 +523,12 @@ namespace Web.Controllers.Json
                 var layoutFile = string.Empty;
                 if (layout.Length < 2)
                 {
-                    layoutFile = FIleUtilities.RootPath + FIleUtilities.ViewPath + FIleUtilities.SharedPath +
+                    layoutFile = dir + FIleUtilities.ViewPath + FIleUtilities.SharedPath +
                                  "_Layout.cshtml";
                 }
                 else
                 {
-                    layoutFile = FIleUtilities.RootPath + string.Join(
+                    layoutFile = dir + string.Join(
                                          string.Empty,
                                          layout[1]
                                              .Split(
@@ -532,13 +556,12 @@ namespace Web.Controllers.Json
                     ////layoutcontent = editorSignature[0] + System.Environment.NewLine + layoutcontent + System.Environment.NewLine +
                     ////editorSignature[0];
                     FIleUtilities.SetFileContent(layouthtml, layoutFile);
-                    return this.OutPut(true);
                 }
                 if (html != content)
                 {
-                    var success = FIleUtilities.SetFileContent(area, controllername, view, html, FIleUtilities.ViewPath, FIleUtilities.Dot.cshtml);
-                    return this.OutPut(true);
+                    var success = FIleUtilities.SetFileContent(area, controllername, view, html, FIleUtilities.ViewPath, FIleUtilities.Dot.cshtml, dir);
                 }
+                return this.OutPut(true);
             }
             catch (Exception e)
             {

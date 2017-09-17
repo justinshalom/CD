@@ -1,0 +1,16 @@
+{
+    "datetime": true,
+    "ipaddress": true,
+    "required": true,
+    "email": true,
+    "number": true,
+    "text": true,
+    "alphanumeric": true,
+    "date": true,
+    "time": true,
+    "hour": true,
+    "minute": true,
+    "hourminute": true,
+    "second": true,
+    "hourminutesecond": true
+}

@@ -982,6 +982,7 @@
     <Content Include="Scripts\internal\codeeditorbackupdata.js" />
     <Content Include="Scripts\internal\codeeditormenumanager.js" />
     <Content Include="Scripts\internal\commonscripts.js" />
+    <Content Include="Scripts\internal\serversidedomfunctionalities.js" />
     <Content Include="Scripts\internal\dependencysolver.js" />
     <Content Include="Scripts\internal\development.js" />
     <Content Include="Scripts\internal\editorinitialize.js" />
@@ -1094,6 +1095,8 @@
     <Content Include="Content\selectize\less\selectize.less" />
     <Content Include="Content\json\html-tags-generated.json" />
     <Content Include="Content\json\html-tags.json" />
+    <Content Include="Content\json\jquerydomhtmlmethods.json" />
+    <Content Include="Content\json\fieldfunctionalities.json" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

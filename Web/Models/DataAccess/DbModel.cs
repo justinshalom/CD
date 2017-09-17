@@ -36,12 +36,20 @@ namespace Web.Models.DataAccess
             try
             {
                 var query = "SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[" + storedProcedureModel.StoredProcedureName + "]')";
-                var storedProcedureQuery = "CREATE PROCEDURE " + storedProcedureModel.StoredProcedureName + " " + storedProcedureModel.Parameters + " " + " AS BEGIN " + storedProcedureModel.StoredProcedureQuery + " END";
+                var storedProcedureQuery = " PROCEDURE " + storedProcedureModel.StoredProcedureName + " " + storedProcedureModel.Parameters + " " + " AS BEGIN " + storedProcedureModel.StoredProcedureQuery + " END";
+
 
                 DataSet databaseExistSp = Sql.ExecuteDataset(storedProcedureModel.ConnectionString, CommandType.Text, query);
                 DataSet databaseCreateSp = new DataSet();
                 if (databaseExistSp != null && databaseExistSp.Tables[0].Rows.Count == 0)
                 {
+                    storedProcedureQuery = "CREATE" + storedProcedureQuery;
+                    databaseCreateSp = Sql.ExecuteDataset(storedProcedureModel.ConnectionString, CommandType.Text,
+                        storedProcedureQuery);
+                }
+                else
+                {
+                    storedProcedureQuery = "ALTER" + storedProcedureQuery;
                     databaseCreateSp = Sql.ExecuteDataset(storedProcedureModel.ConnectionString, CommandType.Text, storedProcedureQuery);
                 }
 
@@ -111,8 +119,8 @@ namespace Web.Models.DataAccess
                                                    ConnectionString = connectionString,
                                                    StoredProcedureName = storedProcedureName,
                                                    Parameters = "@tableName varchar(MAX)",
-                                                   StoredProcedureQuery = "SELECT * FROM sys.columns c JOIN sys.objects o ON o.object_id = c.object_id WHERE o.object_id = OBJECT_ID(@tableName) ORDER BY c.Name; "
-                                               };
+                                                   StoredProcedureQuery = "SELECT * FROM sys.columns c JOIN sys.objects o ON o.object_id = c.object_id WHERE o.object_id = OBJECT_ID(@tableName) ORDER BY c.column_id; "
+                };
 
                 UpdateStoredProcedure(storedProcedureModel);
                 DataSet db = Sql.ExecuteDataset(connectionString, CommandType.StoredProcedure, storedProcedureModel.StoredProcedureName, new SqlParameter("@tableName", databaseConnectionModel.Table));

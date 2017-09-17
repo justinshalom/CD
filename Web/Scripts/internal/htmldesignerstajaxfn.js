@@ -1,18 +1,22 @@
 ﻿function Attribute(postdata) {
-
-    $.post(cd_rooturl + "Json/Attribute", postdata,
+    
+    $.post(window.cd_rooturl + "Json/Attribute", postdata,
        function (data) {
+           if (postdata.key == "html") {
+               hd.SolveDependency(hd_postdata);
+           }
            if (!data.Data) {
-               window.originalfile = data.Data;
+              //// window.originalfile = data.Data;
            } else {
-               window.location.reload(true);
+              //// window.location.reload(true);
            }
        }
    );
 }
 
 
-function getallcssproperties() {
+function setallcssproperties() {
+    
     //$.getJSON(window.cd_contenturl + "json/at-rules.json",
     //   function (data) {
     //       window.at_rules = data;
