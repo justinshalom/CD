@@ -162,6 +162,7 @@
     <Compile Include="Controllers\Action\SettingsController.cs" />
     <Compile Include="Controllers\Action\VisualController.cs" />
     <Compile Include="Controllers\Api\BaseApiController.cs" />
+    <Compile Include="Controllers\Api\GenerateCodeLogicApiController.cs" />
     <Compile Include="Controllers\Api\DbApiController.cs" />
     <Compile Include="Controllers\Api\JsonApiController.cs" />
     <Compile Include="Controllers\Api\SettingsApiController.cs" />
@@ -169,11 +170,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CodeLogicClassModel.cs" />
     <Compile Include="Models\DataAccess\BaseDA.cs" />
     <Compile Include="Models\DataAccess\DbModel.cs" />
     <Compile Include="Models\DataAccess\SettingsModel.cs" />
     <Compile Include="Models\DatabaseConnectionModel.cs" />
     <Compile Include="Models\DynamicallyInvokableAttribute.cs" />
+    <Compile Include="Models\CodeLogicBaseModel.cs" />
+    <Compile Include="Models\CodeLogicMethodModel.cs" />
     <Compile Include="Models\FieldName.cs" />
     <Compile Include="Models\ProjectPropertiesModel.cs" />
     <Compile Include="Models\StoredProcedureModel.cs" />
