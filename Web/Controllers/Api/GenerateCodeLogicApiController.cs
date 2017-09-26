@@ -53,9 +53,9 @@ namespace Web.Controllers.Api
                 using (TextReader reader = System.IO.File.OpenText(_fileName))
                 {
                     CodeDomProvider provider = CodeDomProvider.CreateProvider(codeLogicBaseModel.Language);
-                    this._targetUnit = provider.Parse(reader);
-                    _targetUnit = new CodeCompileUnit();
-                    _targetClass = _targetUnit.Namespaces[0].Types[0];
+                    ////this._targetUnit = provider.Parse(reader);
+                    ////_targetUnit = new CodeCompileUnit();
+                    ////_targetClass = _targetUnit.Namespaces[0].Types[0];
                 }
             }
             else
