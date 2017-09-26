@@ -7,6 +7,8 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System;
+
 namespace Web
 {
     using System.Web.Mvc;
@@ -26,6 +28,17 @@ namespace Web
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+        }
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            var exception = this.Server.GetLastError();
+            this.Server.ClearError();
+
+            if (exception is HttpAntiForgeryException)
+            {
+                this.Response.Clear();
+                this.Server.ClearError();
+            }
         }
     }
 }

@@ -34,7 +34,7 @@ $(document).on('change',
 $(document).on('afterappendcomplete',
     'datalist[data-json]',
     function (e, data) {
-        if (!$(this).attr("data-disabledefaultvalues")) {
+        if (!$(this).attr("data-disabledefaultvalues")&&$("[list=" + $(this).attr("id") + "]").attr("id")) {
             var selectname = $("[list=" + $(this).attr("id") + "]").attr("id").replace("hd_", "");
 
             var defaultvalues = window.hdbackupdata["defaultvalues"];
