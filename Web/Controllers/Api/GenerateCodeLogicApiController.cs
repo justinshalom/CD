@@ -7,6 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System;
 using System.CodeDom;
 using System.CodeDom.Compiler;
 using System.IO;
@@ -225,7 +226,7 @@ namespace Web.Controllers.Api
         }
         public JsonResult CreateClass(CodeLogicClassModel codeLogicClassModel)
         {
-            CodeDom.
+ 
             return this.OutPut(false);
         }
 
