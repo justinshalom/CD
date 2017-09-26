@@ -7,31 +7,76 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System;
 using System.CodeDom;
 using System.CodeDom.Compiler;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 using Web.Models;
+using System;
 
 namespace Web.Controllers.Api
 {
     using System.Web.Mvc;
     /// <summary>
     /// https://docs.microsoft.com/en-us/dotnet/framework/reflection-and-codedom/how-to-create-a-class-using-codedom
+    /// https://github.com/dotnet/roslyn/wiki/Getting-Started-C%23-Syntax-Analysis
     /// </summary>
     public class GenerateCodeLogicApiController : BaseApiController
     {
         CodeCompileUnit _targetUnit;
-
+        CodeNamespace _targetNameSpace;
         /// <summary>
         /// The only class in the compile unit. This class contains 2 fields,
         /// 3 properties, a constructor, an entry point, and 1 simple method. 
         /// </summary>
         CodeTypeDeclaration _targetClass;
 
-        public GenerateCodeLogicApiController(CodeCompileUnit targetUnit, CodeTypeDeclaration targetClass)
+        CodeLogicBaseModel _codeLogicBaseModel;
+
+        string _fileName;
+
+        public void CreateNameSpaceAndInitilize(CodeLogicBaseModel codeLogicBaseModel)
         {
-            _targetUnit = targetUnit;
-            _targetClass = targetClass;
+            this._codeLogicBaseModel = codeLogicBaseModel;
+            codeLogicBaseModel.Path = Server.MapPath(codeLogicBaseModel.Path);
+            if (!System.IO.Directory.Exists(codeLogicBaseModel.Path))
+            {
+                System.IO.Directory.CreateDirectory(codeLogicBaseModel.Path);
+            }
+            var fullPath = codeLogicBaseModel.Path.TrimEnd(Path.DirectorySeparatorChar);
+            _fileName = fullPath + "/" + codeLogicBaseModel.FileName + "." + codeLogicBaseModel.Extension;
+
+            if (System.IO.File.Exists(_fileName))
+            {
+                using (TextReader reader = System.IO.File.OpenText(_fileName))
+                {
+                    CodeDomProvider provider = CodeDomProvider.CreateProvider(codeLogicBaseModel.Language);
+                    this._targetUnit = provider.Parse(reader);
+                    _targetUnit = new CodeCompileUnit();
+                    _targetClass = _targetUnit.Namespaces[0].Types[0];
+                }
+            }
+            else
+            {
+                _targetUnit = new CodeCompileUnit();
+                _targetNameSpace = new CodeNamespace(codeLogicBaseModel.NameSpaceName);
+                if (codeLogicBaseModel.Imports != null&& codeLogicBaseModel.Imports.Any())
+                {
+                    foreach (var codeNamespaceImport in codeLogicBaseModel.Imports)
+                    {
+                        _targetNameSpace.Imports.Add(new CodeNamespaceImport(codeNamespaceImport));
+                    }
+                }
+                
+                //_targetClass = new CodeTypeDeclaration("CodeDOMCreatedClass");
+                //_targetClass.IsClass = true;
+                //_targetClass.TypeAttributes =
+                //    TypeAttributes.Public | TypeAttributes.Sealed;
+                //samples.Types.Add(_targetClass);
+                //_targetUnit.Namespaces.Add(samples);
+            }
         }
 
         public void AddFields()
@@ -112,48 +157,7 @@ namespace Web.Controllers.Api
             _targetClass.Members.Add(areaProperty);
         }
 
-        /// <summary>
-        /// Adds a method to the class. This method multiplies values stored 
-        /// in both fields.
-        /// </summary>
-        public void AddMethod()
-        {
-            // Declaring a ToString method
-            CodeMemberMethod toStringMethod = new CodeMemberMethod();
-            toStringMethod.Attributes =
-                MemberAttributes.Public | MemberAttributes.Override;
-            toStringMethod.Name = "ToString";
-            toStringMethod.ReturnType =
-                new CodeTypeReference(typeof(System.String));
-
-            CodeFieldReferenceExpression widthReference =
-                new CodeFieldReferenceExpression(
-                    new CodeThisReferenceExpression(), "Width");
-            CodeFieldReferenceExpression heightReference =
-                new CodeFieldReferenceExpression(
-                    new CodeThisReferenceExpression(), "Height");
-            CodeFieldReferenceExpression areaReference =
-                new CodeFieldReferenceExpression(
-                    new CodeThisReferenceExpression(), "Area");
-
-            // Declaring a return statement for method ToString.
-            CodeMethodReturnStatement returnStatement =
-                new CodeMethodReturnStatement();
-
-            // This statement returns a string representation of the width,
-            // height, and area.
-            string formattedOutput = "The object:" + Environment.NewLine +
-                                     " width = {0}," + Environment.NewLine +
-                                     " height = {1}," + Environment.NewLine +
-                                     " area = {2}";
-            returnStatement.Expression =
-                new CodeMethodInvokeExpression(
-                    new CodeTypeReferenceExpression("System.String"), "Format",
-                    new CodePrimitiveExpression(formattedOutput),
-                    widthReference, heightReference, areaReference);
-            toStringMethod.Statements.Add(returnStatement);
-            _targetClass.Members.Add(toStringMethod);
-        }
+        
         /// <summary>
         /// Add a constructor to the class.
         /// </summary>
@@ -162,7 +166,7 @@ namespace Web.Controllers.Api
             // Declare the constructor
             CodeConstructor constructor = new CodeConstructor();
             constructor.Attributes =
-                MemberAttributes.Public | MemberAttributes.Final;
+                MemberAttributes.Final | MemberAttributes.Public;
 
             // Add parameters.
             constructor.Parameters.Add(new CodeParameterDeclarationExpression(
@@ -212,9 +216,20 @@ namespace Web.Controllers.Api
                 "WriteLine", toStringInvoke));
             _targetClass.Members.Add(start);
         }
+        public void GetCSharpCodeAsCompileUnit(string fileName)
+        {
+            using (TextReader reader = System.IO.File.OpenText(fileName))
+            {
+                CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
+                this._targetUnit = provider.Parse(reader);
+
+                _targetUnit = new CodeCompileUnit();
+                _targetClass = _targetUnit.Namespaces[0].Types[0];
+            }
+        }
         public void GenerateCSharpCode(string fileName)
         {
-            CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
+            CodeDomProvider provider = CodeDomProvider.CreateProvider(_codeLogicBaseModel.Language);
             CodeGeneratorOptions options = new CodeGeneratorOptions();
             options.BracingStyle = "C";
             using (StreamWriter sourceWriter = new StreamWriter(fileName))
@@ -225,14 +240,75 @@ namespace Web.Controllers.Api
         }
         public JsonResult CreateClass(CodeLogicClassModel codeLogicClassModel)
         {
-            CodeDom.
+            //this.AddFields();
+            //this.AddProperties();
+            //this.AddMethod();
+            //this.AddConstructor();
+            //this.AddEntryPoint();
+            this.CreateNameSpaceAndInitilize(codeLogicClassModel);
+            _targetClass = new CodeTypeDeclaration(codeLogicClassModel.ClassName);
+            _targetClass.IsClass = true;
+            _targetClass.TypeAttributes =
+                TypeAttributes.Public | TypeAttributes.Sealed;
+            _targetNameSpace.Types.Add(_targetClass);
+            _targetUnit.Namespaces.Add(_targetNameSpace);
+            this.GenerateCSharpCode(_fileName);
             return this.OutPut(false);
         }
 
         public JsonResult AddMethod(CodeLogicMethodModel codeLogicMethodModel)
         {
+            this.CreateNameSpaceAndInitilize(codeLogicMethodModel);
+            CodeMemberMethod methodName = new CodeMemberMethod();
+            methodName.Attributes =
+                MemberAttributes.Public;
+
+            methodName.Name = codeLogicMethodModel.MethodName;
+            if (!string.IsNullOrEmpty(codeLogicMethodModel.ReturnType))
+            {
+                Type returnType = Type.GetType(codeLogicMethodModel.ReturnType);
+                if (returnType != null)
+                {
+                    methodName.ReturnType =
+                        new CodeTypeReference(returnType);
+                }
+            }
+            ////CodeFieldReferenceExpression widthReference =
+            ////    new CodeFieldReferenceExpression(
+            ////        new CodeThisReferenceExpression(), "Width");
+            ////CodeFieldReferenceExpression heightReference =
+            ////    new CodeFieldReferenceExpression(
+            ////        new CodeThisReferenceExpression(), "Height");
+            ////CodeFieldReferenceExpression areaReference =
+            ////    new CodeFieldReferenceExpression(
+            ////        new CodeThisReferenceExpression(), "Area");
+
+            // Declaring a return statement for method ToString.
+            ////CodeMethodReturnStatement returnStatement =
+            ////    new CodeMethodReturnStatement();
+
+            ////// This statement returns a string representation of the width,
+            ////// height, and area.
+            ////string formattedOutput = "The object:" + Environment.NewLine +
+            ////                         " width = {0}," + Environment.NewLine +
+            ////                         " height = {1}," + Environment.NewLine +
+            ////                         " area = {2}";
+            ////returnStatement.Expression =
+            ////    new CodeMethodInvokeExpression(
+            ////        new CodeTypeReferenceExpression("System.String"), "Format",
+            ////        new CodePrimitiveExpression(formattedOutput),
+            ////        widthReference, heightReference, areaReference);
+            CodeSnippetStatement snippet = new CodeSnippetStatement();
+            snippet.Value = "            Console.WriteLine(field1);";
+            
+            methodName.Statements.Add(snippet);
+            _targetClass.Members.Add(methodName);
             return this.OutPut(false);
         }
 
+        public JsonResult GetAllTypeAttributes()
+        {
+            return this.OutPut(Enum.GetValues(typeof(TypeAttributes)).Cast<TypeAttributes>());
+        }
     }
 }

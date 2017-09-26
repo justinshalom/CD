@@ -50,8 +50,8 @@
 }
 
 .hd_rightmenu .selectize-control .selectize-input.has-items, .hd_rightmenu input {
-    font-size: 10px !important;
-    padding: 0px 0px 0px;
+    font-size: 12px !important;
+    /* padding: 0px 0px 0px; */
 }
 
 .hd_rightmenu .hdform-group { margin-top: 0px; }

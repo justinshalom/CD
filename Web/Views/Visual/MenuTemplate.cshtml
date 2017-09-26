@@ -179,7 +179,7 @@
     /*Designing Part End*/
     /*ServerDom*/
     require("internal", "serversidedomfunctionalities");
-    
+
     /*ServerDom End*/
     /*DB Part*/
 
@@ -188,6 +188,12 @@
     require("internal", "codeeditor");
 
     /*DB Part End*/
+    /*Code Logic Part*/
+
+    require("internal", "codelogicbase");
+    
+    /*Code Logic Part End*/
+
 
     require("jlbinder");
 
@@ -356,12 +362,8 @@
                         data-filterby-required="#hd_tables,#hd_dbnames,#hd_servernames,#hd_authentications,#hd_usernames,#hd_passwords">
                         <li class="hdlist-group-item" >
                             <div class="hdcol-xs-20">
-                                <label class='control-label pull-left'>
-                                <span data-key="column_id">
-                                </span>.
-                                <span data-key="name">
-                                </span>(<span data-key="max_length">
-                                </span>)
+                                <label class='control-label pull-left' data-column_id-inline="text" data-name-inline="text" data-max_length-inline="text">
+                                {column_id}.{name} ({max_length})
                                 </label>
                             </div>
                           
