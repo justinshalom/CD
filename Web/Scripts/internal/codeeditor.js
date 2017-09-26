@@ -76,6 +76,12 @@ $(document).ready(function () {
     if (backupdata != false) {
         window.hdbackupdata = JSONparse(backupdata);
     }
+
+  
+    
+   
+
+
     $(".hd_menubox").hide();
     $(".hd_rightmenu").show();
     $(".hd_rightmenu .hdpanel-body").hide();
@@ -86,7 +92,14 @@ $(document).ready(function () {
     } else {
         window.hdMenu = $('#hd_rightmenu');
     }
-    
+
+    $(".hd_rightmenu").css("width", "auto");
+    window.hdMenu.css("width", window.hdMenu.attr("max-width") + "px");
+    var currentleft = 0;
+    $(".hd_rightmenu").each(function () {
+        $(this).css("left", currentleft + "px");
+        currentleft += parseInt($(this).width());
+    });
     
     
     $('body').on('click',
@@ -97,12 +110,23 @@ $(document).ready(function () {
             window.hdMenu = $(this).closest(".hd_rightmenu");
             th.toggle();
             saveinputandcallback("defaulttab", window.hdMenu.attr("id"));
+            var currentleft = 0;
+            $(".hd_rightmenu").css("width", "auto");
+            window.hdMenu.css("width", window.hdMenu.attr("max-width") + "px");
+            $(".hd_rightmenu").each(function () {
+
+                $(this).css("left", currentleft + "px");
+                currentleft += parseInt($(this).width());
+            });
+
+
         });
    
   
 
     $("#hd_integratedsecurity_box").show();
     $(".hd_menubox").show();
+
     var allclasses = getall('class');
 
     

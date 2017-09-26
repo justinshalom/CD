@@ -7821,22 +7821,13 @@ button.hdclose {
 }
 .hd_rightmenu  {
     position: fixed;
-    width: 180px;
+    width: auto;
     bottom: -20px;
     z-index: 10000;
     display:none;
     font-size: 12px !important;
 }
-#hd_rightmenu_dommanage  {
-    left:0px;
-               }
-#hd_rightmenu_database {
-    left:180px;
-                         }
-#hd_rightmenu_tablemanage {
-    left: 360px;
-    width: 440px;
-}
+
 
 .hdpanelheading {
     background-color: rgba(255, 255, 255, 0.83);
