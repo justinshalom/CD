@@ -243,7 +243,7 @@
     </div>*@
 <div id="hd_rightmenu_dommanage" min-width="260" max-width="280" class="hd_rightmenu">
     <div class="hdcol-xs-50">
-        <div class="hdpanel hdpanel-info hdcol-xs-50 hdpanelheading">
+        <div class="hdpanel hdpanel-info hdcol-xs-50 ">
             <div class="hdpanel-heading hdcol-xs-50" id="hd_rightmenu_dommanage_header">
                 <h3 class="hdpanel-title">Dom Manage <span></span></h3>
             </div>
@@ -297,7 +297,7 @@
 </div>
 <div id="hd_rightmenu_database" min-width="260" max-width="280" class="hd_rightmenu" >
     <div class="hdcol-xs-50">
-        <div class="hdpanel hdpanel-info hdcol-xs-50 hdpanelheading">
+        <div class="hdpanel hdpanel-info hdcol-xs-50 ">
             <div class="hdpanel-heading hdcol-xs-50" id="hd_rightmenu_database_header">
                 <h3 class="hdpanel-title">Database <span ></span></h3>
             </div>
@@ -310,7 +310,7 @@
                     @Html.Raw(BindDropDown("UID", "usernames", "username", "superadmin", "User Name", "GetAllDemoUsers", "DbApi"))
                     @Html.Raw(BindDropDown("Password", "passwords", "password", "mango123", "Password", "GetAllDemoPasswords", "DbApi"))
                     @Html.Raw(BindDropDown("InitialCatalog", "dbnames", "database_name", "master", "Databases", "GetAllDatabases", "DbApi", "#hd_servernames,#hd_authentications,#hd_usernames,#hd_passwords", "#hd_multipleactiveresultsets,#hd_trustservercertificate,#hd_integratedsecurity"))
-
+                    <div class="margin-top-15 hdcol-xs-50"></div>
                     @Html.Raw(BindCheckbox("IntegratedSecurity", "integratedsecurity", "TrueFalse", "Integrated Security"))
                     @Html.Raw(BindCheckbox("Encrypt", "encrypt", "TrueFalse", "Encrypt"))
                     @Html.Raw(BindCheckbox("TrustServerCertificate", "trustservercertificate", "TrueFalse", "Trust Server Certificate", "True"))
@@ -341,7 +341,7 @@
 </div>
 <div id="hd_rightmenu_tablemanage" min-width="460" max-width="480" class="hd_rightmenu" >
     <div class="hdcol-xs-50">
-        <div class="hdpanel hdpanel-info hdcol-xs-50 hdpanelheading">
+        <div class="hdpanel hdpanel-info hdcol-xs-50 ">
             <div class="hdpanel-heading hdcol-xs-50" id="hd_rightmenu_tablemanage_header">
                 <h3 class="hdpanel-title">Table <span ></span></h3>
             </div>
@@ -393,7 +393,7 @@
 <input name="directoryName" type="hidden" id="rootpath" value="@Project.RootDirectory" />          
 <div id="hd_rightmenu_public_variables_directory" min-width="200" max-width="220" class="hd_rightmenu" >
     <div class="hdcol-xs-50">
-        <div class="hdpanel hdpanel-info hdcol-xs-50 hdpanelheading">
+        <div class="hdpanel hdpanel-info hdcol-xs-50 ">
             <div class="hdpanel-heading hdcol-xs-50" id="hd_rightmenu_public_variables_directory_header">
                 <h3 class="hdpanel-title">Public Variables Directory<span ></span></h3>
             </div>
@@ -448,7 +448,7 @@
 </div>
 <div id="hd_rightmenu_public_variables" min-width="260" max-width="280" class="hd_rightmenu">
     <div class="hdcol-xs-50">
-        <div class="hdpanel hdpanel-info hdcol-xs-50 hdpanelheading">
+        <div class="hdpanel hdpanel-info hdcol-xs-50 ">
             <div class="hdpanel-heading hdcol-xs-50" id="hd_rightmenu_public_variables_header">
                 <h3 class="hdpanel-title">Public Variables <span></span></h3>
             </div>
@@ -468,7 +468,7 @@
 </div>
 <div id="hd_rightmenu_data_objects" min-width="260" max-width="280" class="hd_rightmenu">
     <div class="hdcol-xs-50">
-        <div class="hdpanel hdpanel-info hdcol-xs-50 hdpanelheading">
+        <div class="hdpanel hdpanel-info hdcol-xs-50 ">
             <div class="hdpanel-heading hdcol-xs-50" id="hd_rightmenu_data_objects_header">
                 <h3 class="hdpanel-title">Data Objects <span></span></h3>
             </div>
@@ -488,7 +488,7 @@
 </div>
 <div id="hd_rightmenu_business_logic" min-width="260" max-width="280" class="hd_rightmenu">
     <div class="hdcol-xs-50">
-        <div class="hdpanel hdpanel-info hdcol-xs-50 hdpanelheading">
+        <div class="hdpanel hdpanel-info hdcol-xs-50 ">
             <div class="hdpanel-heading hdcol-xs-50" id="hd_rightmenu_business_logic_header">
                 <h3 class="hdpanel-title">Business Logic <span></span></h3>
             </div>

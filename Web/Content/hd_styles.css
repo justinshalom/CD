@@ -6318,7 +6318,7 @@ a.hdthumbnail:hover,a.hdthumbnail:focus,a.hdthumbnail.hdactive {
     display: block;
     padding: 2px 8px;
     margin-bottom: -1px;
-    background-color: #fff;
+    background-color: inherit;
     /* border: 1px solid #ddd; */
     float: left;
     width: 100%;
@@ -6487,21 +6487,24 @@ a.hdlist-group-item-danger.hdactive,a.hdlist-group-item-danger.hdactive:hover,a.
 .hdpanel {
     margin-bottom: 20px;
     background-color: #fff;
-    border: 1px solid transparent;
+    /* border: 1px solid transparent; */
     border-radius: 1px;
     -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.05);
-    box-shadow: 0 1px 1px rgba(0,0,0,0.05)
+    box-shadow: 0 1px 1px rgba(0,0,0,0.05);
 }
 
 .hdpanel-body {
-    padding: 15px
+    padding: 10px 10px 30px 10px;
 }
 
 .hdpanel-heading {
-    padding: 10px 15px;
-    border-bottom: 1px solid transparent;
+    padding: 6px 8px;
+    border-top: 4px solid rgba(16, 16, 16, 0.25);
+    border-bottom: 4px solid rgba(16, 16, 16, 0.29);
+    /* border-right: 3px solid rgba(255, 255, 255, 0) !important; */
+    /* border-left: 3px solid rgba(255, 255, 255, 0)  !important; */
     border-top-right-radius: 0;
-    border-top-left-radius: 0
+    border-top-left-radius: 0;
 }
 
 .hdpanel-heading>.hddropdown .hddropdown-toggle {
@@ -6512,7 +6515,7 @@ a.hdlist-group-item-danger.hdactive,a.hdlist-group-item-danger.hdactive:hover,a.
     margin-top: 0;
     margin-bottom: 0;
     font-size: 12px;
-    color: #FFFFFF;
+    color: #fff;
 }
 
 .hdpanel-title>a {
@@ -6687,13 +6690,13 @@ a.hdlist-group-item-danger.hdactive,a.hdlist-group-item-danger.hdactive:hover,a.
 }
 
 .hdpanel-primary {
-    border-color: #337ab7
+    border-color: #e641cf;
 }
 
 .hdpanel-primary>.hdpanel-heading {
     color: #fff;
     background-color: #337ab7;
-    border-color: #337ab7
+    border-color: #1e003a;
 }
 
 .hdpanel-primary>.hdpanel-heading+.hdpanel-collapse>.hdpanel-body {
@@ -6716,7 +6719,7 @@ a.hdlist-group-item-danger.hdactive,a.hdlist-group-item-danger.hdactive:hover,a.
 .hdpanel-success>.hdpanel-heading {
     color: #3c763d;
     background-color: #dff0d8;
-    border-color: #d6e9c6
+    border-color: #0f3800;
 }
 
 .hdpanel-success>.hdpanel-heading+.hdpanel-collapse>.hdpanel-body {
@@ -6737,9 +6740,9 @@ a.hdlist-group-item-danger.hdactive,a.hdlist-group-item-danger.hdactive:hover,a.
 }
 
 .hdpanel-info>.hdpanel-heading {
-    color: #31708f;
-    background-color: #d9edf7;
-    border-color: #bce8f1
+    color: #080808;
+    background-color: #efeeef;
+    border-color: rgba(5, 90, 123, 0.37);
 }
 
 .hdpanel-info>.hdpanel-heading+.hdpanel-collapse>.hdpanel-body {
@@ -6762,7 +6765,7 @@ a.hdlist-group-item-danger.hdactive,a.hdlist-group-item-danger.hdactive:hover,a.
 .hdpanel-warning>.hdpanel-heading {
     color: #8a6d3b;
     background-color: #fcf8e3;
-    border-color: #faebcc
+    border-color: #4a1200;
 }
 
 .hdpanel-warning>.hdpanel-heading+.hdpanel-collapse>.hdpanel-body {
@@ -7829,9 +7832,11 @@ button.hdclose {
 }
 
 
-.hdpanelheading {
-    background-color: rgba(255, 255, 255, 0.83);
+.hdpanel {
+    background-color: rgba(255, 255, 255, 0.93);
     padding: 0px;
+}
+.hdpanel-heading{
     cursor: pointer;
     /* position: fixed; */
 }
@@ -7864,4 +7869,12 @@ button.hdclose {
 .hd_rightmenu {
     max-height: 350px;
     overflow: auto;
+}
+
+.togglebutton {
+    margin-left: 3px;
+}
+
+.margin-top-15 {
+    margin-top: 15px;
 }
