@@ -1,4 +1,5 @@
-﻿@using Web.Controllers.Json
+﻿@using Web.Code.Config
+@using Web.Controllers.Json
 @model Web.Models.DatabaseConnectionModel
 @{
     Layout = null;
@@ -240,7 +241,7 @@
             </div>
         </div>
     </div>*@
-<div id="hd_rightmenu_dommanage" min-width="160" max-width="180" class="hd_rightmenu">
+<div id="hd_rightmenu_dommanage" min-width="260" max-width="280" class="hd_rightmenu">
     <div class="hdcol-xs-50">
         <div class="hdpanel hdpanel-info hdcol-xs-50 hdpanelheading">
             <div class="hdpanel-heading hdcol-xs-50" id="hd_rightmenu_dommanage_header">
@@ -267,7 +268,7 @@
                         <div class="hdcol-xs-50 hd_menubox" id="existingstylelist">
                             
                         </div>
-                        <div class="hdcol-xs-50 hd_menubox" id="hd_styledesigner" style="display: none;position: absolute;z-index: 999999;top: 57px;left: 147px;background-color: rgba(255, 255, 255, 0.98);padding: 0px 18px;">
+                        <div class="hdcol-xs-50 hd_menubox" id="hd_styledesigner" style="display: none;">
                         </div>
                         
 
@@ -294,7 +295,7 @@
     </div>
     <datalist id="hd_stylelist"></datalist>
 </div>
-<div id="hd_rightmenu_database" min-width="160" max-width="180" class="hd_rightmenu" >
+<div id="hd_rightmenu_database" min-width="260" max-width="280" class="hd_rightmenu" >
     <div class="hdcol-xs-50">
         <div class="hdpanel hdpanel-info hdcol-xs-50 hdpanelheading">
             <div class="hdpanel-heading hdcol-xs-50" id="hd_rightmenu_database_header">
@@ -338,7 +339,7 @@
         </div>
     </div>
 </div>
-<div id="hd_rightmenu_tablemanage" min-width="360" max-width="380" class="hd_rightmenu" >
+<div id="hd_rightmenu_tablemanage" min-width="460" max-width="480" class="hd_rightmenu" >
     <div class="hdcol-xs-50">
         <div class="hdpanel hdpanel-info hdcol-xs-50 hdpanelheading">
             <div class="hdpanel-heading hdcol-xs-50" id="hd_rightmenu_tablemanage_header">
@@ -389,19 +390,74 @@
 <datalist id="hd_AllTypeAttributes_list" data-requestmethod="get" data-json="@cdRootpath@Url.Action("GetAllTypeAttributes","GenerateCodeLogicApi")">
     <option data-key="jlindex"></option>
 </datalist>
-                   
-<div id="hd_rightmenu_view_model" min-width="160" max-width="180" class="hd_rightmenu" >
+<input name="directoryName" type="hidden" id="rootpath" value="@Project.RootDirectory" />          
+<div id="hd_rightmenu_public_variables_directory" min-width="200" max-width="220" class="hd_rightmenu" >
     <div class="hdcol-xs-50">
         <div class="hdpanel hdpanel-info hdcol-xs-50 hdpanelheading">
-            <div class="hdpanel-heading hdcol-xs-50" id="hd_rightmenu_view_model_header">
-                <h3 class="hdpanel-title">View Model <span ></span></h3>
+            <div class="hdpanel-heading hdcol-xs-50" id="hd_rightmenu_public_variables_directory_header">
+                <h3 class="hdpanel-title">Public Variables Directory<span ></span></h3>
             </div>
-            <div class="hdpanel-body open hdcol-xs-50" id="hd_rightmenu_view_model_body" style="">
-                <div class="hdcol-xs-50" id="hd_rightmenu_view_model_allattributes" style="">
-                   
-                   
+            <div class="hdpanel-body open hdcol-xs-50" id="hd_rightmenu_public_variables_directory_body" style="">
+                <div class="hdcol-xs-50" id="hd_rightmenu_public_variables_directory_allattributes" style="">
                     
-                    
+                    <ul class="hdlist-group hddirectory" data-json="@cdRootpath@Url.Action("ListDirectory","FileApi")" data-filterby-required="#rootpath" id="hd_rightmenu_public_variables_directory_list">
+
+                        <li class="hdlist-group-item">
+                            <span class="directory" data-if-FileName="!=''">
+                                <i class="fa fa-file-code-o" data-if-Extension="'cs'"></i>
+                                <i class="fa fa-file-code-o" data-if-Extension="'php'"></i>
+                                <i class="fa fa-file-code-o" data-if-Extension="'asax'"></i>
+                                <i class="fa fa-cog" data-if-Extension="'config'"></i>
+                                <i class="fa fa-html5" data-if-Extension="'html'"></i>
+                                <i class="fa fa-html5" data-if-Extension="'cshtml'"></i>
+                                <i class="fa fa-css3" data-if-Extension="'css'"></i>
+                                <i class="fa fa-file-text-o" data-if-Extension="'txt'"></i>
+                                <i class="fa fa-file-excel-o" data-if-Extension="'xlsx'"></i>
+                                <i class="fa fa-file-excel-o" data-if-Extension="'xlsm'"></i>
+                                <i class="fa fa-file-word-o" data-if-Extension="'doc'"></i>
+                                <i class="fa fa-file-word-o" data-if-Extension="'docx'"></i>
+                                <i class="fa fa-file-pdf-o" data-if-Extension="'pdf'"></i>
+                                <i class="fa fa-file-sound-o" data-if-Extension="'mp3'"></i>
+                                <i class="fa fa-file-sound-o" data-if-Extension="'wmv'"></i>
+                                <i class="fa fa-file-video-o" data-if-Extension="'mp4'"></i>
+                                <i class="fa fa-file-video-o" data-if-Extension="'avi'"></i>
+                                <i class="fa fa-file-zip-o" data-if-Extension="'zip'"></i>
+                                <i class="fa fa-file-archive-o" data-if-Extension="'rar'"></i>
+                                <i class="fa fa-file-image-o" data-if-Extension="'jpg'"></i>
+                                <i class="fa fa-file-image-o" data-if-Extension="'ico'"></i>
+                                <i class="fa fa-file-image-o" data-if-Extension="'gif'"></i>
+                                <i class="fa fa-file-image-o" data-if-Extension="'jpeg'"></i>
+                                <i class="fa fa-file-image-o" data-if-Extension="'png'"></i>
+                                <i class="fa fa-file-powerpoint-o" data-if-Extension="'pptx'"></i>
+                                <i class="fa fa-file-powerpoint-o" data-if-Extension="'pptm'"></i>
+                                <i class="fa fa-file-powerpoint-o" data-if-Extension="'ppt'"></i>
+                                <i class="fa fa-file-powerpoint-o" data-if-Extension="'pptx'"></i>
+                                <i class="fa fa-file" data-if-Extension="''"></i>
+                                <i class="fa fa-file" data-if-Extension="'csproj'"></i>
+                                <i class="fa fa-file" data-if-Extension="'user'"></i>
+                                <span data-key="FileName"></span>
+                            </span>
+                            <span data-if-DirectoryName="!=''" ><i class="fa fa-folder"></i> <span data-key="DirectoryName"></span></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div id="hd_rightmenu_public_variables" min-width="260" max-width="280" class="hd_rightmenu">
+    <div class="hdcol-xs-50">
+        <div class="hdpanel hdpanel-info hdcol-xs-50 hdpanelheading">
+            <div class="hdpanel-heading hdcol-xs-50" id="hd_rightmenu_public_variables_header">
+                <h3 class="hdpanel-title">Public Variables <span></span></h3>
+            </div>
+            <div class="hdpanel-body open hdcol-xs-50" id="hd_rightmenu_public_variables_body" style="">
+                <div class="hdcol-xs-50" id="hd_rightmenu_public_variables_allattributes" style="">
+
+
+
+
 
 
                 </div>
@@ -410,7 +466,7 @@
     </div>
 
 </div>
-<div id="hd_rightmenu_data_objects" min-width="160" max-width="180" class="hd_rightmenu">
+<div id="hd_rightmenu_data_objects" min-width="260" max-width="280" class="hd_rightmenu">
     <div class="hdcol-xs-50">
         <div class="hdpanel hdpanel-info hdcol-xs-50 hdpanelheading">
             <div class="hdpanel-heading hdcol-xs-50" id="hd_rightmenu_data_objects_header">
@@ -430,7 +486,7 @@
     </div>
 
 </div>
-<div id="hd_rightmenu_business_logic" min-width="160" max-width="180" class="hd_rightmenu">
+<div id="hd_rightmenu_business_logic" min-width="260" max-width="280" class="hd_rightmenu">
     <div class="hdcol-xs-50">
         <div class="hdpanel hdpanel-info hdcol-xs-50 hdpanelheading">
             <div class="hdpanel-heading hdcol-xs-50" id="hd_rightmenu_business_logic_header">

@@ -64,5 +64,6 @@ namespace Web.Code.Config
         /// </summary>
         internal string DtoDirectory { get; set; }
 
+        internal string RootDirectory { get; set; }
     }
 }

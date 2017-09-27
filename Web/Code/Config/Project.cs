@@ -29,6 +29,7 @@ namespace Web.Code.Config
                 {
                     project.Url = "http://localhost:63517";
                     project.WebDirectory = @"D:\myOwn\TalentTest\TalentTest\";
+                    project.RootDirectory = @"D:\myOwn\TalentTest\TalentTest\";
                     project.DbDirectory = @"D:\myOwn\TalentTest\TalentTest\";
                     project.DbName = "Replika_Dev";
                     project.DbServer = "FTS-DSK-178.ftsindia.in";
@@ -40,6 +41,7 @@ namespace Web.Code.Config
                     project.Url = "http://localhost:53910";
                     project.WebDirectory = @"F:\HolyWords\HolyWords\";
                     project.DbDirectory = @"F:\HolyWords\HolyWords\";
+                    project.RootDirectory = @"F:\HolyWords\HolyWords\";
                     project.DbName = "Replika_Dev";
                     project.DbServer = "FTS-DSK-178.ftsindia.in";
                     project.DbUserName = "monnieuser";
@@ -57,6 +59,7 @@ namespace Web.Code.Config
                     Url = project.Url;
                     WebDirectory = project.WebDirectory;
                     DbDirectory = project.DbDirectory;
+                    RootDirectory = project.RootDirectory;
                     DbName = project.DbName;
                     DbUserName = project.DbUserName;
                     DbPassword = project.DbPassword;
@@ -64,6 +67,8 @@ namespace Web.Code.Config
                 }
             }
         }
+
+        public static string RootDirectory { get; set; }
 
         /// <summary>
         /// Gets or sets the db server.

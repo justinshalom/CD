@@ -110,7 +110,7 @@ $(document).
         $('body').on('change',
            '.subdynamicinput',
            function (e) {
-              debugger;
+             
                if ($(".colorpicker:visible").length == 0) {
                    setTimeout(function() {
                            //$("#subdynamicinput").colorpicker('hide');
@@ -130,7 +130,7 @@ $(document).
                                        dynamicposition + $("#subdynamicinput").val().length);
                            }
                            $("#subdynamicinput").closest(".hdform-group").remove();
-                           $("#hd_styledesigner").css("width", (($(".dynamicinput").val().length) * 5) + "%");
+                           ////$("#hd_styledesigner").css("width", (($(".dynamicinput").val().length) * 5) + "%");
                        },
                        100);
                    var cssstyle = {};
@@ -197,8 +197,8 @@ $(document).
                     if (e.type == "click" ) {
                         dynamicposition = currenpos;
                     } else {
-                        $("#hd_styledesigner").css("min-width", 100+"%");
-                        $("#hd_styledesigner").css("width", (($(".dynamicinput").val().length) * 5) + "%");
+                        ////$("#hd_styledesigner").css("min-width", 100+"%");
+                        ////$("#hd_styledesigner").css("width", (($(".dynamicinput").val().length) * 5) + "%");
                         var value = $(this).val();
                         var hdStyleinputval = $('#hd_styleinput').val();
                         if (e.keyCode == 13 && value && clickedenter) {

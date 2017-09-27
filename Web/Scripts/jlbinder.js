@@ -1166,6 +1166,7 @@ $.fn.binder.methods = {
             }
         }
     },
+    //Currently not supporting null values
     applycontentifcondition: function(ob, tobj, mainkey, subkey, key, value,keyvalue) {
         //var keyvalue = this.getcustomattributevalue(tobj, mainkey, subkey, key);
         //// if (typeof value === 'boolean') {
