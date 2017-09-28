@@ -180,6 +180,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\KeyValueModel.cs" />
     <Compile Include="Models\DIrectoryModel.cs" />
     <Compile Include="Models\CodeLogicClassModel.cs" />
     <Compile Include="Models\DataAccess\BaseDA.cs" />
@@ -996,6 +997,7 @@
     <Content Include="Scripts\internal\codeeditor.js" />
     <Content Include="Scripts\internal\codeeditorbackupdata.js" />
     <Content Include="Scripts\internal\codeeditormenumanager.js" />
+    <Content Include="Scripts\internal\managedirectory.js" />
     <Content Include="Scripts\internal\codelogicbase.js" />
     <Content Include="Scripts\internal\commonscripts.js" />
     <Content Include="Scripts\internal\serversidedomfunctionalities.js" />
@@ -1113,6 +1115,7 @@
     <Content Include="Content\json\html-tags.json" />
     <Content Include="Content\json\jquerydomhtmlmethods.json" />
     <Content Include="Content\json\fieldfunctionalities.json" />
+    <Content Include="Content\languageinfo\csharp\identifiers.json" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

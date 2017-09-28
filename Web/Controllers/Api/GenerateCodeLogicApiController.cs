@@ -8,12 +8,13 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
 using Web.Models;
-
+using System.CodeDom;
 namespace Web.Controllers.Api
 {
     /// <summary>
@@ -305,7 +306,18 @@ namespace Web.Controllers.Api
 
         public JsonResult GetAllTypeAttributes()
         {
-            return this.OutPut(Enum.GetValues(typeof(TypeAttributes)).Cast<TypeAttributes>());
+            var enumList = Enum.GetValues(typeof(TypeAttributes)).Cast<TypeAttributes>();
+            var keyValueList=new List<KeyValueModel>();
+            foreach (var typeAttributes in enumList)
+            {
+
+                var keyValueModel = new KeyValueModel();
+                var enumvalue = (int) typeAttributes;
+                keyValueModel.Key = enumvalue;
+                keyValueModel.Value = Enum.GetName(typeof(TypeAttributes), enumvalue);
+                keyValueList.Add(keyValueModel);
+            }
+            return this.OutPut(keyValueList);
         }
     }
 }

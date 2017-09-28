@@ -23,7 +23,7 @@ namespace Web
         /// <summary>
         /// The application_ start.
         /// </summary>
-        protected void Application_Start()
+        protected void Application_Start()  
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);

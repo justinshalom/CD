@@ -23,7 +23,21 @@
             };
             return this.Json(rt);
         }
-
+        protected JsonResult OutPut(object data,bool allowGet)
+        {
+            var rt = new ApiJsonDto
+            {
+                Data = data
+            };
+            if (allowGet)
+            {
+                return this.Json(rt,JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return this.Json(rt);
+            }
+        }
         /// <summary>
         /// The out put.
         /// </summary>

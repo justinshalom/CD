@@ -1,0 +1,92 @@
+﻿{
+
+  "classidentifiers": [
+    {
+      "identifiername": "protected internal"
+    },
+    {
+      "identifiername": "public"
+    },
+    {
+      "identifiername": "private"
+    },
+    {
+      "identifiername": "protected"
+    },
+    {
+      "identifiername": "internal"
+    }
+  ],
+  "additionalclassidentifiers": [
+    {
+      "identifiername": "static"
+    }
+  ],
+  "methodidentifiers": [
+    {
+      "identifiername": "protected internal"
+    },
+    {
+      "identifiername": "public"
+    },
+    {
+      "identifiername": "private"
+    },
+    {
+      "identifiername": "protected"
+    },
+    {
+      "identifiername": "internal"
+    }
+  ],
+  "additionalmethodidentifiers": [
+    {
+      "identifiername": "static"
+    }
+  ],
+  "valuetypeidentifiers": [
+    {
+      "identifiername": "string"
+    },
+    {
+      "identifiername": "int"
+    },
+    {
+      "identifiername": "String"
+    },
+    {
+      "identifiername": "long"
+    },
+    {
+      "identifiername": "double"
+    }
+  ],
+  "genericidentifiers": [
+    {
+      "identifiername": "Dictionary"
+    },
+    {
+      "identifiername": "List"
+    },
+    {
+      "identifiername": "HashTag"
+    },
+    {
+      "identifiername": "Tuple"
+    }
+  ],
+  "clientreturns": [
+    {
+      "identifiername": "ActionResult"
+    },
+    {
+      "identifiername": "JsonResult"
+    },
+    {
+      "identifiername": "ContentResult"
+    },
+    {
+      "identifiername": "FileResult"
+    }
+  ]
+}

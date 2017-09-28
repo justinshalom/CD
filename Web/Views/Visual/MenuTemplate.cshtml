@@ -190,9 +190,9 @@
 
     /*DB Part End*/
     /*Code Logic Part*/
-
+    require("internal", "managedirectory");
     require("internal", "codelogicbase");
-    
+
     /*Code Logic Part End*/
 
 
@@ -387,9 +387,26 @@
     </div>
 
 </div>
-<datalist id="hd_AllTypeAttributes_list" data-requestmethod="get" data-json="@cdRootpath@Url.Action("GetAllTypeAttributes","GenerateCodeLogicApi")">
-    <option data-key="jlindex"></option>
+<datalist id="hd_classidentifiers_list" data-cache="true" data-rowobject="classidentifiers" data-requestmethod="get" data-json="@cdRootpath@Url.Action("languageinfo/csharp/identifiers.json", "Content")">
+    <option data-key="identifiername"></option>
 </datalist>
+<datalist id="hd_additionalclassidentifiers_list" data-cache="true" data-rowobject="additionalclassidentifiers" data-requestmethod="get" data-json="@cdRootpath@Url.Action("languageinfo/csharp/identifiers.json", "Content")">
+    <option data-key="identifiername"></option>
+</datalist>
+<datalist id="hd_methodidentifiers_list" data-cache="true" data-rowobject="methodidentifiers" data-requestmethod="get" data-json="@cdRootpath@Url.Action("languageinfo/csharp/identifiers.json", "Content")">
+    <option data-key="identifiername"></option>
+</datalist>
+<datalist id="hd_additionalmethodidentifiers_list" data-cache="true" data-rowobject="additionalmethodidentifiers" data-requestmethod="get" data-json="@cdRootpath@Url.Action("languageinfo/csharp/identifiers.json", "Content")">
+    <option data-key="identifiername"></option>
+</datalist>
+<datalist id="hd_valuetypeidentifiers_list" data-cache="true" data-rowobject="valuetypeidentifiers" data-requestmethod="get" data-json="@cdRootpath@Url.Action("languageinfo/csharp/identifiers.json", "Content")">
+    <option data-key="identifiername"></option>
+</datalist>
+<datalist id="hd_clientreturns_list" data-cache="true" data-rowobject="clientreturns" data-requestmethod="get" data-json="@cdRootpath@Url.Action("languageinfo/csharp/identifiers.json", "Content")">
+    <option data-key="identifiername"></option>
+</datalist>
+
+
 <input name="directoryName" type="hidden" id="rootpath" value="@Project.RootDirectory" />          
 <div id="hd_rightmenu_public_variables_directory" min-width="200" max-width="220" class="hd_rightmenu" >
     <div class="hdcol-xs-50">
@@ -403,14 +420,19 @@
                     <ul class="hdlist-group hddirectory" data-json="@cdRootpath@Url.Action("ListDirectory","FileApi")" data-filterby-required="#rootpath" id="hd_rightmenu_public_variables_directory_list">
 
                         <li class="hdlist-group-item">
-                            <span class="directory" data-if-FileName="!=''">
+                            <span class="hdfilename" data-if-FileName="!=''">
                                 <i class="fa fa-file-code-o" data-if-Extension="'cs'"></i>
                                 <i class="fa fa-file-code-o" data-if-Extension="'php'"></i>
                                 <i class="fa fa-file-code-o" data-if-Extension="'asax'"></i>
+                                <i class="fa fa-code" data-if-Extension="'xml'"></i>
                                 <i class="fa fa-cog" data-if-Extension="'config'"></i>
                                 <i class="fa fa-html5" data-if-Extension="'html'"></i>
+                                <i class="fa fa-jsfiddle" data-if-Extension="'js'"></i>
                                 <i class="fa fa-html5" data-if-Extension="'cshtml'"></i>
                                 <i class="fa fa-css3" data-if-Extension="'css'"></i>
+                                <i class="fa fa-css3" data-if-Extension="'sass'"></i>
+                                <i class="fa fa-css3" data-if-Extension="'less'"></i>
+                                <i class="fa fa-map-marker" data-if-Extension="'map'"></i>
                                 <i class="fa fa-file-text-o" data-if-Extension="'txt'"></i>
                                 <i class="fa fa-file-excel-o" data-if-Extension="'xlsx'"></i>
                                 <i class="fa fa-file-excel-o" data-if-Extension="'xlsm'"></i>
@@ -422,6 +444,9 @@
                                 <i class="fa fa-file-video-o" data-if-Extension="'mp4'"></i>
                                 <i class="fa fa-file-video-o" data-if-Extension="'avi'"></i>
                                 <i class="fa fa-file-zip-o" data-if-Extension="'zip'"></i>
+                                <i class="fa fa-file-archive-o" data-if-Extension="'dll'"></i>
+                                <i class="fa fa-file-archive-o" data-if-Extension="'exe'"></i>
+                                <i class="fa fa-file-archive-o" data-if-Extension="'targets'"></i>
                                 <i class="fa fa-file-archive-o" data-if-Extension="'rar'"></i>
                                 <i class="fa fa-file-image-o" data-if-Extension="'jpg'"></i>
                                 <i class="fa fa-file-image-o" data-if-Extension="'ico'"></i>
@@ -435,9 +460,20 @@
                                 <i class="fa fa-file" data-if-Extension="''"></i>
                                 <i class="fa fa-file" data-if-Extension="'csproj'"></i>
                                 <i class="fa fa-file" data-if-Extension="'user'"></i>
-                                <span data-key="FileName"></span>
+                                <i class="fa fa-database"  data-if-Extension="'pdb'"></i>
+                                <i class="fa fa-database" data-if-Extension="'sql'"></i>
+                                <i class="fa fa-github" data-if-Extension="'gitignore'"></i>
+                                <i class="fa fa-recycle" data-if-Extension="'cache'"></i>
+                                <i class="fa fa-font" data-if-Extension="'eot'"></i>
+                                <i class="fa fa-font" data-if-Extension="'svg'"></i>
+                                <i class="fa fa-font" data-if-Extension="'ttf'"></i>
+                                <i class="fa fa-font" data-if-Extension="'woff'"></i>
+                                <span data-FileName-attr="title" data-FullPath-attr="data-fullpath" data-key="FileName"></span>
                             </span>
-                            <span data-if-DirectoryName="!=''" ><i class="fa fa-folder"></i> <span data-key="DirectoryName"></span></span>
+                            <span data-DirectoryName-attr="title" data-if-DirectoryName="!=''">
+                                <i class="fa fa-folder"></i> 
+                                <span data-FullPath-attr="data-fullpath" data-key="DirectoryName"></span>
+                            </span>
                         </li>
                     </ul>
                 </div>
@@ -446,7 +482,7 @@
     </div>
 
 </div>
-<div id="hd_rightmenu_public_variables" min-width="260" max-width="280" class="hd_rightmenu">
+<div id="hd_rightmenu_public_variables" min-width="500" max-width="520"  class="hd_rightmenu">
     <div class="hdcol-xs-50">
         <div class="hdpanel hdpanel-info hdcol-xs-50 ">
             <div class="hdpanel-heading hdcol-xs-50" id="hd_rightmenu_public_variables_header">
@@ -456,11 +492,13 @@
                 <div class="hdcol-xs-50" id="hd_rightmenu_public_variables_allattributes" style="">
 
 
+                    <div class="hdcol-xs-50" id="hd_publiceditor">
+                        
+                    </div>
 
 
 
-
-                </div>
+                    </div>
             </div>
         </div>
     </div>

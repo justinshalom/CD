@@ -39,8 +39,43 @@ $(document).ready(function () {
             
     ////    }
     ////);
+    var hdidentifiersList = [];
+    $("body").on("click",
+        "[data-key='FileName']",
+        function() {
+            var fullpath = $(this).attr("data-fullpath");
+           
+            var postData = {};
+            postData.filePath = fullpath;
+            $.post(window.cd_rooturl + "FileApi/GetJson",
+                postData,
+                function (data) {
+                    var code = data.Data;
+                    $("#hd_publiceditor").text(code);
+                    code = $("#hd_publiceditor").text();
+                    debugger;
+                    $.each(hdidentifiersList.rows,
+                        function (id, identifierslist) {
+                            $.each(identifierslist,
+                                function(i, v) {
+                                    if(v.identifiername){
+                                    code.replace(" " + v.identifiername + " ",
+                                        "<span class='hd" + v.identifiername + " hd" + id + "'> " + v.identifiername + " </span>");
+                                    }
+                                });
+                        });
+                    $("#hd_publiceditor").html(code);
 
+                }
+            );
 
+        });
+    $("body").on("afterappendcomplete",
+        "#hd_classidentifiers_list",
+        function (e,data) {
+            hdidentifiersList = data;
+        });
 
+    
 
 })

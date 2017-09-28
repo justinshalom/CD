@@ -7868,7 +7868,7 @@ button.hdclose {
 
 .hd_rightmenu {
     max-height: 350px;
-    overflow: auto;
+    overflow-y: auto;
 }
 
 .togglebutton {
@@ -7877,4 +7877,16 @@ button.hdclose {
 
 .margin-top-15 {
     margin-top: 15px;
+}
+.hdfilename * {
+    /* display: inline-table; */
+    /* text-overflow: clip; */
+    /* white-space: nowrap; */
+}
+.hdfilename {
+    /* max-height:20px; */
+    /* overflow:hidden; */
+    /* position: relative; */
+    /* display: table; */
+    white-space: nowrap;
 }

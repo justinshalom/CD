@@ -29,11 +29,9 @@ namespace Web.Controllers.Api
         public JsonResult GetJson(string filePath)
         {
             string programText = System.IO.File.ReadAllText(filePath);
-            var programTree = CSharpSyntaxTree.ParseText(programText);
-            var syntaxRoot = programTree.GetRoot();
-            return this.OutPut(syntaxRoot);
+            return this.OutPut(programText);
         }
-
+       
         public JsonResult ListDirectory(string directoryName)
         {
             try
@@ -74,11 +72,11 @@ namespace Web.Controllers.Api
                     };
                     directoryModelList.Add(directoryModel);
                 }
-                return this.OutPut(directoryModelList);
+                return this.OutPut(directoryModelList,true);
             }
             catch (System.Exception ex)
             {
-                return this.OutPut(ex.Message);
+                return this.OutPut(ex.Message, true);
             }
         }
     }
