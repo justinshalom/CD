@@ -1,5 +1,26 @@
 ﻿{
-
+  "keywords": [
+    {
+      "identifiername": "using",
+      "prefix": ""
+    },
+    {
+      "identifiername": "void"
+    },
+    {
+      "identifiername": "class"
+    },
+    {
+      "identifiername": "namespace",
+      "prefix": ""
+    },
+    {
+      "identifiername": "var"
+    },
+    {
+      "identifiername": "this"
+    }
+  ],
   "classidentifiers": [
     {
       "identifiername": "protected internal"

@@ -190,6 +190,12 @@
 
     /*DB Part End*/
     /*Code Logic Part*/
+
+    require("CodeMirror", "src/edit/codemirror");
+    include("CodeMirror", "lib/codemirror");
+    require("CodeMirror", "mode/clike/clike");
+
+    include("codetheme", "visualstudio");
     require("internal", "managedirectory");
     require("internal", "codelogicbase");
 
@@ -468,7 +474,7 @@
                                 <i class="fa fa-font" data-if-Extension="'svg'"></i>
                                 <i class="fa fa-font" data-if-Extension="'ttf'"></i>
                                 <i class="fa fa-font" data-if-Extension="'woff'"></i>
-                                <span data-FileName-attr="title" data-FullPath-attr="data-fullpath" data-key="FileName"></span>
+                                <span data-Extension-attr="data-ext" data-FileName-attr="title" data-FullPath-attr="data-fullpath" data-key="FileName"></span>
                             </span>
                             <span data-DirectoryName-attr="title" data-if-DirectoryName="!=''">
                                 <i class="fa fa-folder"></i> 
@@ -490,9 +496,11 @@
             </div>
             <div class="hdpanel-body open hdcol-xs-50" id="hd_rightmenu_public_variables_body" style="">
                 <div class="hdcol-xs-50" id="hd_rightmenu_public_variables_allattributes" style="">
+                    <textarea class="hdcol-xs-50 hd_publiceditortextarea" id="hd_publiceditortextarea">
+                        
+                    </textarea>
 
-
-                    <div class="hdcol-xs-50" id="hd_publiceditor">
+                    <div class="hdcol-xs-50 hd_publiceditor" id="hd_publiceditor">
                         
                     </div>
 

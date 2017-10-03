@@ -7890,3 +7890,8 @@ button.hdclose {
     /* display: table; */
     white-space: nowrap;
 }
+
+.hd_publiceditor {
+    white-space: pre-wrap;
+    /* text-overflow: ellipsis; */
+}
