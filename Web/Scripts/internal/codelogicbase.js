@@ -52,15 +52,12 @@ $(document).ready(function () {
                 function (data) {
                     var code = data.Data;
 
-                   
-                    $("#hd_publiceditor").text(code);                   
+                    $("#hd_publiceditor").hide();
+                    //$("#hd_publiceditor").text(code);                   
                     $("#hd_publiceditortextarea").val(code);
                     code = $("#hd_publiceditor").text();
                     debugger;
-                    var myCodeMirror = window.CodeMirror($("#hd_publiceditor")[0], {
-                        value: code,
-                        mode: "c"
-                    });
+                    
                     
                     
 
@@ -89,7 +86,16 @@ $(document).ready(function () {
                     ////            });
                     ////    });
                      
-                    $("#hd_publiceditor").html("<code class='"+extension+"'>"+code+"</code>");
+                    ////$("#hd_publiceditor").html("<code class='" + extension + "'>" + code + "</code>");
+                    $("#hd_rightmenu_public_variables_header").trigger("click");
+                    
+                    window.editor = CodeMirror.fromTextArea($("#hd_publiceditortextarea")[0], {
+                        lineNumbers: true,
+                        lineWrapping: true,
+                        matchBrackets: true,
+                        mode: "text/x-csharp",
+                        gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
+                    });
 
                 }
             );

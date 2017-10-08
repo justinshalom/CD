@@ -191,9 +191,9 @@
     /*DB Part End*/
     /*Code Logic Part*/
 
-    require("CodeMirror", "src/edit/codemirror");
-    include("CodeMirror", "lib/codemirror");
-    require("CodeMirror", "mode/clike/clike");
+    ////require("CodeMirror", "src/edit/codemirror");
+    ////include("CodeMirror", "lib/codemirror");
+    ////require("CodeMirror", "mode/clike/clike");
 
     include("codetheme", "visualstudio");
     require("internal", "managedirectory");
@@ -231,7 +231,15 @@
     @Html.Raw(cdLinks)
 
 
-    @*<div id="absolutestyleeditor">
+<link rel="stylesheet" href="http://codemirror.net/2/lib/codemirror.css" type="text/css" />
+<link href="http://codemirror.net/2/theme/material.css" rel="stylesheet" type="text/css" />
+<script src="http://codemirror.net/2/lib/codemirror.js" type="text/javascript"></script>
+<script src="http://codemirror.net/2/lib/util/runmode.js" type="text/javascript"></script>
+<script src="http://codemirror.net/2/mode/javascript/javascript.js" type="text/javascript"></script>
+<script src="http://codemirror.net/2/mode/clike/clike.js" type="text/javascript"></script>
+
+
+@*<div id="absolutestyleeditor">
         <div class="hdpanel-group" id="accordion" role="tablist" aria-multiselectable="true" style="margin-bottom: 0px;">
             <div class="hdpanel hdpanel-success">
                 <div class="hdpanel-heading" style="padding: 4px;">
