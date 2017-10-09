@@ -21,7 +21,6 @@
             category = category + "/" + name;
         }
         cdScripts += "<script src='" + cdScriptpath + category + ".js' type='text/javascript'  ></script>";
-
     }
 
     void include(string category, string name = null)
@@ -34,23 +33,23 @@
         cdLinks += "<link href='" + cdStylepath + category + ".css' rel='stylesheet' type='text/css' />";
     }
 
-    private string BindCheckbox(string name, string key, string classname,string label, string boxchecked="")
+    private string BindCheckbox(string name, string key, string classname, string label, string boxchecked = "")
     {
-        var html= "<div class='hdcol-xs-50 hd_menubox' id='hd_" + key + "_box'>";
-        html+= "<div class='hdcol-xs-50'>";
+        var html = "<div class='hdcol-xs-50 hd_menubox' id='hd_" + key + "_box'>";
+        html += "<div class='hdcol-xs-50'>";
         html += "<div class='hdform-group hdform-group-sm'>";
         html += "<div class='togglebutton'>";
         html += "<label>";
-        html += Html.Hidden(name, boxchecked, new { id = "hd_" + key, value = boxchecked });
-        if (boxchecked=="True")
+        html += Html.Hidden(name, boxchecked, new {id = "hd_" + key, value = boxchecked});
+        if (boxchecked == "True")
         {
-            html += Html.CheckBox(name + "_check", new {id = "hd_" + key + "_check", @class = classname,@checked=true});
+            html += Html.CheckBox(name + "_check", new {id = "hd_" + key + "_check", @class = classname, @checked = true});
         }
         else
         {
             html += Html.CheckBox(name + "_check", new {id = "hd_" + key + "_check", @class = classname});
         }
-        html += "<span>"+ label + "</span>";
+        html += "<span>" + label + "</span>";
         html += "</label>";
         html += "</div>";
         html += "</div>";
@@ -58,23 +57,25 @@
         html += "</div>";
         return html;
     }
-    private string BindTextbox(string name, string key, string classname,string label, string value="",string placeholder="")
+
+    private string BindTextbox(string name, string key, string classname, string label, string value = "", string placeholder = "")
     {
-        var html= "<div class='hdcol-xs-50 hd_menubox' id='hd_" + key + "_box'>";
-        html+= "<div class='hdcol-xs-50'>";
+        var html = "<div class='hdcol-xs-50 hd_menubox' id='hd_" + key + "_box'>";
+        html += "<div class='hdcol-xs-50'>";
         html += "<div class='hdform-group hdform-group-sm'>";
         if (label != "")
         {
             html += "<label class='control-label pull-left'>";
-            html +=  label ;
+            html += label;
             html += "</label>";
         }
-        html += Html.TextBox(name,value, new { id = "hd_" + key, value, @class = "hdform-control "+classname, placeholder });
+        html += Html.TextBox(name, value, new {id = "hd_" + key, value, @class = "hdform-control " + classname, placeholder});
         html += "</div>";
         html += "</div>";
         html += "</div>";
         return html;
     }
+
     private string BindTextAreabox(string name, string key, string classname, string label, string value = "", string placeholder = "")
     {
         var html = "<div class='hdcol-xs-50 hd_menubox' id='hd_" + key + "_box'>";
@@ -86,13 +87,14 @@
             html += label;
             html += "</label>";
         }
-        html += Html.TextArea(name, value, new { id = "hd_" + key, value, @class = "hdform-control " + classname, placeholder });
+        html += Html.TextArea(name, value, new {id = "hd_" + key, value, @class = "hdform-control " + classname, placeholder});
         html += "</div>";
         html += "</div>";
         html += "</div>";
         return html;
     }
-    private string BindDropDown(string name, string key, string optionattribute, string optionvalue, string label, string jsonaction, string jsoncontroller,string serverDependRequiredKeys="", string serverDependKeys = "",string method="",string dataobjects="",bool disabledefaultvalue=false,string bootstrapclass="")
+
+    private string BindDropDown(string name, string key, string optionattribute, string optionvalue, string label, string jsonaction, string jsoncontroller, string serverDependRequiredKeys = "", string serverDependKeys = "", string method = "", string dataobjects = "", bool disabledefaultvalue = false, string bootstrapclass = "")
     {
         var html = "<div class='hdcol-xs-50 hd_menubox' id='hd_" + key + "_box'>";
         if (bootstrapclass != "")
@@ -110,13 +112,13 @@
         {
             html += "data-disabledefaultvalues='true' ";
         }
-        if (jsoncontroller != ""&& jsonaction != "")
+        if (jsoncontroller != "" && jsonaction != "")
         {
             html += "data-json='" + (cdRootpath + Url.Action(jsonaction, jsoncontroller)) + "' ";
         }
-        if (serverDependKeys!="")
+        if (serverDependKeys != "")
         {
-            html += "data-filterby='" + serverDependKeys+"' ";
+            html += "data-filterby='" + serverDependKeys + "' ";
         }
         if (serverDependRequiredKeys != "")
         {
@@ -146,7 +148,8 @@
         html += "</div>";
         return html;
     }
-        }
+
+}
 @{
 
 
@@ -218,21 +221,20 @@
     include("selectize", "css/selectize");
     include("hd_styles");
     include("hdcustomstyles");
-
-    }
-
+}
 
 
 
 
 
-    @Html.Raw(cdScripts)
 
-    @Html.Raw(cdLinks)
+@Html.Raw(cdScripts)
+
+@Html.Raw(cdLinks)
 
 
-<link rel="stylesheet" href="http://codemirror.net/2/lib/codemirror.css" type="text/css" />
-<link href="http://codemirror.net/2/theme/material.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="http://codemirror.net/2/lib/codemirror.css" type="text/css"/>
+<link href="http://codemirror.net/2/theme/material.css" rel="stylesheet" type="text/css"/>
 <script src="http://codemirror.net/2/lib/codemirror.js" type="text/javascript"></script>
 <script src="http://codemirror.net/2/lib/util/runmode.js" type="text/javascript"></script>
 <script src="http://codemirror.net/2/mode/javascript/javascript.js" type="text/javascript"></script>
@@ -259,61 +261,73 @@
     <div class="hdcol-xs-50">
         <div class="hdpanel hdpanel-info hdcol-xs-50 ">
             <div class="hdpanel-heading hdcol-xs-50" id="hd_rightmenu_dommanage_header">
-                <h3 class="hdpanel-title">Dom Manage <span></span></h3>
+                <h3 class="hdpanel-title">
+                    Dom Manage <span></span>
+                </h3>
             </div>
             <div class="hdpanel-body open hdcol-xs-50" id="hd_rightmenu_dommanage_body" style="">
                 <div class="hdcol-xs-50" id="hd_rightmenu_dommanage_directions" style="">
-                    <div class="hdcol-xs-50 ">     
-                        <div class="hdform-group hdform-group-sm" id="hd_rightmenu_auto_directions">          
-                           
-                            <a id="hd_dom_left"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
-                            <a id="hd_dom_right"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-                            <a id="hd_dom_up"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
-                            <a id="hd_dom_down"><i class="fa fa-chevron-down" aria-hidden="true"></i></a>
-                        </div>   
+                    <div class="hdcol-xs-50 ">
+                        <div class="hdform-group hdform-group-sm" id="hd_rightmenu_auto_directions">
+
+                            <a id="hd_dom_left">
+                                <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                            </a>
+                            <a id="hd_dom_right">
+                                <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                            </a>
+                            <a id="hd_dom_up">
+                                <i class="fa fa-chevron-up" aria-hidden="true"></i>
+                            </a>
+                            <a id="hd_dom_down">
+                                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
-                    <div class="hdcol-xs-50" id="hd_rightmenu_dommanage_allattributes" style="">
-                        @Html.Raw(BindDropDown("NewElement", "newelement", "jlindex", "div", "Add New Element", "json/html-tags-generated.json", "Content", "", "", "get", "tags"))
-                        
-                        @Html.Raw(BindDropDown("NewElementTo", "newelementto", "jlindex", "append", "Add New Element By", "json/jquerydomhtmlmethods.json", "Content", "", "", "get", "methods"))
-                        @*string name, string key, string optionattribute, string optionvalue, string label, string jsonaction, string jsoncontroller*@
-                        @Html.Raw(BindDropDown("Classes", "classes", "jlindex", "", "class", "", "", "", "", "", "",true))
-                        <div class="hdcol-xs-50 hd_menubox" id="existingstylelist">
-                            
-                        </div>
-                        <div class="hdcol-xs-50 hd_menubox" id="hd_styledesigner" style="display: none;">
-                        </div>
-                        
-
-                        @Html.Raw(BindDropDown("StyleNameInput", "styleinput", "jlindex", "", "style", "json/properties.json", "Content", "", "", "get","", true))
-                        @Html.Raw(BindTextbox("StyleValueInput", "stylevalueinput", "", "", "", "style"))
-                        <div class="hdcol-xs-50 hd_menubox" id="hd_attributes_box">
-                            
-                        </div>
-                        @Html.Raw(BindDropDown("Attributes", "attributes", "jlindex", "", "New Attribute", "json/html-tags-generated.json", "Content", "", "", "get", "attributes"))
-                       
-                        @Html.Raw(BindTextbox("NewAttributeValue", "newattributevalue", "", "", "", "value"))
-                        @Html.Raw(BindTextAreabox("NewAttributeText", "newattributetext", "", "Html", "", ""))
-
-
-
-
-
-
-
+                <div class="hdcol-xs-50" id="hd_rightmenu_dommanage_allattributes" style="">
+                    @Html.Raw(BindDropDown("NewElement", "newelement", "jlindex", "div", "Add New Element", "json/html-tags-generated.json", "Content", "", "", "get", "tags"))
+                    
+                    @Html.Raw(BindDropDown("NewElementTo", "newelementto", "jlindex", "append", "Add New Element By", "json/jquerydomhtmlmethods.json", "Content", "", "", "get", "methods"))
+                    @*string name, string key, string optionattribute, string optionvalue, string label, string jsonaction, string jsoncontroller*@
+                    @Html.Raw(BindDropDown("Classes", "classes", "jlindex", "", "class", "", "", "", "", "", "", true))
+                    <div class="hdcol-xs-50 hd_menubox" id="existingstylelist">
 
                     </div>
+                    <div class="hdcol-xs-50 hd_menubox" id="hd_styledesigner" style="display: none;">
+                    </div>
+
+
+                    @Html.Raw(BindDropDown("StyleNameInput", "styleinput", "jlindex", "", "style", "json/properties.json", "Content", "", "", "get", "", true))
+                    @Html.Raw(BindTextbox("StyleValueInput", "stylevalueinput", "", "", "", "style"))
+                    <div class="hdcol-xs-50 hd_menubox" id="hd_attributes_box">
+
+                    </div>
+                    @Html.Raw(BindDropDown("Attributes", "attributes", "jlindex", "", "New Attribute", "json/html-tags-generated.json", "Content", "", "", "get", "attributes"))
+
+                    @Html.Raw(BindTextbox("NewAttributeValue", "newattributevalue", "", "", "", "value"))
+                    @Html.Raw(BindTextAreabox("NewAttributeText", "newattributetext", "", "Html", "", ""))
+
+
+
+
+
+
+
+
                 </div>
+            </div>
         </div>
     </div>
     <datalist id="hd_stylelist"></datalist>
 </div>
-<div id="hd_rightmenu_database" min-width="260" max-width="280" class="hd_rightmenu" >
+<div id="hd_rightmenu_database" min-width="260" max-width="280" class="hd_rightmenu">
     <div class="hdcol-xs-50">
         <div class="hdpanel hdpanel-info hdcol-xs-50 ">
             <div class="hdpanel-heading hdcol-xs-50" id="hd_rightmenu_database_header">
-                <h3 class="hdpanel-title">Database <span ></span></h3>
+                <h3 class="hdpanel-title">
+                    Database <span ></span>
+                </h3>
             </div>
             <div class="hdpanel-body open hdcol-xs-50" id="hd_rightmenu_database_body" style="">
                 <div class="hdcol-xs-50" id="hd_rightmenu_database_allattributes" style="">
@@ -329,7 +343,7 @@
                     @Html.Raw(BindCheckbox("Encrypt", "encrypt", "TrueFalse", "Encrypt"))
                     @Html.Raw(BindCheckbox("TrustServerCertificate", "trustservercertificate", "TrueFalse", "Trust Server Certificate", "True"))
                     @Html.Raw(BindCheckbox("EncryptConnection", "encryptconnection", "TrueFalse", "Encrypt Connection"))
-                    @Html.Raw(BindCheckbox("MultipleActiveResultSets", "multipleactiveresultsets", "TrueFalse", "Multiple Active Result Sets","True"))
+                    @Html.Raw(BindCheckbox("MultipleActiveResultSets", "multipleactiveresultsets", "TrueFalse", "Multiple Active Result Sets", "True"))
                     @*@Html.Raw(BindCheckbox("PersistSecurityInfo", "persistsecurityinfo", "TrueFalse", "Persist Security Info"))*@
                     @*@Html.Raw(BindCheckbox("MultiSubNetFailOver", "multisubnetfailover", "TrueFalse", "MultiSubNetFailOver"))*@
 
@@ -353,46 +367,46 @@
         </div>
     </div>
 </div>
-<div id="hd_rightmenu_tablemanage" min-width="460" max-width="480" class="hd_rightmenu" >
+<div id="hd_rightmenu_tablemanage" min-width="460" max-width="480" class="hd_rightmenu">
     <div class="hdcol-xs-50">
         <div class="hdpanel hdpanel-info hdcol-xs-50 ">
             <div class="hdpanel-heading hdcol-xs-50" id="hd_rightmenu_tablemanage_header">
-                <h3 class="hdpanel-title">Table <span ></span></h3>
+                <h3 class="hdpanel-title">
+                    Table <span ></span>
+                </h3>
             </div>
             <div class="hdpanel-body open hdcol-xs-50" id="hd_rightmenu_tablemanage_body" style="">
                 <div class="hdcol-xs-50" id="hd_rightmenu_tablemanage_allattributes" style="">
-                    @Html.Raw(BindDropDown("DataListType", "datalisttype", "datatype", "", "Data Binding Method", "GetAllDataListTypes", "DbApi","","","","",false,"hdcol-xs-15" ))
-                    @Html.Raw(BindDropDown("Table", "tables", "name", "Users", "Tables", "GetAllTables", "DbApi", "#hd_dbnames,#hd_servernames,#hd_authentications,#hd_usernames,#hd_passwords", "#hd_multipleactiveresultsets,#hd_trustservercertificate,#hd_integratedsecurity","", "", false, "hdcol-xs-15"))
+                    @Html.Raw(BindDropDown("DataListType", "datalisttype", "datatype", "", "Data Binding Method", "GetAllDataListTypes", "DbApi", "", "", "", "", false, "hdcol-xs-15"))
+                    @Html.Raw(BindDropDown("Table", "tables", "name", "Users", "Tables", "GetAllTables", "DbApi", "#hd_dbnames,#hd_servernames,#hd_authentications,#hd_usernames,#hd_passwords", "#hd_multipleactiveresultsets,#hd_trustservercertificate,#hd_integratedsecurity", "", "", false, "hdcol-xs-15"))
                     @*@Html.Raw(BindDropDown("TableColumn", "tablecolumns", "name", "UserId", "Table Columns", "GetTableWithColumn", "DbApi", "#hd_tables,#hd_dbnames,#hd_servernames,#hd_authentications,#hd_usernames,#hd_passwords", "#hd_multipleactiveresultsets,#hd_trustservercertificate,#hd_integratedsecurity", "", "", false, "hdcol-xs-15"))*@
                     @*@Html.Raw(BindDropDown("Table", "jointables1", "name", "Users", "Join Table 1", "GetAllTables", "DbApi", "#hd_tablecolumns,#hd_tables,#hd_dbnames,#hd_authentications,#hd_servernames,#hd_usernames,#hd_passwords", "#hd_multipleactiveresultsets,#hd_trustservercertificate"))
                     @Html.Raw(BindDropDown("JoinTableColumn1", "jointablecolumns1", "name", "UserId", "Join Table 1 Columns", "GetTableWithColumn", "DbApi", "#hd_jointables1,#hd_tablecolumns,#hd_tables,#hd_dbnames,#hd_authentications,#hd_servernames,#hd_usernames,#hd_passwords", "#hd_multipleactiveresultsets,#hd_trustservercertificate"))*@
-            
-                    <datalist id="hd_fieldfunctionalities_list" data-requestmethod="get" data-json="@cdRootpath@Url.Action("json/fieldfunctionalities.json","Content")">
+
+                    <datalist id="hd_fieldfunctionalities_list" data-requestmethod="get" data-json="@cdRootpath@Url.Action("json/fieldfunctionalities.json", "Content")">
                         <option data-key="jlindex"></option>
                     </datalist>
-                    
-                    <ul class="hdlist-group" id="hd_tablecolumns_list" 
-                        data-json="@cdRootpath@Url.Action("GetTableWithColumn","DbApi")" 
-                        data-filterby="#hd_multipleactiveresultsets,#hd_trustservercertificate,#hd_integratedsecurity" 
+
+                    <ul class="hdlist-group" id="hd_tablecolumns_list"
+                        data-json="@cdRootpath@Url.Action("GetTableWithColumn", "DbApi")"
+                        data-filterby="#hd_multipleactiveresultsets,#hd_trustservercertificate,#hd_integratedsecurity"
                         data-filterby-required="#hd_tables,#hd_dbnames,#hd_servernames,#hd_authentications,#hd_usernames,#hd_passwords">
-                        <li class="hdlist-group-item" >
+                        <li class="hdlist-group-item">
                             <div class="hdcol-xs-20">
                                 <label class='control-label pull-left' data-column_id-inline="text" data-name-inline="text" data-max_length-inline="text">
-                                {column_id}.{name} ({max_length})
+                                    {column_id}.{name} ({max_length})
                                 </label>
                             </div>
-                          
+
                             <div class="hdcol-xs-15">
-                                <input type="text" class="hdform-control hdinput-sm  hdfieldpublicname" data-name-inline="value" value="{name}"  />
+                                <input type="text" class="hdform-control hdinput-sm  hdfieldpublicname" data-name-inline="value" value="{name}"/>
                             </div>
                             <div class="hdcol-xs-15">
-                                <input type="text" list="hd_fieldfunctionalities_list" class="hdform-control hdinput-sm  hdfieldfunctionalities"   />
+                                <input type="text" list="hd_fieldfunctionalities_list" class="hdform-control hdinput-sm  hdfieldfunctionalities"/>
                             </div>
                         </li>
 
                     </ul>
-                    
-                    
 
 
                 </div>
@@ -421,17 +435,19 @@
 </datalist>
 
 
-<input name="directoryName" type="hidden" id="rootpath" value="@Project.RootDirectory" />          
-<div id="hd_rightmenu_public_variables_directory" min-width="200" max-width="220" class="hd_rightmenu" >
+<input name="directoryName" type="hidden" id="rootpath" value="@Project.RootDirectory"/>
+<div id="hd_rightmenu_public_variables_directory" min-width="200" max-width="220" class="hd_rightmenu">
     <div class="hdcol-xs-50">
         <div class="hdpanel hdpanel-info hdcol-xs-50 ">
             <div class="hdpanel-heading hdcol-xs-50" id="hd_rightmenu_public_variables_directory_header">
-                <h3 class="hdpanel-title">Public Variables Directory<span ></span></h3>
+                <h3 class="hdpanel-title">
+                    Public Variables Directory<span ></span>
+                </h3>
             </div>
             <div class="hdpanel-body open hdcol-xs-50" id="hd_rightmenu_public_variables_directory_body" style="">
                 <div class="hdcol-xs-50" id="hd_rightmenu_public_variables_directory_allattributes" style="">
-                    
-                    <ul class="hdlist-group hddirectory" data-json="@cdRootpath@Url.Action("ListDirectory","FileApi")" data-filterby-required="#rootpath" id="hd_rightmenu_public_variables_directory_list">
+
+                    <ul class="hdlist-group hddirectory" data-json="@cdRootpath@Url.Action("ListDirectory", "FileApi")" data-filterby-required="#rootpath" id="hd_rightmenu_public_variables_directory_list">
 
                         <li class="hdlist-group-item">
                             <span class="hdfilename" data-if-FileName="!=''">
@@ -474,7 +490,7 @@
                                 <i class="fa fa-file" data-if-Extension="''"></i>
                                 <i class="fa fa-file" data-if-Extension="'csproj'"></i>
                                 <i class="fa fa-file" data-if-Extension="'user'"></i>
-                                <i class="fa fa-database"  data-if-Extension="'pdb'"></i>
+                                <i class="fa fa-database" data-if-Extension="'pdb'"></i>
                                 <i class="fa fa-database" data-if-Extension="'sql'"></i>
                                 <i class="fa fa-github" data-if-Extension="'gitignore'"></i>
                                 <i class="fa fa-recycle" data-if-Extension="'cache'"></i>
@@ -485,7 +501,7 @@
                                 <span data-Extension-attr="data-ext" data-FileName-attr="title" data-FullPath-attr="data-fullpath" data-key="FileName"></span>
                             </span>
                             <span data-DirectoryName-attr="title" data-if-DirectoryName="!=''">
-                                <i class="fa fa-folder"></i> 
+                                <i class="fa fa-folder"></i>
                                 <span data-FullPath-attr="data-fullpath" data-key="DirectoryName"></span>
                             </span>
                         </li>
@@ -496,42 +512,43 @@
     </div>
 
 </div>
-<div id="hd_rightmenu_public_variables" min-width="500" max-width="520"  class="hd_rightmenu">
+
+
+<div id="hd_rightmenu_public_variables" min-width="500" max-width="520" class="hd_rightmenu">
     <div class="hdcol-xs-50">
         <div class="hdpanel hdpanel-info hdcol-xs-50 ">
-            <div class="hdpanel-heading hdcol-xs-50" id="hd_rightmenu_public_variables_header">
-                <h3 class="hdpanel-title">Public Variables <span></span></h3>
+            <div class="hdpanel-heading hdcol-xs-25" id="hd_rightmenu_public_variables_header">
+
+                <h3 class="hdpanel-title">
+                    Public Variables <span></span>
+                </h3>
+
+            </div>
+            <div class="hdcol-xs-25" id="hd_rightmenu_public_variables_settings">
+                @Html.Raw(BindDropDown("Theme", "theme", "jlindex", "div", "", "json/codeeditorsettings.json", "Content", "", "", "get", "themes"))
             </div>
             <div class="hdpanel-body open hdcol-xs-50" id="hd_rightmenu_public_variables_body" style="">
                 <div class="hdcol-xs-50" id="hd_rightmenu_public_variables_allattributes" style="">
+
+
                     <textarea class="hdcol-xs-50 hd_publiceditortextarea" id="hd_publiceditortextarea">
                         
                     </textarea>
-
-                    <div class="hdcol-xs-50 hd_publiceditor" id="hd_publiceditor">
-                        
-                    </div>
-
-
-
-                    </div>
+                </div>
             </div>
         </div>
     </div>
-
 </div>
 <div id="hd_rightmenu_data_objects" min-width="260" max-width="280" class="hd_rightmenu">
     <div class="hdcol-xs-50">
         <div class="hdpanel hdpanel-info hdcol-xs-50 ">
             <div class="hdpanel-heading hdcol-xs-50" id="hd_rightmenu_data_objects_header">
-                <h3 class="hdpanel-title">Data Objects <span></span></h3>
+                <h3 class="hdpanel-title">
+                    Data Objects <span></span>
+                </h3>
             </div>
             <div class="hdpanel-body open hdcol-xs-50" id="hd_rightmenu_data_objects_body" style="">
                 <div class="hdcol-xs-50" id="hd_rightmenu_data_objects_allattributes" style="">
-
-
-
-
 
 
                 </div>
@@ -544,14 +561,12 @@
     <div class="hdcol-xs-50">
         <div class="hdpanel hdpanel-info hdcol-xs-50 ">
             <div class="hdpanel-heading hdcol-xs-50" id="hd_rightmenu_business_logic_header">
-                <h3 class="hdpanel-title">Business Logic <span></span></h3>
+                <h3 class="hdpanel-title">
+                    Business Logic <span></span>
+                </h3>
             </div>
             <div class="hdpanel-body open hdcol-xs-50" id="hd_rightmenu_business_logic_body" style="">
                 <div class="hdcol-xs-50" id="hd_rightmenu_business_logic_allattributes" style="">
-
-
-
-
 
 
                 </div>
@@ -560,4 +575,3 @@
     </div>
 
 </div>
-

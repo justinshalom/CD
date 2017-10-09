@@ -105,6 +105,7 @@ $(document).ready(function () {
     $('body').on('click',
         '.hdpanel-heading',
         function (e) {
+        
             var th = $(this).closest(".hd_rightmenu").find(".hdpanel-body");
             $(".hdpanel-body").not(th).hide();
             window.hdMenu = $(this).closest(".hd_rightmenu");
@@ -113,13 +114,13 @@ $(document).ready(function () {
             var currentleft = 0;
             $(".hd_rightmenu").css("width", "auto");
             window.hdMenu.css("width", window.hdMenu.attr("max-width") + "px");
-            $(".hd_rightmenu").each(function () {
+            $(".hd_rightmenu").each(function() {
 
-                $(this).css("left", currentleft + "px");
-                currentleft += parseInt($(this).width());
+              $(this).css("left", currentleft + "px");
+              currentleft += parseInt($(this).width());
             });
 
-
+          
         });
    
   

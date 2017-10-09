@@ -7895,3 +7895,6 @@ button.hdclose {
     white-space: pre-wrap;
     /* text-overflow: ellipsis; */
 }
+#hd_rightmenu_public_variables {
+    max-height: 100%;
+}

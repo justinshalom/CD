@@ -56,7 +56,7 @@ $(document).ready(function () {
                     //$("#hd_publiceditor").text(code);                   
                     $("#hd_publiceditortextarea").val(code);
                     code = $("#hd_publiceditor").text();
-                    debugger;
+                   
                     
                     
                     

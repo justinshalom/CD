@@ -2176,6 +2176,7 @@
     <Content Include="Content\CodeMirror\LICENSE" />
     <Content Include="Content\CodeMirror\package.json" />
     <Content Include="Content\CodeMirror\README.md" />
+    <Content Include="Content\json\codeeditorsettings.json" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
