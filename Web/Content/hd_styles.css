@@ -3769,7 +3769,7 @@ output {
     box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
     -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
     -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 
 .hdform-control:focus {
@@ -7897,4 +7897,30 @@ button.hdclose {
 }
 #hd_rightmenu_public_variables {
     max-height: 100%;
+}
+.hdpanel-settings {
+    
+padding: 0px;
+    
+background-color: #ffffff;
+    
+border-top: 4px solid rgba(16, 16, 16, 0.25);
+    
+border-bottom: 4px solid rgba(16, 16, 16, 0.29);
+    
+border-color: rgba(5, 90, 123, 0.37);
+}
+
+.hdpanel-settings .hdform-control {
+    margin-bottom: 0px !important;
+    margin-top: 0px;
+    /* padding: 20px; */
+    /* padding: 6px 12px; */
+    height: 25px;
+    /* line-height: 1; */
+}
+.hdpanel-settings .hdform-group{
+    margin-bottom: 0px !important;
+    margin-top: 0px;
+    padding-bottom: 0px;
 }

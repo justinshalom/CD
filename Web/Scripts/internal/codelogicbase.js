@@ -1,3 +1,4 @@
+var hdeditor;
 $(document).ready(function () {
 
     ////var postData = {};
@@ -89,14 +90,15 @@ $(document).ready(function () {
                     ////$("#hd_publiceditor").html("<code class='" + extension + "'>" + code + "</code>");
                     $("#hd_rightmenu_public_variables_header").trigger("click");
                     
-                    window.editor = CodeMirror.fromTextArea($("#hd_publiceditortextarea")[0], {
-                        lineNumbers: true,
+                    hdeditor = window.CodeMirror.fromTextArea($("#hd_publiceditortextarea")[0], {
+                      lineNumbers: true,
+                      styleActiveLine: true,
                         lineWrapping: true,
                         matchBrackets: true,
                         mode: "text/x-csharp",
                         gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
                     });
-
+                  
                 }
             );
 
@@ -107,6 +109,14 @@ $(document).ready(function () {
             hdidentifiersList = data;
         });
 
-    
+  $("body").on("change",
+    "#hd_theme",
+    function (e) {
+if(hdeditor){
+      var theme = $(this).find("option:selected").text();
+      hdeditor.setOption("theme", theme);
+}
+    });
+
 
 })
