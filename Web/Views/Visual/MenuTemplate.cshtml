@@ -422,14 +422,14 @@
 
 
 <input name="directoryName" type="hidden" id="rootpath" value="@Project.RootDirectory" />          
-<div id="hd_rightmenu_public_variables_directory" min-width="200" max-width="220" class="hd_rightmenu" >
+<div id="hd_rightmenu_public_variables_directory" min-width="500" max-width="620" class="hd_rightmenu" >
     <div class="hdcol-xs-50">
         <div class="hdpanel hdpanel-info hdcol-xs-50 ">
             <div class="hdpanel-heading hdcol-xs-50" id="hd_rightmenu_public_variables_directory_header">
-                <h3 class="hdpanel-title">Public Variables Directory<span ></span></h3>
+                <h3 class="hdpanel-title">Code Structure<span ></span></h3>
             </div>
             <div class="hdpanel-body open hdcol-xs-50" id="hd_rightmenu_public_variables_directory_body" style="">
-                <div class="hdcol-xs-50" id="hd_rightmenu_public_variables_directory_allattributes" style="">
+                <div class="hdcol-xs-25" id="hd_rightmenu_public_variables_directory_allattributes" style="">
                     
                     <ul class="hdlist-group hddirectory" data-json="@cdRootpath@Url.Action("ListDirectory","FileApi")" data-filterby-required="#rootpath" id="hd_rightmenu_public_variables_directory_list">
 
@@ -491,6 +491,40 @@
                         </li>
                     </ul>
                 </div>
+                <div class="hdcol-xs-25" id="hd_rightmenu_code_structure" style="">
+                    
+                    <div class="hdform-group hdform-group-sm">
+                        <input class="hdform-control hdcategorylevels" placeholder="Add new Level for coding structure"/>
+                    </div>
+                    <hr/>
+                    <div class="hdcol-xs-50" id="hd_codestructurelist">
+                        <div class="hdcol-xs-50">
+                            <div class="hdform-group hdform-group-sm">
+                                <select class="hdform-control hdcoderoute">
+                                    <option value="extfolder">Add to existing folder</option>
+                                    <option value="newfolder">Add to new folder</option>
+                                    <option value="extclass">Add to existing class</option>
+                                    <option value="newclass">Add to new class</option>
+                                    <option value="newmethod">Add as new method</option>
+                                    <option value="extnamespace">Add to existing namespace</option>
+                                    <option value="newnamespace">Add new namespace</option>
+                                </select>
+                            </div>
+                            <div class="hdform-group hdform-group-sm">
+                                <textarea class="hdform-control hdcodestructureinput" rows="6" placeholder="Its Looks like">
+
+</textarea>
+                            </div>
+                            <button class="hdbtn hdbtn-info hdbtn-raised hdbtn-sm">Add New Level Below</button>
+                            <div class="hdform-group hdform-group-sm">
+                                <select class="hdform-control hdcodeparent">
+                                    <option value="">None</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
@@ -505,9 +539,7 @@
             <div class="hdpanel-body open hdcol-xs-50" id="hd_rightmenu_public_variables_body" style="">
                 <div class="hdcol-xs-50" id="hd_rightmenu_public_variables_allattributes" style="">
                     <textarea class="hdcol-xs-50 hd_publiceditortextarea" id="hd_publiceditortextarea">
-                        
                     </textarea>
-
                     <div class="hdcol-xs-50 hd_publiceditor" id="hd_publiceditor">
                         
                     </div>
