@@ -1,45 +1,17 @@
 var hdeditor;
 $(document).ready(function () {
+    var hdcategorylevelshtml=$(".hdcategorylevels:first").closest(".hdform-group")[0].outerHTML
 
-    ////var postData = {};
-    ////postData.Language = "CSharp";
-    ////postData.Extension = "cs";
-    ////postData.FileName = "Sample";
-    ////postData.ClassName = "Sample";
-    ////postData.NameSpaceName = "Samples";
-    ////postData.Path = "SampleDirective";
-    //// postData.Imports=[];
-    ////postData.Imports[0] = "System";
-    ////postData.MethodName = "ToString";
-    ////postData.ReturnType="System.string";
+    $("body").on("change",
+        ".hdcategorylevels",
+        function() {
 
-    ////$.post(window.cd_rooturl + "GenerateCodeLogicApi/CreateClass", postData,
-    ////    function (data) {
-           
-    ////    }
-    ////);
+            if ($(this).closest(".hdform-group").next(".hdform-group").length == 0) {
+                $(this).closest(".hdform-group").after(hdcategorylevelshtml);
+            }
 
-
-
-
-    ////var postData = {};
-    ////postData.Language = "CSharp";
-    ////postData.Extension = "cs";
-    ////postData.FileName = "Sample";
-    ////postData.ClassName = "Sample";
-    ////postData.NameSpaceName = "Samples";
-    ////postData.Path = "SampleDirective";
-    ////postData.Imports = [];
-    ////postData.Imports[0] = "System";
-    ////postData.MethodName = "ToString";
-    ////postData.ReturnType = "System.string";
-
-
-    ////$.post(window.cd_rooturl + "GenerateCodeLogicApi/AddMethod", postData,
-    ////    function (data) {
-            
-    ////    }
-    ////);
+        });
+   
     var hdidentifiersList = [];
     $("body").on("click",
         "[data-key='FileName']",
@@ -56,38 +28,6 @@ $(document).ready(function () {
                     $("#hd_publiceditor").hide();
                     //$("#hd_publiceditor").text(code);                   
                     $("#hd_publiceditortextarea").val(code);
-                    code = $("#hd_publiceditor").text();
-                   
-                    
-                    
-                    
-
-                    ////$.each(hdidentifiersList.rows,
-                    ////    function (id, identifierslist) {
-                    ////        $.each(identifierslist,
-                    ////            function(i, v) {
-                    ////                if (v.identifiername) {
-                    ////                    var replacetext = "";
-                    ////                    if (typeof v.prefix=='undefined') {
-                    ////                        v.prefix=" ";
-                    ////                    }
-                    ////                    replacetext += v.prefix;
-                    ////                    replacetext +=  v.identifiername;
-                                        
-                    ////                        if (typeof v.postfix=='undefined') {
-                    ////                        v.postfix = " ";
-                    ////                    }
-                    ////                    replacetext += v.postfix;
-                                       
-                    ////                    var replace = new RegExp(replacetext, "ig");
-                                      
-                    ////                    code = code.replace(replace,
-                    ////                        v.prefix + "<span class='hd" + v.identifiername + " hd" + id + "'>" + v.identifiername + "</span>" + v.postfix);
-                    ////                }
-                    ////            });
-                    ////    });
-                     
-                    ////$("#hd_publiceditor").html("<code class='" + extension + "'>" + code + "</code>");
                     $("#hd_rightmenu_public_variables_header").trigger("click");
                     
                     hdeditor = window.CodeMirror.fromTextArea($("#hd_publiceditortextarea")[0], {
@@ -113,7 +53,8 @@ $(document).ready(function () {
     "#hd_theme",
     function (e) {
 if(hdeditor){
-      var theme = $(this).find("option:selected").text();
+    var theme = $(this).find("option:selected").text();
+
       hdeditor.setOption("theme", theme);
 }
     });
