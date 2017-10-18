@@ -44,7 +44,7 @@ hr {
     margin-top: 20px;
     margin-bottom: 20px;
     border: 0;
-    border-top: 1px solid #eee
+    border-top: 4px solid #058dcc;
 }
 
 .hdsr-only {
@@ -7880,7 +7880,7 @@ button.hdclose {
 }
 
 .hd_rightmenu {
-    max-height: 350px;
+    max-height: 600px;
     overflow-y: auto;
 }
 

@@ -26,10 +26,31 @@ namespace Web.Controllers.Api
             return this.OutPut(false);
         }
 
+        public JsonResult CreateDirectory(string folderPath)
+        {
+            if (!folderPath.Contains(":\\"))
+            {
+                folderPath = Server.MapPath(folderPath);
+            }
+            if (!System.IO.Directory.Exists(folderPath))
+            {
+                System.IO.Directory.CreateDirectory(folderPath);
+            }
+            return this.OutPut(true);
+        }
+
         public JsonResult GetJson(string filePath)
         {
-            string programText = System.IO.File.ReadAllText(filePath);
-            return this.OutPut(programText);
+            if (System.IO.File.Exists(filePath)&& filePath!="")
+            {
+                string programText = System.IO.File.ReadAllText(filePath);
+                return this.OutPut(programText);
+            }
+            else
+            {
+                return this.OutPut(false);
+            }
+            
         }
        
         public JsonResult ListDirectory(string directoryName)

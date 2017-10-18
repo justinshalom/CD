@@ -436,14 +436,14 @@
 
 
 <input name="directoryName" type="hidden" id="rootpath" value="@Project.RootDirectory" />          
-<div id="hd_rightmenu_public_variables_directory" min-width="500" max-width="620" class="hd_rightmenu" >
+<div id="hd_rightmenu_public_variables_directory" min-width="300" max-width="900" class="hd_rightmenu" >
     <div class="hdcol-xs-50">
         <div class="hdpanel hdpanel-info hdcol-xs-50 ">
             <div class="hdpanel-heading hdcol-xs-50" id="hd_rightmenu_public_variables_directory_header">
                 <h3 class="hdpanel-title">Code Structure<span ></span></h3>
             </div>
             <div class="hdpanel-body open hdcol-xs-50" id="hd_rightmenu_public_variables_directory_body" style="">
-                <div class="hdcol-xs-25" id="hd_rightmenu_public_variables_directory_allattributes" style="">
+                <div class="hdcol-xs-16" id="hd_rightmenu_public_variables_directory_allattributes" style="">
                     
                     <ul class="hdlist-group hddirectory" data-json="@cdRootpath@Url.Action("ListDirectory","FileApi")" data-filterby-required="#rootpath" id="hd_rightmenu_public_variables_directory_list">
 
@@ -505,40 +505,103 @@
                         </li>
                     </ul>
                 </div>
-                <div class="hdcol-xs-25" id="hd_rightmenu_code_structure" style="">
-                    
+                <div class="hdcol-xs-16" id="hd_rightmenu_code_structure" style="">
                     <div class="hdform-group hdform-group-sm">
-                        <input class="hdform-control hdcategorylevels" placeholder="Add new Level for coding structure"/>
+                        <input class="hdform-control hdprofilename" id="hdprofilename" placeholder="Profile Name"/>
+                    </div>
+                    <div class="hdform-group hdform-group-sm">
+                        <input class="hdform-control hdcategorylevels" placeholder="Keywords using for generated code"/>
                     </div>
                     <hr/>
                     <div class="hdcol-xs-50" id="hd_codestructurelist">
-                        <div class="hdcol-xs-50">
-                            <div class="hdform-group hdform-group-sm">
-                                <select class="hdform-control hdcoderoute">
-                                    <option value="extfolder">Add to existing folder</option>
-                                    <option value="newfolder">Add to new folder</option>
-                                    <option value="extclass">Add to existing class</option>
-                                    <option value="newclass">Add to new class</option>
-                                    <option value="newmethod">Add as new method</option>
-                                    <option value="extnamespace">Add to existing namespace</option>
-                                    <option value="newnamespace">Add new namespace</option>
-                                </select>
-                            </div>
-                            <div class="hdform-group hdform-group-sm">
-                                <textarea class="hdform-control hdcodestructureinput" rows="6" placeholder="Its Looks like">
+                        <div class="hdcol-xs-50 hd_codestructurebox">
+                            <div class="hdcol-xs-50">
+                                <div class="hdform-group hdform-group-sm">
+                                    <select class="hdform-control hdcoderoute">
+                                        <option value="newfolder">Create a folder</option>
+                                        <option value="extclass">Add to existing class</option>
+                                        <option value="newclass">Add to new class</option>
+                                        <option value="newmethod">Add as new method</option>
+                                        <option value="extmethod">Add to existing method as new line</option>
+                                    </select>
+                                </div>
+                                <div class="hdform-group hdform-group-sm">
+                                    <input class="hdform-control hdcodepathinput" placeholder="Path to file/folder" />
+                                </div>
+                                @*<div class="hdform-group hdform-group-sm">
+                    <input class="hdform-control hdcodecustomnamespace" placeholder="Custom Namespace" />
+                </div>
+                <div class="hdform-group hdform-group-sm">
+                    <input class="hdform-control hdcoderegionname" placeholder="To which Region"/>
+                </div>
+                <div class="hdform-group hdform-group-sm">
+                    <input class="hdform-control hdcodeclassname" placeholder="To which Class"/>
+                </div>*@
+                                <div class="hdform-group hdform-group-sm">
+                                    <input class="hdform-control hdcodelinenumber" style="display: none" placeholder="Line Number" />
+                                </div>
+                                <div class="hdform-group hdform-group-sm">
+                                    <input class="hdform-control hdcodeinsidecondition" style="display: none" placeholder="Inside Condition" />
+                                </div>
+                                <div class="hdform-group hdform-group-sm">
+                                    <textarea class="hdform-control hdcodestructureinput" style="display: none" rows="6" placeholder="Its Looks like">
 
 </textarea>
+                                </div>
+                                <div class="hdform-group hdform-group-sm">
+                                    <textarea class="hdform-control hdcodestructurepreview" style="display: none" rows="6" placeholder="Code Preview">
+namespace Web.Controllers.Action
+{
+    using System.Web.Mvc;
+    public class {KeyWord1}Controller : BaseController
+    {
+        public ActionResult Save{KeyWord2}()
+        {
+            return this.View();
+        }
+    }
+}
+</textarea>
+                                </div>
                             </div>
-                            <button class="hdbtn hdbtn-info hdbtn-raised hdbtn-sm">Add New Level Below</button>
-                            <div class="hdform-group hdform-group-sm">
-                                <select class="hdform-control hdcodeparent">
-                                    <option value="">None</option>
-                                </select>
+                            <div class="hdcol-xs-50">
+                                <div class="hdcol-xs-24">
+                                    <button class="hdbtn hdbtn-info hdbtn-raised hdbtn-sm hdaddnewlevel">Add New </button>
+                                </div>
+                                <div class="hdcol-xs-24 hdcol-xs-offset-2 ">
+                                    <button class="hdbtn hdbtn-danger hdpull-right hdbtn-raised hdbtn-sm hdremovethislevel">Remove</button>
+                                </div>
+                            </div>
+                            @*<div class="hdcol-xs-50">
+                <div class="hdform-group hdform-group-sm">
+                    <select class="hdform-control hdcodeparent">
+                        <option value="">None</option>
+                    </select>
+                </div>
+            </div>*@
+                            <div class="hdcol-xs-50">
+                                <hr />
                             </div>
                         </div>
                     </div>
+                    
+                    <div class="hdcol-xs-50">
+                        
+                            <button type="button" class="hdbtn hdbtn-success hdbtn-raised hdbtn-sm hdpull-right" id="hdcodegeneratebtn">Generate</button>
+                       
+                    </div>
 
                 </div>
+                <div class="hdcol-xs-18" id="hd_rightmenu_public_variables_allattributes" style="">
+                    <div class="hdform-group hdform-group-sm">
+
+                        <textarea class="hdcol-xs-50 hd_publiceditortextarea" id="hd_publiceditortextarea">
+                    </textarea>
+                    </div>
+                </div>
+                
+                
+
             </div>
         </div>
     </div>
@@ -560,12 +623,7 @@
                 @Html.Raw(BindDropDown("Theme", "theme", "jlindex", "div", "", "json/codeeditorsettings.json", "Content", "", "", "get", "themes"))
             </div>
             <div class="hdpanel-body open hdcol-xs-50" id="hd_rightmenu_public_variables_body" style="">
-                <div class="hdcol-xs-50" id="hd_rightmenu_public_variables_allattributes" style="">
-
-
-                    <textarea class="hdcol-xs-50 hd_publiceditortextarea" id="hd_publiceditortextarea">
-                    </textarea>
-                </div>
+                
             </div>
         </div>
     </div>
