@@ -105,7 +105,9 @@ if(hdeditor){
             var th = hdfillpathvalueobject;
             
             if (th.attr("data-isfile") == "true") {
-                postdata.filePath = hdfillpathvalueobject.val();
+                var keywords = getallkeywords();
+                generatecodefromkeywords(keywords, hdfillpathvalueobject.val());
+
                 $.post(window.cd_rooturl + "FileApi/GetJson",
                     postdata,
                     function(data) {
@@ -216,8 +218,20 @@ if(hdeditor){
             generatecode(eq);
         }
     }
-    function generatecodefromkeywords(keywords,stringvalue) {
 
+    function getallkeywords() {
+        var keywords = [];
+        $(".hdcategorylevels").each(function () {
+            var value = $(this).val();
+            keywords.push(value);
+        });
+        return keywords;
+    }
+
+    function generatecodefromkeywords(keywords,stringvalue) {
+        if (!keywords) {
+                keywords = getallkeywords();
+        }
         $.each(keywords,
             function(i, v) {
                 var reg = new RegExp("{KeyWord" + (i+1) + "}", "ig");
@@ -232,11 +246,7 @@ if(hdeditor){
         debugger;
         var postdata = {};
         postdata.profilename = $("#hdprofilename").val();
-        postdata.keywords = [];
-        $(".hdcategorylevels").each(function () {
-            var value = $(this).val();
-            postdata.keywords.push(value);
-        });
+        postdata.keywords = getallkeywords();
         var th = $(".hd_codestructurebox").eq(eq);
         var hdcoderoutevalue = generatecodefromkeywords(postdata.keywords,th.find(".hdcoderoute").val());
         var hdcodelinenumber = generatecodefromkeywords(postdata.keywords,th.find(".hdcodelinenumber").val());
