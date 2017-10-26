@@ -152,12 +152,13 @@ if(hdeditor){
                     
                 case "extclass":
                 {
-                    $(this).closest(".hd_codestructurebox").find(".hdcoderegionname,.hdcodecustomnamespace,.hdcodestructureinput,.hdcodestructurepreview").show();
+                  
+                  $(this).closest(".hd_codestructurebox").find(".hdcoderegionname,.hdcodecustomnamespace,.hdcodestructureinput,.hdcodestructurepreview,.hdcoderegionname").show();
                     break;
                 }
                 case "newclass":
                 {
-                    $(this).closest(".hd_codestructurebox").find(".hdcoderegionname,.hdcodecustomnamespace,.hdcodestructureinput,.hdcodestructurepreview").show();
+                  $(this).closest(".hd_codestructurebox").find(".hdcoderegionname,.hdcodecustomnamespace,.hdcodestructureinput,.hdcodestructurepreview,.hdcoderegionname").show();
                     break;
                 }
 
@@ -207,14 +208,14 @@ if(hdeditor){
     $("body").on("change blur keyup",
         "#hd_rightmenu_code_structure select",
         function (e) {
-            $(this).find("option").removeAttr("selected");
+          $(this).find("option").not($(this).find("option:selected")).removeAttr("selected");
             $(this).find("option:selected").attr("selected", true);
             cachehdRightmenuCodeStructure();
         });
 
     function continuegenerate(eq) {
+      eq++;
         if ($(".hd_codestructurebox").eq(eq).length > 0) {
-            eq++;
             generatecode(eq);
         }
     }
@@ -229,6 +230,9 @@ if(hdeditor){
     }
 
     function generatecodefromkeywords(keywords,stringvalue) {
+      if (!stringvalue) {
+        stringvalue = "";
+      }
         if (!keywords) {
                 keywords = getallkeywords();
         }
@@ -273,7 +277,7 @@ if(hdeditor){
                     function(data) {
                         var code = data.Data;
                         if (code) {
-                            debugger;
+                          
 
                         }
 
@@ -286,7 +290,8 @@ if(hdeditor){
                 $.post(window.cd_rooturl + "FileApi/SaveCode",
                     postdata,
                     function (data) {
-                        var success = data.Data;
+                      var success = data.Data;
+                      continuegenerate(eq);
                     });
                 break;
             } case "newmethod":
