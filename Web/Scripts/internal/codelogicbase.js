@@ -1,4 +1,6 @@
 var hdeditor;
+
+
 $(document).ready(function () {
     var hdcategorylevelshtml=$(".hdcategorylevels:first").closest(".hdform-group")[0].outerHTML
 
@@ -75,22 +77,13 @@ if(hdeditor){
       hdeditor.setOption("theme", theme);
 }
     });
-    var hdCodestructurelist = $("#hd_codestructurelist").html();
-
-    $("body").on("click",
-        ".hdaddnewlevel",
-        function (e) {
-            if (hdCodestructurelist) {
-                $(this).closest(".hd_codestructurebox").after(hdCodestructurelist);
-                cachehdRightmenuCodeStructure();
-            }
-        });
+    
     $("body").on("click",
         ".hdremovethislevel",
         function (e) {
             if ($(".hd_codestructurebox").length > 1) {
                 $(this).closest(".hd_codestructurebox").remove();
-                cachehdRightmenuCodeStructure();
+               
             }
         });
     $("body").on("focus",
@@ -134,8 +127,40 @@ if(hdeditor){
     $("body").on("focus change blur",
         "textarea:not(.hdcodepathinput),input:not(.hdcodepathinput),select:not(.hdcodepathinput)",
         function (e) {
-            hdfillpathvalueobject =false;
+            hdfillpathvalueobject = false;
+
         });
+    
+    $("body").on("change blur",
+        "#hd_rightmenu_code_structure input,#hd_rightmenu_code_structure textarea,#hd_rightmenu_code_structure input,#hd_rightmenu_code_structure select",
+        function (e) {
+            var jsonobj = {};
+            jsonobj.categories = [];
+            jsonobj.structure = [];
+            $(".hdcategorylevels").each(function () {
+                jsonobj.categories.push($(this).val());
+            });
+
+            $("#hd_codestructurelist .hd_codestructurebox").each(function () {
+                var obj = {};
+                $(this).find("input,select,textarea").each(function() {
+                    var classname = $(this).attr("class").replace("hdform-control", "").replace(/ /ig, "");
+                    obj[classname] = $(this).val();
+
+                });
+                jsonobj.structure.push(obj);
+            });
+
+            var postdata = {};
+            postdata.json = JSON.stringify(jsonobj);
+            postdata.filename = $("#hdprofilename").val();
+            $.post(window.cd_rooturl + "FileApi/SaveProfile",
+                postdata,
+                function () {
+                    
+                });
+        });
+   
     $(".hd_codestructurebox").find(".hdform-control:not(.hdcoderoute,.hdcodepathinput)").hide();
     $("body").on("change",
         ".hdcoderoute",
@@ -179,18 +204,18 @@ if(hdeditor){
             }
         });
     
-    function cachehdRightmenuCodeStructure() {
-        setcache("cachehdRightmenuCodeStructure", $("#hd_rightmenu_code_structure").html());
+    ////function cachehdRightmenuCodeStructure() {
+    ////    setcache("cachehdRightmenuCodeStructure", $("#hd_rightmenu_code_structure").html());
 
 
 
 
 
 
-    }
-    if (getcache("cachehdRightmenuCodeStructure")) {
-        $("#hd_rightmenu_code_structure").html(getcache("cachehdRightmenuCodeStructure"));
-    }
+    ////}
+    ////if (getcache("cachehdRightmenuCodeStructure")) {
+    ////    $("#hd_rightmenu_code_structure").html(getcache("cachehdRightmenuCodeStructure"));
+    ////}
     ////function cachehdRightmenuPublicVariablesDirectoryAllattributes() {
     ////    setcache("cachehdRightmenuPublicVariablesDirectoryAllattributes", $("#hd_rightmenu_public_variables_directory_allattributes").html());
     ////}
@@ -202,7 +227,7 @@ if(hdeditor){
         function (e) {
             var value = $(this).val();
             $(this).attr("value", value);
-            cachehdRightmenuCodeStructure();
+            ////cachehdRightmenuCodeStructure();
         });
 
     $("body").on("change blur keyup",
@@ -210,7 +235,7 @@ if(hdeditor){
         function (e) {
           $(this).find("option").not($(this).find("option:selected")).removeAttr("selected");
             $(this).find("option:selected").attr("selected", true);
-            cachehdRightmenuCodeStructure();
+            ////cachehdRightmenuCodeStructure();
         });
 
     function continuegenerate(eq) {

@@ -19,13 +19,17 @@ $(document).on('beforerequest',
         $(this).selectize()[0].selectize.destroy();
     });
 
-$(document).on('change',
-    'input[list]',
+$(document).on('change blur',
+    'input[id]',
     function (e, data) {
         if ($(this).val() != "") {
         if($(this).attr("id")){
             var selectname = $(this).attr("id").replace("hd_", "");
-            var keyname = $(bindmanager.htmltemplates["hd_" + selectname + "_list"]).attr("data-key");
+            var keyname = window.bindmanager && bindmanager.htmltemplates? $(bindmanager.htmltemplates["hd_" + selectname + "_list"]).attr("data-key"):false;
+            if (!keyname) {
+                selectname = $(this).attr("id");
+                keyname = selectname;
+            }
             pushandsave(selectname, keyname, $(this).val());
             saveinputandcallback(selectname, $(this).val());
         }
@@ -70,6 +74,48 @@ $(document).on('afterappendcomplete',
     });
 //$('select[data-bindersuccess="true"]').trigger("beforerequest");
 //$('select[data-bindersuccess="true"]:not(.selectized)').trigger("afterappendcomplete");
+var hdCodestructurelist = $("#hd_codestructurelist").html();
+
+$("body").on("click",
+    ".hdaddnewlevel",
+    function (e) {
+        if (hdCodestructurelist) {
+            $(this).closest(".hd_codestructurebox").after(hdCodestructurelist);
+
+        }
+    });
+$(document).on("change",
+    "#hdprofilename",
+    function (e) {
+        var postdata = {};
+        postdata.filename = $("#hdprofilename").val();
+        $.post(window.cd_rooturl + "FileApi/GetProfile",
+            postdata,
+            function (result) {
+                if (result && result.Data) {
+                    var jsondata=JSON.parse(result.Data)
+                    var jsonobj = jsondata.structure;
+                    $.each(jsonobj,
+                        function (ji, jv) {
+                            var obj = $("#hd_codestructurelist .hd_codestructurebox").eq(ji);
+                            if (obj.length === 0) {
+                                $(".hdaddnewlevel:last").trigger("click");
+                            }
+                            obj = $("#hd_codestructurelist .hd_codestructurebox").eq(ji);
+                            $.each(jv,
+                                function (ki, kv) {
+                                    obj.find("." + ki).val(kv).trigger("change");
+                                });
+                        });
+                    var jsonobjcat = jsondata.categories;
+                    $.each(jsonobjcat,
+                        function (ci, cv) {
+                            var obj = $(".hdcategorylevels").eq(ci);
+                            obj.val(cv).trigger("change");
+                        });
+                }
+            });
+    });
 $(document).ready(function () {
     
     var backupdata = getcache("hdbackupdata");
@@ -77,8 +123,16 @@ $(document).ready(function () {
         window.hdbackupdata = JSONparse(backupdata);
     }
 
-  
-    
+
+    $.each(window.hdbackupdata["defaultvalues"],
+        function (di, dv) {
+            
+            if ($("#" + di).length > 0) {
+               
+                $("#" + di).val(dv).trigger("change");
+            }
+
+        });
    
 
 

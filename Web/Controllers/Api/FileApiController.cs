@@ -25,7 +25,24 @@ namespace Web.Controllers.Api
             System.IO.File.WriteAllText(filePath, fileContent);
             return this.OutPut(false);
         }
-
+        public JsonResult SaveProfile(string json,string filename)
+        {
+            var folderPath = Server.MapPath("~/GeneratedContent/ProfileJson/");
+            var filePath = folderPath + filename + ".json";
+            System.IO.File.WriteAllText(filePath, json);
+            return this.OutPut(false);
+        }
+        public JsonResult GetProfile(string filename)
+        {
+            var folderPath = Server.MapPath("~/GeneratedContent/ProfileJson/");
+            var filePath = folderPath + filename + ".json";
+            if (System.IO.File.Exists(filePath))
+            {
+                var json = System.IO.File.ReadAllText(filePath);
+                return this.OutPut(json);
+            }
+            return this.OutPut(false);
+        }
         public JsonResult CreateDirectory(string folderPath)
         {
             if (!folderPath.Contains(":\\"))
